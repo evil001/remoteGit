@@ -53,7 +53,7 @@
     
     [self requestData];
 }
-
+//远程请求加载数据
 - (void)requestData{
     NSLog(@"==========params:%@",imageUrl);
     NSString *resultTemp = [[NSString alloc] initWithString:imageUrl];
