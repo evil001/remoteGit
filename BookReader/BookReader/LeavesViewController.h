@@ -18,5 +18,7 @@
 
 - (id)init:(NSString *)str;
 
+- (void)changeCurrIndex:(NSUInteger)images_index;
+
 @end
 

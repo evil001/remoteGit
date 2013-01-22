@@ -123,30 +123,21 @@
     [super viewDidLoad];
     [self initBarButtons];
 	[self initBooks];
-    UIToolbar *toolBar;
-    UILabel *labTitle;
     activityIndecatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActionSheetStyleBlackOpaque];
     activityIndecatorView.center = self.view.center;
     activityIndecatorView.hidden = YES;
     [self.view addSubview:activityIndecatorView];
+    self.title=@"电子图录";
     if (self.interfaceOrientation == UIDeviceOrientationPortrait||self.interfaceOrientation==UIDeviceOrientationPortraitUpsideDown) {
-        toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 768, 44)];
-        labTitle= [[UILabel alloc]initWithFrame:CGRectMake(768/2, 10, 100, 25)];
         _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 768, 44)];
         _belowBottomView = [[MyBelowBottomView alloc]initWithFrame:CGRectMake(0, 40, 768, 1024)];
-        _bookShelfView = [[GSBookShelfView alloc]initWithFrame:CGRectMake(0, 40, 768, 1024)];
+        _bookShelfView = [[GSBookShelfView alloc]initWithFrame:CGRectMake(0, 0, 768, 1024)];
     }else {
-        toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 1024, 44)];
-        labTitle= [[UILabel alloc]initWithFrame:CGRectMake(1024/2, 0, 100, 44)];
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 44, 768, 44)];
+        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 768, 44)];
         _belowBottomView = [[MyBelowBottomView alloc] initWithFrame:CGRectMake(0, 40, 1024, 768)];
-        _bookShelfView = [[GSBookShelfView alloc] initWithFrame:CGRectMake(0, 44, 1024, 768)];
+        _bookShelfView = [[GSBookShelfView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
     }
     
-    labTitle.backgroundColor = [UIColor clearColor];
-    labTitle.text = @"电子图录";
-    [toolBar addSubview:labTitle];
-    [self.view addSubview:toolBar];
     //MyBelowBottomView *belowBottom = [[MyBelowBottomView alloc] initWithFrame:CGRectMake(0, 0, 320, CELL_HEIGHT * 2)];
     
     [_bookShelfView setDataSource:self];
@@ -171,34 +162,20 @@
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    UIToolbar *toolBar;
-    UILabel *labTitle;
     
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
     if (UIInterfaceOrientationPortrait ==orientation) {
-        toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 768, 44)];
-        labTitle= [[UILabel alloc]initWithFrame:CGRectMake(768/2, 10, 100, 25)];
-        [_bookShelfView setFrame:CGRectMake(0, 40, 768, 1024)];
+        [_bookShelfView setFrame:CGRectMake(0, 0, 768, 1024)];
     }else if (UIInterfaceOrientationLandscapeLeft == orientation) {
-        toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 1024, 44)];
-        labTitle= [[UILabel alloc]initWithFrame:CGRectMake(1024/2, 0, 100, 44)];
-        [_bookShelfView setFrame:CGRectMake(0, 40, 1024, 768)];
+        [_bookShelfView setFrame:CGRectMake(0, 0, 1024, 768)];
     }else if (UIInterfaceOrientationLandscapeRight == orientation) {
-        toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 1024, 44)];
-        labTitle= [[UILabel alloc]initWithFrame:CGRectMake(1024/2, 0, 100, 44)];
-        [_bookShelfView setFrame:CGRectMake(0, 40, 1024, 768)];
+        [_bookShelfView setFrame:CGRectMake(0, 0, 1024, 768)];
     }else if (UIInterfaceOrientationPortraitUpsideDown == orientation) {
-        toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 768, 44)];
-        labTitle= [[UILabel alloc]initWithFrame:CGRectMake(768/2, 10, 100, 25)];
-        [_bookShelfView setFrame:CGRectMake(0, 40, 768, 1024)];
+        [_bookShelfView setFrame:CGRectMake(0, 0, 768, 1024)];
     }
     else {
-        [_bookShelfView setFrame:CGRectMake(0, 70, 1024, 800 - 44)];
+        [_bookShelfView setFrame:CGRectMake(0, 0, 1024, 800 - 44)];
     }
-    labTitle.backgroundColor = [UIColor clearColor];
-    labTitle.text = @"电子图录";
-    [toolBar addSubview:labTitle];
-    [self.view addSubview:toolBar];
     [_bookShelfView reloadData];
 }
 
@@ -373,11 +350,11 @@
     }
     else {
         ImageViewController *imageViewController = [[ImageViewController alloc]init:imgUrl];
-        [imageViewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-        imageViewController.title = @"图录查看页";
-        [self presentModalViewController:imageViewController animated:YES];
+//        [imageViewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+        imageViewController.title = @"详情页";
+//        [self presentModalViewController:imageViewController animated:YES];
+        [self.navigationController pushViewController:imageViewController animated:YES];
         [bookView setSelected:NO];
-        NSLog(@"=========else");
     }
 }
 @end

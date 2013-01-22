@@ -12,6 +12,9 @@
 #define REQUEST_URL @"http://127.0.0.1:9091/?parmeter="
 @implementation ImageViewController
 @synthesize imageUrl;
+@synthesize imagesArr_index;
+@synthesize dataSource;
+
 - (id)init:(NSString *)params{
     imageUrl = params;
     self = [super init];
@@ -53,9 +56,21 @@
     
     [self requestData];
 }
-//远程请求加载数据
+
+- (void)viewDidLoad{
+    [super viewDidLoad];
+//    UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 1024, 40)];
+//    toolBar.tag = 101;
+//    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, 100, 20)];
+//    [btn setTitle:@"回退" forState:UIControlStateNormal];
+//    [btn addTarget:self action:@selector(btnBack) forControlEvents:UIControlEventTouchUpInside];
+//    [toolBar addSubview:btn];
+//    [self.view addSubview:toolBar];
+//    [self.view setBackgroundColor:[UIColor blueColor]];
+    NSLog(@"----------------");
+}
+
 - (void)requestData{
-    NSLog(@"==========params:%@",imageUrl);
     NSString *resultTemp = [[NSString alloc] initWithString:imageUrl];
     NSMutableDictionary *directory = [[NSMutableDictionary alloc]init];
     NSString *paramJson;
@@ -104,27 +119,22 @@
 }
 
 - (void) renderPageAtIndex:(NSUInteger)index inContext:(CGContextRef)ctx {
-    UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 1024, 40)];
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, 100, 20)];
-    [btn setTitle:@"回退" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(btnBack) forControlEvents:UIControlEventTouchUpInside];
-    [toolBar addSubview:btn];
-    [self.view addSubview:toolBar];
-        [self.view setBackgroundColor:[UIColor blueColor]];
+    [super self];
     NSString *urlStr = [NSString stringWithFormat:@"http://new.hosane.com/hosane/upload/pic%@/big/%@",[[imageUrl substringWithRange:NSMakeRange(0,6)]uppercaseString] , [images objectAtIndex:index]];
+    NSLog(@"===========%i",index);
     UIImage *image = [self newUIImageWithURLString:urlStr];
     CGRect imageRect = CGRectMake(0, 40, image.size.width, image.size.height);
     CGAffineTransform transform = aspectFit(imageRect, CGContextGetClipBoundingBox(ctx));
     CGContextConcatCTM(ctx, transform);
     CGContextDrawImage(ctx, imageRect, [image CGImage]);
-//    [self.view setBackgroundColor:[UIColor clearColor]];
-    [self.view setBackgroundColor:[UIColor blueColor]];
 }
 
+//回退事件
 - (void)btnBack{
-    ViewController *viewController = [[ViewController alloc] init];
-    [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    [self presentModalViewController:viewController animated:YES];
+    [self changeCurrIndex:4];
+//    ViewController *viewController = [[ViewController alloc] init];
+//    [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+//    [self presentModalViewController:viewController animated:YES];
 }
 
 - (UIImage *)newUIImageWithURLString:(NSString *)urlStr{

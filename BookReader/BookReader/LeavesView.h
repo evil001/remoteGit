@@ -38,6 +38,7 @@
 	
 	CGPoint touchBeganPoint;
 	BOOL touchIsActive;
+    BOOL downTouchIsActive;
 	CGRect nextPageRect, prevPageRect;
 	BOOL interactionLocked;
 }
@@ -62,6 +63,7 @@
 // refreshes the contents of all pages via the data source methods, much like -[UITableView reloadData]
 - (void) reloadData;
 
+- (void) pageRedirect:(NSUInteger)images_index;
 @end
 
 
@@ -69,7 +71,6 @@
 
 - (NSUInteger) numberOfPagesInLeavesView:(LeavesView*)leavesView;
 - (void) renderPageAtIndex:(NSUInteger)index inContext:(CGContextRef)ctx;
-
 @end
 
 

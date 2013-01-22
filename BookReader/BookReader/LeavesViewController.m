@@ -46,6 +46,11 @@
 
 }
 
+- (void) changeCurrIndex:(NSUInteger)images_index{
+//    leavesView.currentPageIndex = images_index;
+    [leavesView pageRedirect:images_index];
+}
+
 #pragma mark  UIViewController methods
 
 - (void)loadView {

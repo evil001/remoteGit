@@ -13,7 +13,11 @@
 {
     NSArray *images;
     NSString *imageUrl;
+    id<LeavesViewDataSource> dataSource;
 }
 
+@property NSUInteger imagesArr_index;
 @property NSString *imageUrl;
+@property (strong,nonatomic) id<LeavesViewDataSource> dataSource;
+
 @end

@@ -126,6 +126,16 @@ CGFloat distance(CGPoint a, CGPoint b);
 	self.currentPageIndex = 0;
 }
 
+- (void)pageRedirect:(NSUInteger)images_index{
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
+    self.currentPageIndex = images_index;
+    self.leafEdge = 0.0;
+    [CATransaction commit];
+    touchIsActive = YES;		
+}
+
 - (void) getImages {
 	if (currentPageIndex < numberOfPages) {
 		if (currentPageIndex > 0 && backgroundRendering)
@@ -191,25 +201,29 @@ CGFloat distance(CGPoint a, CGPoint b);
 	[self didTurnToPageAtIndex:currentPageIndex];
 }
 
+//是否翻到上一页
 - (BOOL) hasPrevPage {
 	return self.currentPageIndex > 0;
 }
 
+//是否翻到下一页
 - (BOOL) hasNextPage {
 	return self.currentPageIndex < numberOfPages - 1;
 }
 
+//触摸到下一页
 - (BOOL) touchedNextPage {
 	return CGRectContainsPoint(nextPageRect, touchBeganPoint);
 }
 
+//触摸到上一页
 - (BOOL) touchedPrevPage {
 	return CGRectContainsPoint(prevPageRect, touchBeganPoint);
 }
 
 - (CGFloat) dragThreshold {
 	// Magic empirical number
-	return 10;
+	return 1;
 }
 
 - (CGFloat) targetWidth {
@@ -230,6 +244,10 @@ CGFloat distance(CGPoint a, CGPoint b);
 							  0,
 							  targetWidth,
 							  self.bounds.size.height);
+}
+
+- (void)callRenderPage:(NSUInteger)image_index{
+    [pageCache precacheImageForPageIndex:image_index];
 }
 
 #pragma mark accessors
@@ -272,35 +290,84 @@ CGFloat distance(CGPoint a, CGPoint b);
 
 #pragma mark UIResponder methods
 
+
+//双击操作
+-(void)doubleTap{
+    NSArray *arr = [[NSArray alloc]initWithArray:self.superview.subviews];
+    UIToolbar *toolBar = [[UIToolbar alloc]init];
+    for (int i =0; i<[arr count]; i++) {
+        if ([toolBar isKindOfClass:[[arr objectAtIndex:i] class]]) {
+            UIToolbar *t = [arr objectAtIndex:i];
+            t.hidden = !t.hidden;
+        }
+    }
+}
+
+//开始点击事件
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	if (interactionLocked)
 		return;
+    UITouch *touch = [event.allTouches anyObject];
+    NSTimeInterval delaytime = 0.3;
+    switch (touch.tapCount) {
+        case 1:{
+            NSLog(@"===============single");
+            touchBeganPoint = [touch locationInView:self];
+            touchIsActive = YES;
+            downTouchIsActive = NO;
+            if (touchBeganPoint.x<=1024&&touchBeganPoint.y<768) {
+                downTouchIsActive = YES;
+            }
+            
+            if ([self touchedPrevPage] && [self hasPrevPage]) {		
+                [CATransaction begin];
+                [CATransaction setValue:(id)kCFBooleanTrue
+                                 forKey:kCATransactionDisableActions];
+                self.currentPageIndex = self.currentPageIndex - 1;
+                self.leafEdge = 0.0;
+                [CATransaction commit];
+                touchIsActive = YES;		
+            } 
+            else if ([self touchedNextPage] && [self hasNextPage])
+                touchIsActive = YES;
+            
+            else 
+                touchIsActive = NO;
+        }
+            break;
+        case 2:{
+            NSLog(@"==============double");
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(singleTap) object:nil];
+            [self performSelector:@selector(doubleTap) withObject:nil afterDelay:delaytime];
+        }
+            break;
+        default:
+            break;
+    }
 	
-	UITouch *touch = [event.allTouches anyObject];
-	touchBeganPoint = [touch locationInView:self];
-	
-	if ([self touchedPrevPage] && [self hasPrevPage]) {		
-		[CATransaction begin];
-		[CATransaction setValue:(id)kCFBooleanTrue
-						 forKey:kCATransactionDisableActions];
-		self.currentPageIndex = self.currentPageIndex - 1;
-		self.leafEdge = 0.0;
-		[CATransaction commit];
-		touchIsActive = YES;		
-	} 
-	else if ([self touchedNextPage] && [self hasNextPage])
-		touchIsActive = YES;
-	
-	else 
-		touchIsActive = NO;
 }
 
+//拖动图片调用
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	if (!touchIsActive)
-		return;
+
 	UITouch *touch = [event.allTouches anyObject];
 	CGPoint touchPoint = [touch locationInView:self];
 	
+    //上划事件
+    if (downTouchIsActive) {
+        CGFloat deltaX = fabsf(touchBeganPoint.x - touchPoint.x);
+        CGFloat deltaY = fabsf(touchBeganPoint.y - touchPoint.y);
+        if (deltaY >= 100 && deltaX <= 10) {
+            NSLog(@"================触发上滑");
+        }else if (deltaX >= 100 && deltaX<=10) {
+            NSLog(@"===================------------");
+        }
+    }
+
+    //左右滑动事件
+    if (!touchIsActive)
+        return;
+    
 	[CATransaction begin];
 	[CATransaction setValue:[NSNumber numberWithFloat:0.07]
 					 forKey:kCATransactionAnimationDuration];
@@ -308,7 +375,7 @@ CGFloat distance(CGPoint a, CGPoint b);
 	[CATransaction commit];
 }
 
-
+//触摸事件结束
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	if (!touchIsActive)
 		return;
