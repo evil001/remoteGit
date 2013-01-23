@@ -14,6 +14,7 @@
 @synthesize imageUrl;
 @synthesize imagesArr_index;
 @synthesize dataSource;
+@synthesize slider;
 
 - (id)init:(NSString *)params{
     imageUrl = params;
@@ -29,7 +30,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self loadData];
-    }
+            }
     return self;
 }
 
@@ -59,15 +60,27 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-//    UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 1024, 40)];
-//    toolBar.tag = 101;
-//    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, 100, 20)];
-//    [btn setTitle:@"回退" forState:UIControlStateNormal];
-//    [btn addTarget:self action:@selector(btnBack) forControlEvents:UIControlEventTouchUpInside];
-//    [toolBar addSubview:btn];
-//    [self.view addSubview:toolBar];
-//    [self.view setBackgroundColor:[UIColor blueColor]];
-    NSLog(@"----------------");
+    UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 660, 1010, 44)];
+    slider=[[UISlider alloc] initWithFrame:CGRectMake(12, 10, 974, 25)];
+    slider.continuous = NO;
+    slider.minimumValue=0;
+    slider.maximumValue=[images count];
+    slider.value=0;
+    [slider addTarget:self action:@selector(sliderChange:) forControlEvents:UIControlEventValueChanged];
+    [toolBar addSubview:slider];
+    [self.view addSubview:toolBar];
+}
+
+- (IBAction)sliderChange:(id)sender{
+    NSLog(@"slider.value=%f",slider.value);
+    int pageNum = (int)roundf(slider.value);
+    [self changeCurrIndex:pageNum];
+}
+
+-(void) turnToPage {
+    int pageNum = (int)roundf(slider.value);
+    NSLog(@"%i=======",pageNum);
+    [self changeCurrIndex:pageNum];
 }
 
 - (void)requestData{
