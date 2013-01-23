@@ -19,5 +19,6 @@
 @property NSUInteger imagesArr_index;
 @property NSString *imageUrl;
 @property (strong,nonatomic) id<LeavesViewDataSource> dataSource;
+@property (strong,nonatomic) UISlider *slider;
 
 @end
