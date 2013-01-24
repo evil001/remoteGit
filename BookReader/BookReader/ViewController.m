@@ -23,6 +23,7 @@
 @synthesize responseData = _responseData;
 @synthesize activityIndecatorView;
 
+
 -(void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
 }
@@ -111,11 +112,11 @@
     
     self.title=@"电子图录";
     if (self.interfaceOrientation == UIDeviceOrientationPortrait||self.interfaceOrientation==UIDeviceOrientationPortraitUpsideDown) {
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 768, 44)];
+//        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 768, 44)];
         _belowBottomView = [[MyBelowBottomView alloc]initWithFrame:CGRectMake(0, 40, 768, 1024)];
         _bookShelfView = [[GSBookShelfView alloc]initWithFrame:CGRectMake(0, 0, 768, 1024)];
     }else {
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 768, 44)];
+//        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 768, 44)];
         _belowBottomView = [[MyBelowBottomView alloc] initWithFrame:CGRectMake(0, 40, 1024, 768)];
         _bookShelfView = [[GSBookShelfView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
     }
@@ -225,7 +226,7 @@
 }
 
 - (UIView *)headerViewOfBookShelfView:(GSBookShelfView *)bookShelfView {
-    return _searchBar;
+    return nil;
 }
 
 - (CGFloat)cellHeightOfBookShelfView:(GSBookShelfView *)bookShelfView {
@@ -348,5 +349,23 @@
         imageScan.specialCode = imgUrl;
         [self.navigationController pushViewController:imageScan animated:YES];
     }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+        UIStoryboardPopoverSegue *popoverSegue;
+        popoverSegue=(UIStoryboardPopoverSegue *)segue;
+        
+        UIPopoverController *popoverController;
+        popoverController=popoverSegue.popoverController;
+        popoverController.delegate=self;
+        
+        if([segue.identifier isEqualToString:@"showPo"]){
+            MainPopoverViewController *popverController = segue.destinationViewController;
+        }
+    
+}
+
+-(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
+    
 }
 @end

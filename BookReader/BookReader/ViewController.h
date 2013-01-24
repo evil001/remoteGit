@@ -10,6 +10,7 @@
 #import "GSBookShelfView.h"
 #import "ASIHTTPRequest.h"
 #import "SDWebImage/UIImageView+WebCache.h"
+#import "MainPopoverViewController.h"
 
 @class MyBelowBottomView;
 
@@ -18,7 +19,7 @@ typedef enum {
     BOOK_SELECTED
 }BookStatus;
 
-@interface ViewController : UIViewController<SDWebImageManagerDelegate,GSBookShelfViewDelegate,GSBookShelfViewDataSource>{
+@interface ViewController : UIViewController<SDWebImageManagerDelegate,GSBookShelfViewDelegate,GSBookShelfViewDataSource,UIPopoverControllerDelegate>{
     GSBookShelfView *_bookShelfView;
     
     NSMutableArray *_bookArray;
@@ -37,5 +38,4 @@ typedef enum {
     UISearchBar *_searchBar;
     
 }
-
 @end

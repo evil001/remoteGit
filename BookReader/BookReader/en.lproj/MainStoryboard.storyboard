@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="flk-cZ-egZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="flk-cZ-egZ">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="ZM3-mP-3sG">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cXJ-jQ-4Gv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="flk-cZ-egZ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="tIP-oM-oXx">
                         <autoresizingMask key="autoresizingMask"/>
@@ -18,21 +16,81 @@
                         <segue destination="xYo-tH-Bk6" kind="relationship" relationship="rootViewController" id="XIY-xs-EZE"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cXJ-jQ-4Gv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="434" y="-879"/>
+        </scene>
+        <!--popupviewcontroller-->
+        <scene sceneID="1cK-KC-8JF">
+            <objects>
+                <viewController title="popupviewcontroller" id="6uY-xw-XzW" userLabel="popupviewcontroller" customClass="MainPopoverViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M7c-8d-o3S">
+                        <rect key="frame" x="0.0" y="20" width="255" height="400"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3M0-Ss-pBj">
+                                <rect key="frame" x="0.0" y="0.0" width="255" height="400"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SeasonCell" id="yVE-sE-WS6">
+                                        <rect key="frame" x="0.0" y="22" width="255" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="235" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="6uY-xw-XzW" id="wfh-cd-Qrq"/>
+                                    <outlet property="delegate" destination="6uY-xw-XzW" id="lPG-dQ-et3"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="seasonTableView" destination="3M0-Ss-pBj" id="pEj-Re-4iw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="osx-3B-5EG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2381" y="-577"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="orD-7i-l2N">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="czh-K9-ddl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="xYo-tH-Bk6" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wcb-0O-43Z">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="KwH-8W-5z5"/>
+                    <navigationItem key="navigationItem" id="KwH-8W-5z5">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="xs9-PL-DE9">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nka-Fw-slf">
+                                <rect key="frame" x="7" y="8" width="60" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" title="筛选">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="6uY-xw-XzW" kind="popover" identifier="showPo" popoverAnchorView="nka-Fw-slf" id="Ctn-nY-rMg">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
+                                    </segue>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="czh-K9-ddl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1366" y="-879"/>
         </scene>
@@ -73,6 +131,21 @@
             <point key="canvasLocation" x="2164" y="-874"/>
         </scene>
     </scenes>
+<<<<<<< HEAD
+=======
+    <classes>
+        <class className="MainPopoverViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainPopoverViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="saleTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="seasonTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+        </class>
+    </classes>
+>>>>>>> 5e1c300e6a5aba2bcfba7545c8665b6309fd6703
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
