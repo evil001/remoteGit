@@ -9,10 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "ASIHTTPRequest.h"
 
-@interface MainPopoverViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
-@property (strong, nonatomic) IBOutlet UITableView *seasonTableView;
-@property (strong, nonatomic) IBOutlet UITableView *saleTableView;
+@protocol PopViewControllerDelegate;
 
+@interface MainPopoverViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@property (weak) id <PopViewControllerDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UITableView *seasonTableView;
 @property (strong,nonatomic) NSArray *seasonArray;
-@property (strong,nonatomic) NSArray *saleArray;
+@property (nonatomic,weak) UIPopoverController *popover;
+@end
+
+
+@protocol PopViewControllerDelegate <NSObject>
+@required
+- (void)dismissPop:(NSString *)value;
+
 @end

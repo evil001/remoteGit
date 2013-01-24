@@ -22,7 +22,8 @@
 @implementation ViewController
 @synthesize responseData = _responseData;
 @synthesize activityIndecatorView;
-
+@synthesize currentPopoverSegue;
+@synthesize popover;
 
 -(void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
@@ -352,20 +353,29 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-        UIStoryboardPopoverSegue *popoverSegue;
-        popoverSegue=(UIStoryboardPopoverSegue *)segue;
-        
-        UIPopoverController *popoverController;
-        popoverController=popoverSegue.popoverController;
-        popoverController.delegate=self;
-        
-        if([segue.identifier isEqualToString:@"showPo"]){
-            MainPopoverViewController *popverController = segue.destinationViewController;
-        }
+    //        UIStoryboardPopoverSegue *popoverSegue;
+    //        popoverSegue=(UIStoryboardPopoverSegue *)segue;
+    //
+    //        UIPopoverController *popoverController;
+    //        popoverController=popoverSegue.popoverController;
+    //        popoverController.delegate=self;
+    
+    if([segue.identifier isEqualToString:@"showPo"]){
+        currentPopoverSegue = (UIStoryboardPopoverSegue *)segue;
+        popover=currentPopoverSegue.destinationViewController;
+        [popover setDelegate:self];
+        //            MainPopoverViewController *popverController = segue.destinationViewController;
+        //            popverController.popover=[(UIStoryboardPopoverSegue *)segue popoverController];
+    }
     
 }
 
 -(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
-    
+    NSLog(@"asdfsdaf");
+}
+
+
+-(void)dismissPop:(NSString *)value{
+    [[currentPopoverSegue popoverController] dismissPopoverAnimated: YES];
 }
 @end

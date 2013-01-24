@@ -38,4 +38,6 @@ typedef enum {
     UISearchBar *_searchBar;
     
 }
+@property (strong, nonatomic) UIStoryboardPopoverSegue *currentPopoverSegue;
+@property (strong, nonatomic) MainPopoverViewController *popover;
 @end

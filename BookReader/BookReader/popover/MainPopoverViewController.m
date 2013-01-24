@@ -15,7 +15,8 @@
 
 @implementation MainPopoverViewController
 @synthesize seasonArray;
-@synthesize saleArray;
+@synthesize popover;
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,39 +65,30 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if(tableView==self.seasonTableView){
-        return 1;
-    }else{
-        return 1;
-    }
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(tableView==self.seasonTableView){
-        return [seasonArray count];
-    }else{
-        return 8;
-    }
+    return [seasonArray count];
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(tableView==self.seasonTableView){
-        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"SeasonCell"];
-        NSMutableDictionary *seasonDic=[seasonArray objectAtIndex:indexPath.row];
-        cell.textLabel.text = [seasonDic objectForKey:@"seasonName"];
-        return cell;
-    }else{
-        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"SaleCell"];
-        cell.textLabel.text = @"油画雕塑";
-        return cell;
-    }
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"SeasonCell"];
+    NSMutableDictionary *seasonDic=[seasonArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [seasonDic objectForKey:@"seasonName"];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [delegate dismissPop:cell.textLabel.text];
+    //    [popover dismissPopoverAnimated:YES];
 }
 
 - (void)viewDidUnload {
     [self setSeasonTableView:nil];
-    [self setSaleTableView:nil];
     [self setSeasonArray:nil];
-    [self setSaleArray:nil];
     [super viewDidUnload];
 }
 @end
