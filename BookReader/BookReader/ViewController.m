@@ -9,13 +9,11 @@
 #import "ViewController.h"
 #import "MyCellView.h"
 #import "MyBookView.h"
-#import "ImageViewController.h"
+#import "ImageScanViewController.h"
 #import "MyBelowBottomView.h"
+#import "Utils.h"
 #import <Foundation/NSJSONSerialization.h> 
 
-#define CELL_HEIGHT 140
-#define REQUEST_URL @"http://127.0.0.1:9091/?parmeter="
-#define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
 @interface ViewController ()
 @property (strong,nonatomic) UIActivityIndicatorView *activityIndecatorView;
 @property (nonatomic,strong) NSMutableData *responseData;
@@ -34,24 +32,6 @@
     
     [self requestImageData];
     NSInteger numberOfBooks = [_bookArray count];
-//    _bookArray = [[NSMutableArray alloc]initWithObjects:
-//                  @"p12121.jpg",
-//                  @"p12122.jpg",
-//                  @"s12121.jpg",
-//                  @"t12063.jpg",
-//                  @"t12121",
-//                  @"w12121",
-//                  @"w12122",
-//                  @"x12121",
-//                  @"a12121",
-//                  @"b12122",
-//                  @"b12123",
-//                  @"c12121",
-//                  @"c12122",
-//                  @"d12121",
-//                  @"d12122",
-//                  @"g12121",
-//                  nil];
     _bookStatus = [[NSMutableArray alloc] initWithCapacity:numberOfBooks];
     for (int i =0; i<numberOfBooks; i++) {
         [_bookStatus addObject:[NSNumber numberWithInt:BOOK_UNSELECTED]];
@@ -103,6 +83,7 @@
     [self.navigationItem setRightBarButtonItem:_addBarButton];
 }
 
+//选择编辑模式
 - (void)switchToEditMode {
     _editMode = YES;
     [_booksIndexsToBeRemoved removeAllIndexes];
@@ -120,13 +101,14 @@
 
 - (void)viewDidLoad
 {
+    activityIndecatorView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2, self.view.frame.size.height/2, 50, 50)];
     [super viewDidLoad];
     [self initBarButtons];
 	[self initBooks];
-    activityIndecatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActionSheetStyleBlackOpaque];
-    activityIndecatorView.center = self.view.center;
-    activityIndecatorView.hidden = YES;
-    [self.view addSubview:activityIndecatorView];
+    activityIndecatorView.activityIndicatorViewStyle = UIActionSheetStyleBlackTranslucent;
+    activityIndecatorView.hidesWhenStopped = YES;
+//    activityIndecatorView.center = self.view.center;
+    
     self.title=@"电子图录";
     if (self.interfaceOrientation == UIDeviceOrientationPortrait||self.interfaceOrientation==UIDeviceOrientationPortraitUpsideDown) {
         _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 768, 44)];
@@ -144,6 +126,7 @@
     //[_bookShelfView setShelfViewDelegate:self];
     
     [self.view addSubview:_bookShelfView];
+    [self.view addSubview:activityIndecatorView];
 }
 
 - (void)viewDidUnload
@@ -199,6 +182,7 @@
 }
 
 - (UIView *)bookShelfView:(GSBookShelfView *)bookShelfView bookViewAtIndex:(NSInteger)index {
+    [activityIndecatorView startAnimating];
     static NSString *identifier = @"bookView";
     MyBookView *bookView = (MyBookView *)[bookShelfView dequeueReuseableBookViewWithIdentifier:identifier];
     if (bookView == nil) {
@@ -214,6 +198,7 @@
     [asyncImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:CATALOG_URL, [_bookArray objectAtIndex:index]]]placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [asyncImage setFrame:CGRectMake(0, 0, 110, 140)];
     [bookView addSubview:asyncImage];
+    [activityIndecatorView stopAnimating];
 //    [bookView setBackgroundImage:[asyncImage image] forState:UIControlStateNormal];
     return bookView;
 }
@@ -320,6 +305,7 @@
 }
 
 - (void)addButtonClicked:(id)sender {
+    [activityIndecatorView startAnimating];
     int a[6] = {1, 2, 5, 7, 9, 22};
     NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
     NSMutableArray *arr = [NSMutableArray array];
@@ -335,6 +321,7 @@
 }
 
 - (void)bookViewClicked:(UIButton *)button {
+//    self.activityIndecatorView.hidden = NO;
     MyBookView *bookView = (MyBookView *)button;
     NSString *imgUrl = [[NSString alloc] initWithString:[_bookArray objectAtIndex:[bookView index]]];
     if (_editMode) {
@@ -349,12 +336,17 @@
         }
     }
     else {
-        ImageViewController *imageViewController = [[ImageViewController alloc]init:imgUrl];
+//        [self.activityIndecatorView startAnimating];
+//        ImageViewController *imageViewController = [[ImageViewController alloc]init:imgUrl];
 //        [imageViewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-        imageViewController.title = @"详情页";
+//        imageViewController.title = @"详情页";
 //        [self presentModalViewController:imageViewController animated:YES];
-        [self.navigationController pushViewController:imageViewController animated:YES];
-        [bookView setSelected:NO];
+//        [self.navigationController pushViewController:imageViewController animated:YES];
+//        [bookView setSelected:NO];
+//        [activityIndecatorView stopAnimating];
+        ImageScanViewController *imageScan = [[ImageScanViewController alloc]init];
+        imageScan.specialCode = imgUrl;
+        [self.navigationController pushViewController:imageScan animated:YES];
     }
 }
 @end

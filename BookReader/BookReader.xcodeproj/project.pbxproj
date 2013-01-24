@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E01F2889169BFF2C0068FB70 /* LeavesCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2884169BFF2C0068FB70 /* LeavesCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		E01F288A169BFF2C0068FB70 /* LeavesView.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2886169BFF2C0068FB70 /* LeavesView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		E01F288B169BFF2C0068FB70 /* LeavesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2888169BFF2C0068FB70 /* LeavesViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		E01F288E169BFFFB0068FB70 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F288D169BFFFB0068FB70 /* ImageViewController.m */; };
+		E018958516AF81B700A015A4 /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E018958416AF81B700A015A4 /* PopoverView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E01F2891169C00AD0068FB70 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2890169C00AD0068FB70 /* Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E01F2893169C060D0068FB70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01F2892169C060D0068FB70 /* QuartzCore.framework */; };
+		E02DCE0B16B0CC2C0085B064 /* ImageScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E02DCE0A16B0CC2C0085B064 /* ImageScanViewController.m */; };
 		E0658A9E169FB09500D42DEA /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E0658A9D169FB09500D42DEA /* Utils.m */; };
 		E0754DA116A681CB0091FFA8 /* NSMutableArray+Rearrange.m in Sources */ = {isa = PBXBuildFile; fileRef = E07E56FA169AA26F00A8BF60 /* NSMutableArray+Rearrange.m */; };
 		E07E56D2169A9F3100A8BF60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07E56D1169A9F3100A8BF60 /* UIKit.framework */; };
@@ -88,17 +86,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E01F2883169BFF2C0068FB70 /* LeavesCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeavesCache.h; sourceTree = "<group>"; };
-		E01F2884169BFF2C0068FB70 /* LeavesCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeavesCache.m; sourceTree = "<group>"; };
-		E01F2885169BFF2C0068FB70 /* LeavesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeavesView.h; sourceTree = "<group>"; };
-		E01F2886169BFF2C0068FB70 /* LeavesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeavesView.m; sourceTree = "<group>"; };
-		E01F2887169BFF2C0068FB70 /* LeavesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeavesViewController.h; sourceTree = "<group>"; };
-		E01F2888169BFF2C0068FB70 /* LeavesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeavesViewController.m; sourceTree = "<group>"; };
-		E01F288C169BFFFA0068FB70 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
-		E01F288D169BFFFB0068FB70 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		E018958316AF81B700A015A4 /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
+		E018958416AF81B700A015A4 /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
 		E01F288F169C00AC0068FB70 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		E01F2890169C00AD0068FB70 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		E01F2892169C060D0068FB70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E02DCE0916B0CC2C0085B064 /* ImageScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanViewController.h; sourceTree = "<group>"; };
+		E02DCE0A16B0CC2C0085B064 /* ImageScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScanViewController.m; sourceTree = "<group>"; };
 		E0658A9C169FB09500D42DEA /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		E0658A9D169FB09500D42DEA /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		E07E56CD169A9F3100A8BF60 /* BookReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -257,17 +251,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E01F2881169BFF0E0068FB70 /* Leaves */ = {
+		E00DDEB916AE9947006D127F /* PopView */ = {
 			isa = PBXGroup;
 			children = (
-				E01F2883169BFF2C0068FB70 /* LeavesCache.h */,
-				E01F2884169BFF2C0068FB70 /* LeavesCache.m */,
-				E01F2885169BFF2C0068FB70 /* LeavesView.h */,
-				E01F2886169BFF2C0068FB70 /* LeavesView.m */,
-				E01F2887169BFF2C0068FB70 /* LeavesViewController.h */,
-				E01F2888169BFF2C0068FB70 /* LeavesViewController.m */,
+				E018958316AF81B700A015A4 /* PopoverView.h */,
+				E018958416AF81B700A015A4 /* PopoverView.m */,
 			);
-			name = Leaves;
+			name = PopView;
 			sourceTree = "<group>";
 		};
 		E03126D8169D681600663434 /* HTTP */ = {
@@ -348,26 +338,20 @@
 		E07E56D7169A9F3100A8BF60 /* BookReader */ = {
 			isa = PBXGroup;
 			children = (
+				E00DDEB916AE9947006D127F /* PopView */,
 				E0658AA8169FE64A00D42DEA /* Util */,
 				E09A58CE169EBBDE0003EC9B /* SDWebImage */,
 				E03126D8169D681600663434 /* HTTP */,
-				E01F2881169BFF0E0068FB70 /* Leaves */,
 				E07E5708169AA58000A8BF60 /* image */,
 				E07E56F7169AA21D00A8BF60 /* BookShelf */,
 				E07E56EE169AA10C00A8BF60 /* Useles */,
 				E07E56E0169A9F3100A8BF60 /* AppDelegate.h */,
 				E07E56E1169A9F3100A8BF60 /* AppDelegate.m */,
 				E07E56E3169A9F3100A8BF60 /* MainStoryboard.storyboard */,
+				E02DCE0916B0CC2C0085B064 /* ImageScanViewController.h */,
+				E02DCE0A16B0CC2C0085B064 /* ImageScanViewController.m */,
 				E07E56E6169A9F3100A8BF60 /* ViewController.h */,
 				E07E56E7169A9F3100A8BF60 /* ViewController.m */,
-				E01F288C169BFFFA0068FB70 /* ImageViewController.h */,
-				E01F288D169BFFFB0068FB70 /* ImageViewController.m */,
-				E07E5705169AA45B00A8BF60 /* MyCellView.h */,
-				E07E5706169AA45B00A8BF60 /* MyCellView.m */,
-				E07E570B169AA5FD00A8BF60 /* MyBookView.h */,
-				E07E570C169AA5FD00A8BF60 /* MyBookView.m */,
-				E07E5730169AA9F500A8BF60 /* MyBelowBottomView.h */,
-				E07E5731169AA9F500A8BF60 /* MyBelowBottomView.m */,
 				E07E56D8169A9F3100A8BF60 /* Supporting Files */,
 			);
 			path = BookReader;
@@ -402,6 +386,12 @@
 		E07E56F7169AA21D00A8BF60 /* BookShelf */ = {
 			isa = PBXGroup;
 			children = (
+				E07E5705169AA45B00A8BF60 /* MyCellView.h */,
+				E07E5706169AA45B00A8BF60 /* MyCellView.m */,
+				E07E570B169AA5FD00A8BF60 /* MyBookView.h */,
+				E07E570C169AA5FD00A8BF60 /* MyBookView.m */,
+				E07E5730169AA9F500A8BF60 /* MyBelowBottomView.h */,
+				E07E5731169AA9F500A8BF60 /* MyBelowBottomView.m */,
 				E07E5700169AA2D300A8BF60 /* Public */,
 				E07E56FB169AA27A00A8BF60 /* Private */,
 				E07E56F8169AA22F00A8BF60 /* Utilities */,
@@ -636,10 +626,6 @@
 				E07E5737169AC3B000A8BF60 /* GSBookShelfView.m in Sources */,
 				E07E573C169AC40C00A8BF60 /* GSBookViewContainerView.m in Sources */,
 				E07E573D169AC40C00A8BF60 /* GSCellContainerView.m in Sources */,
-				E01F2889169BFF2C0068FB70 /* LeavesCache.m in Sources */,
-				E01F288A169BFF2C0068FB70 /* LeavesView.m in Sources */,
-				E01F288B169BFF2C0068FB70 /* LeavesViewController.m in Sources */,
-				E01F288E169BFFFB0068FB70 /* ImageViewController.m in Sources */,
 				E01F2891169C00AD0068FB70 /* Utilities.m in Sources */,
 				E0EF1F46169E871100085864 /* ASIAuthenticationDialog.m in Sources */,
 				E0EF1F47169E871100085864 /* ASIDataCompressor.m in Sources */,
@@ -673,6 +659,8 @@
 				E09A58E9169EBBDE0003EC9B /* UIButton+WebCache.m in Sources */,
 				E09A58EA169EBBDE0003EC9B /* UIImageView+WebCache.m in Sources */,
 				E0658A9E169FB09500D42DEA /* Utils.m in Sources */,
+				E018958516AF81B700A015A4 /* PopoverView.m in Sources */,
+				E02DCE0B16B0CC2C0085B064 /* ImageScanViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
