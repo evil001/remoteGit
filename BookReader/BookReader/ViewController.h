@@ -38,5 +38,4 @@ typedef enum {
     UISearchBar *_searchBar;
     
 }
-
 @end
