@@ -357,4 +357,21 @@
         [bookView setSelected:NO];
     }
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    UIStoryboardPopoverSegue *popoverSegue;
+    popoverSegue=(UIStoryboardPopoverSegue *)segue;
+    
+    UIPopoverController *popoverController;
+    popoverController=popoverSegue.popoverController;
+    popoverController.delegate=self;
+    
+    if([segue.identifier isEqualToString:@"showPo"]){
+        MainPopoverViewController *popverController = segue.destinationViewController;
+    }
+}
+
+-(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
+    
+}
 @end
