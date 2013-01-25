@@ -81,9 +81,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [delegate dismissPop:cell.textLabel.text];
-    //    [popover dismissPopoverAnimated:YES];
+    NSMutableDictionary *seasonDic=[seasonArray objectAtIndex:indexPath.row];
+    [delegate dismissPop:[seasonDic objectForKey:@"seasonCode"]];
 }
 
 - (void)viewDidUnload {

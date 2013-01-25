@@ -42,12 +42,15 @@
     _booksIndexsToBeRemoved = [NSMutableIndexSet indexSet];
 }
 
-- (void) requestImageData{
+-(NSData *)httpData:(NSString *)methodName:(NSString *)parameter{
     NSMutableDictionary *directory = [[NSMutableDictionary alloc]init];
     NSString *paramJson;
     NSMutableString *urlStr = [[NSMutableString alloc] initWithString:REQUEST_URL];
     [directory setValue:@"AppServiceImpl" forKey:@"className"];
-    [directory setValue:@"queryAllCatelogInfo" forKey:@"methodName"];
+    [directory setValue:methodName forKey:@"methodName"];
+    if(parameter!=nil){
+        [directory setValue:parameter forKey:@"parameter"];
+    }
     if ([NSJSONSerialization isValidJSONObject:directory]) {
         NSError *error ;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:directory options:NSJSONWritingPrettyPrinted error:&error];
@@ -60,9 +63,13 @@
     [request setURL:url];
     [request setHTTPMethod:@"POST"];
     NSHTTPURLResponse *response;
-    NSError *error ;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-    
+    return data;
+}
+
+- (void) requestImageData{
+    NSData *data=[self httpData:@"queryAllCatelogInfo":nil];
+    NSError *error ;
     NSDictionary *imageDictory = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSArray *imageUrl = [imageDictory valueForKey:@"imageUrl"];
     _bookArray = [[NSMutableArray alloc]initWithArray:imageUrl];
@@ -352,30 +359,26 @@
     }
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    //        UIStoryboardPopoverSegue *popoverSegue;
-    //        popoverSegue=(UIStoryboardPopoverSegue *)segue;
-    //
-    //        UIPopoverController *popoverController;
-    //        popoverController=popoverSegue.popoverController;
-    //        popoverController.delegate=self;
-    
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{    
     if([segue.identifier isEqualToString:@"showPo"]){
         currentPopoverSegue = (UIStoryboardPopoverSegue *)segue;
         popover=currentPopoverSegue.destinationViewController;
         [popover setDelegate:self];
-        //            MainPopoverViewController *popverController = segue.destinationViewController;
-        //            popverController.popover=[(UIStoryboardPopoverSegue *)segue popoverController];
     }
-    
 }
 
 -(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
-    NSLog(@"asdfsdaf");
+    
 }
 
 
 -(void)dismissPop:(NSString *)value{
+    NSData *data=[self httpData:@"queryCatelogInfoById":value];
+    NSError *error ;
+    NSDictionary *imageDictory = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    NSArray *imageUrl = [imageDictory valueForKey:@"imageUrl"];
+    _bookArray = [[NSMutableArray alloc]initWithArray:imageUrl];
+    [_bookShelfView reloadData];
     [[currentPopoverSegue popoverController] dismissPopoverAnimated: YES];
 }
 @end
