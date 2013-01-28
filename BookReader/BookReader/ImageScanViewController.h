@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SDWebImageDownloader.h"
 
-@interface ImageScanViewController : UIViewController<UIScrollViewDelegate,SDWebImageDownloaderDelegate>{
+@interface ImageScanViewController : UIViewController<UIScrollViewDelegate,SDWebImageDownloaderDelegate,UIGestureRecognizerDelegate>{
     UIScrollView *scrollView;
     NSString *specialCode;      
     
@@ -18,9 +18,12 @@
     NSUInteger loadPageData;
     NSUInteger currPage;
     NSMutableArray *currArr;
+    
+    
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+
 - (IBAction)changeImage:(id)sender;
 @property (strong, nonatomic) NSMutableArray *imagesArr;
 @property (strong, nonatomic) NSString *specialCode;
@@ -30,4 +33,6 @@
 @property (strong,nonatomic) UISlider *slider;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) UIImage *image;
+
+@property (nonatomic) CGFloat lastScal;
 @end
