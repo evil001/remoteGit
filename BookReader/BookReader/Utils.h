@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #define REQUEST_URL @"http://127.0.0.1:9091/?parmeter="
-
+//图录url
 #define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
+//拍品url
+#define AUCTION_URL @"http://new.hosane.com/hosane/upload/pic%@/%@"
 
 #define IMAGESCAN_PAGE_DATA 10
 

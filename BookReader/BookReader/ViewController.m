@@ -12,6 +12,7 @@
 #import "ImageScanViewController.h"
 #import "MyBelowBottomView.h"
 #import "Utils.h"
+#import "CatalogViewController.h"
 #import <Foundation/NSJSONSerialization.h> 
 
 @interface ViewController ()
@@ -343,19 +344,13 @@
         else {
             [_booksIndexsToBeRemoved removeIndex:bookView.index];
         }
-    }
-    else {
-//        [self.activityIndecatorView startAnimating];
-//        ImageViewController *imageViewController = [[ImageViewController alloc]init:imgUrl];
-//        [imageViewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//        imageViewController.title = @"详情页";
-//        [self presentModalViewController:imageViewController animated:YES];
-//        [self.navigationController pushViewController:imageViewController animated:YES];
-//        [bookView setSelected:NO];
-//        [activityIndecatorView stopAnimating];
-        ImageScanViewController *imageScan = [[ImageScanViewController alloc]init];
-        imageScan.specialCode = imgUrl;
-        [self.navigationController pushViewController:imageScan animated:YES];
+    }else {
+        CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil :imgUrl];
+        [self.navigationController pushViewController:catalogVC animated:YES];
+        
+//        ImageScanViewController *imageScan = [[ImageScanViewController alloc]init];
+//        imageScan.specialCode = imgUrl;
+//        [self.navigationController pushViewController:imageScan animated:YES];
     }
 }
 

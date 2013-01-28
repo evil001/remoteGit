@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013D538416B6160B006BEC0E /* RequestVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538316B6160B006BEC0E /* RequestVO.m */; };
+		013D538B16B61619006BEC0E /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538616B61619006BEC0E /* CatalogViewController.m */; };
+		013D538C16B61619006BEC0E /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D538716B61619006BEC0E /* CatalogViewController.xib */; };
+		013D538D16B61619006BEC0E /* CatalogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538916B61619006BEC0E /* CatalogView.m */; };
+		013D538E16B61619006BEC0E /* CatalogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D538A16B61619006BEC0E /* CatalogView.xib */; };
 		E01F2891169C00AD0068FB70 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2890169C00AD0068FB70 /* Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E01F2893169C060D0068FB70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01F2892169C060D0068FB70 /* QuartzCore.framework */; };
 		E02DCE0B16B0CC2C0085B064 /* ImageScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E02DCE0A16B0CC2C0085B064 /* ImageScanViewController.m */; };
@@ -86,6 +91,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		013D538216B6160B006BEC0E /* RequestVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestVO.h; sourceTree = "<group>"; };
+		013D538316B6160B006BEC0E /* RequestVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestVO.m; sourceTree = "<group>"; };
+		013D538516B61619006BEC0E /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
+		013D538616B61619006BEC0E /* CatalogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogViewController.m; sourceTree = "<group>"; };
+		013D538716B61619006BEC0E /* CatalogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogViewController.xib; sourceTree = "<group>"; };
+		013D538816B61619006BEC0E /* CatalogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogView.h; sourceTree = "<group>"; };
+		013D538916B61619006BEC0E /* CatalogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogView.m; sourceTree = "<group>"; };
+		013D538A16B61619006BEC0E /* CatalogView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogView.xib; sourceTree = "<group>"; };
 		E01F288F169C00AC0068FB70 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		E01F2890169C00AD0068FB70 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		E01F2892169C060D0068FB70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -251,6 +264,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		013D537F16B615AF006BEC0E /* VO */ = {
+			isa = PBXGroup;
+			children = (
+				013D538216B6160B006BEC0E /* RequestVO.h */,
+				013D538316B6160B006BEC0E /* RequestVO.m */,
+			);
+			name = VO;
+			sourceTree = "<group>";
+		};
+		013D538116B615BC006BEC0E /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				013D538516B61619006BEC0E /* CatalogViewController.h */,
+				013D538616B61619006BEC0E /* CatalogViewController.m */,
+				013D538716B61619006BEC0E /* CatalogViewController.xib */,
+				013D538816B61619006BEC0E /* CatalogView.h */,
+				013D538916B61619006BEC0E /* CatalogView.m */,
+				013D538A16B61619006BEC0E /* CatalogView.xib */,
+			);
+			name = Catalog;
+			sourceTree = "<group>";
+		};
 		E03126D8169D681600663434 /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +364,8 @@
 		E07E56D7169A9F3100A8BF60 /* BookReader */ = {
 			isa = PBXGroup;
 			children = (
+				013D538116B615BC006BEC0E /* Catalog */,
+				013D537F16B615AF006BEC0E /* VO */,
 				E0D3022B16B21C0100E687E4 /* popover */,
 				E0658AA8169FE64A00D42DEA /* Util */,
 				E09A58CE169EBBDE0003EC9B /* SDWebImage */,
@@ -606,6 +643,8 @@
 				E07E572E169AA77B00A8BF60 /* g12121.jpg in Resources */,
 				E07E572F169AA77B00A8BF60 /* a12121.jpg in Resources */,
 				E07E573F169AC88600A8BF60 /* BookShelfCell@2x.png in Resources */,
+				013D538C16B61619006BEC0E /* CatalogViewController.xib in Resources */,
+				013D538E16B61619006BEC0E /* CatalogView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,6 +700,9 @@
 				E0658A9E169FB09500D42DEA /* Utils.m in Sources */,
 				E02DCE0B16B0CC2C0085B064 /* ImageScanViewController.m in Sources */,
 				E0D3022E16B21C0100E687E4 /* MainPopoverViewController.m in Sources */,
+				013D538416B6160B006BEC0E /* RequestVO.m in Sources */,
+				013D538B16B61619006BEC0E /* CatalogViewController.m in Sources */,
+				013D538D16B61619006BEC0E /* CatalogView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

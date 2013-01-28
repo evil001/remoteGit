@@ -7,18 +7,15 @@
 //
 
 #import "Utilities.h"
-#import "LeavesViewController.h"
 
-@interface ImageViewController : LeavesViewController
+@interface ImageViewController 
 {
     NSArray *images;
     NSString *imageUrl;
-    id<LeavesViewDataSource> dataSource;
 }
 
 @property NSUInteger imagesArr_index;
 @property NSString *imageUrl;
-@property (strong,nonatomic) id<LeavesViewDataSource> dataSource;
 @property (strong,nonatomic) UISlider *slider;
 
 @end
