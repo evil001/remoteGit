@@ -23,7 +23,7 @@
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 - (IBAction)changeImage:(id)sender;
 @property (strong, nonatomic) NSMutableArray *imagesArr;
 @property (strong, nonatomic) NSString *specialCode;

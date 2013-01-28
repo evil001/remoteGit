@@ -26,6 +26,7 @@
 @synthesize activityIndicatorView;
 @synthesize image;
 @synthesize lastScal;
+@synthesize imageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -170,11 +171,13 @@
 }
 
 -(void)syncDownloadImage:(NSUInteger)index{
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*1024, 0, 1024, 768-44)];
+    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*1024, 0, 1024, 768-44)];
     NSString *urlStr = [NSString stringWithFormat:@"http://new.hosane.com/hosane/upload/pic%@/big/%@",[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
     [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     //设置图片为自适应
     imageView.contentMode=UIViewContentModeScaleAspectFit;
+    imageView.userInteractionEnabled=YES;
+    
     UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
     [pinchRecognizer setDelegate:self];
     [imageView addGestureRecognizer:pinchRecognizer];
@@ -182,7 +185,7 @@
 }
 
 //缩放
-- (void)scale:(id)sender{
+- (void)scale:(id)sender{    
     [self.view bringSubviewToFront:[(UIPinchGestureRecognizer *)sender view]];
     //当手指离开屏幕时，将lastScale设置为1.0
     if ([(UIPinchGestureRecognizer *)sender state] == UIGestureRecognizerStateEnded) {
@@ -194,7 +197,6 @@
     CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, sa, sa);
     [[(UIPinchGestureRecognizer *)sender view] setTransform:newTransform];
     lastScal = [(UIPinchGestureRecognizer *)sender scale];
-    NSLog(@"lastScal : %f",lastScal);
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
