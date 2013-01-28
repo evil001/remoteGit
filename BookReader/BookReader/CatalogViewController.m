@@ -130,7 +130,6 @@
     [requestVO setSpecialCode:specialCode];
     [requestVO setStart:[NSString stringWithFormat:@"%i",currentPage]];
     [requestVO setEnd:[NSString stringWithFormat:@"%i",PAGE_MAX]];
-//    [requestVO setEnd:[NSString stringWithFormat:@"%i",currentPage+REQUEST_NUMS]];
 }
 
 //初始化请求数据
@@ -322,6 +321,7 @@
     pageNum = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
     [self loadNewData:PAGE_WIDTH*pageNum : PAGE_LIMIT*pageNum];
     NSLog(@"pageNum: %i ,loadPage: %i ,[imgArr count]: %i,totalPage: %i",pageNum,loadPage,[imgArr count],totalPage);
+    [slider setValue:pageNum];//设置slider滑杆位置
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
