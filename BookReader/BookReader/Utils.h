@@ -11,7 +11,7 @@
 
 #define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
 
-#define IMAGESCAN_PAGE_DATA 50
+#define IMAGESCAN_PAGE_DATA 10
 
 #define VIEW_CELL_HEIGHT 140
 

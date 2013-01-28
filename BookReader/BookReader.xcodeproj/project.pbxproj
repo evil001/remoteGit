@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E018958516AF81B700A015A4 /* PopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E018958416AF81B700A015A4 /* PopoverView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E01F2891169C00AD0068FB70 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2890169C00AD0068FB70 /* Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E01F2893169C060D0068FB70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01F2892169C060D0068FB70 /* QuartzCore.framework */; };
 		E02DCE0B16B0CC2C0085B064 /* ImageScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E02DCE0A16B0CC2C0085B064 /* ImageScanViewController.m */; };
@@ -56,6 +55,7 @@
 		E09A58EA169EBBDE0003EC9B /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E09A58E2169EBBDE0003EC9B /* UIImageView+WebCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E09A58ED169EBC800003EC9B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09A58EC169EBC800003EC9B /* MapKit.framework */; };
 		E09A58EF169EBD330003EC9B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09A58EE169EBD330003EC9B /* ImageIO.framework */; };
+		E0D3022E16B21C0100E687E4 /* MainPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0D3022D16B21C0100E687E4 /* MainPopoverViewController.m */; };
 		E0EF1F46169E871100085864 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EF1F13169E871100085864 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E0EF1F47169E871100085864 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EF1F16169E871100085864 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E0EF1F48169E871100085864 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EF1F18169E871100085864 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -86,8 +86,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E018958316AF81B700A015A4 /* PopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopoverView.h; sourceTree = "<group>"; };
-		E018958416AF81B700A015A4 /* PopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopoverView.m; sourceTree = "<group>"; };
 		E01F288F169C00AC0068FB70 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		E01F2890169C00AD0068FB70 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		E01F2892169C060D0068FB70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -173,6 +171,8 @@
 		E09A58E2169EBBDE0003EC9B /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		E09A58EC169EBC800003EC9B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E09A58EE169EBD330003EC9B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		E0D3022C16B21C0100E687E4 /* MainPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPopoverViewController.h; sourceTree = "<group>"; };
+		E0D3022D16B21C0100E687E4 /* MainPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPopoverViewController.m; sourceTree = "<group>"; };
 		E0EF1F12169E871100085864 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		E0EF1F13169E871100085864 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		E0EF1F14169E871100085864 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -251,15 +251,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E00DDEB916AE9947006D127F /* PopView */ = {
-			isa = PBXGroup;
-			children = (
-				E018958316AF81B700A015A4 /* PopoverView.h */,
-				E018958416AF81B700A015A4 /* PopoverView.m */,
-			);
-			name = PopView;
-			sourceTree = "<group>";
-		};
 		E03126D8169D681600663434 /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,7 +329,7 @@
 		E07E56D7169A9F3100A8BF60 /* BookReader */ = {
 			isa = PBXGroup;
 			children = (
-				E00DDEB916AE9947006D127F /* PopView */,
+				E0D3022B16B21C0100E687E4 /* popover */,
 				E0658AA8169FE64A00D42DEA /* Util */,
 				E09A58CE169EBBDE0003EC9B /* SDWebImage */,
 				E03126D8169D681600663434 /* HTTP */,
@@ -483,6 +474,15 @@
 				E09A58E2169EBBDE0003EC9B /* UIImageView+WebCache.m */,
 			);
 			path = SDWebImage;
+			sourceTree = "<group>";
+		};
+		E0D3022B16B21C0100E687E4 /* popover */ = {
+			isa = PBXGroup;
+			children = (
+				E0D3022C16B21C0100E687E4 /* MainPopoverViewController.h */,
+				E0D3022D16B21C0100E687E4 /* MainPopoverViewController.m */,
+			);
+			path = popover;
 			sourceTree = "<group>";
 		};
 		E0EF1F26169E871100085864 /* ASIWebPageRequest */ = {
@@ -659,8 +659,8 @@
 				E09A58E9169EBBDE0003EC9B /* UIButton+WebCache.m in Sources */,
 				E09A58EA169EBBDE0003EC9B /* UIImageView+WebCache.m in Sources */,
 				E0658A9E169FB09500D42DEA /* Utils.m in Sources */,
-				E018958516AF81B700A015A4 /* PopoverView.m in Sources */,
 				E02DCE0B16B0CC2C0085B064 /* ImageScanViewController.m in Sources */,
+				E0D3022E16B21C0100E687E4 /* MainPopoverViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

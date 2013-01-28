@@ -59,6 +59,7 @@
     {
         [manager downloadWithURL:url delegate:self options:options success:success failure:failure];
     }
+        
 }
 #endif
 

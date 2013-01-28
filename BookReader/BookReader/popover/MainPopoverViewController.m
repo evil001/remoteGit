@@ -17,6 +17,7 @@
 @synthesize seasonArray;
 @synthesize popover;
 @synthesize delegate;
+@synthesize seasonTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

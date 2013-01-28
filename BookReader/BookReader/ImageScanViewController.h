@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SDWebImageDownloader.h"
 
-@interface ImageScanViewController : UIViewController<UIScrollViewDelegate>{
+@interface ImageScanViewController : UIViewController<UIScrollViewDelegate,SDWebImageDownloaderDelegate>{
     UIScrollView *scrollView;
     NSString *specialCode;      
     
@@ -24,8 +25,9 @@
 @property (strong, nonatomic) NSMutableArray *imagesArr;
 @property (strong, nonatomic) NSString *specialCode;
 @property NSUInteger pageNum;       //总页数
-//@property NSUInteger loadPageData;  //一次加载多少条记录
-@property NSUInteger dataNum;       //总记录数
 @property NSUInteger currPage;      //当前页数
 @property (strong, nonatomic) NSMutableArray *currArr;
+@property (strong,nonatomic) UISlider *slider;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
+@property (strong, nonatomic) UIImage *image;
 @end

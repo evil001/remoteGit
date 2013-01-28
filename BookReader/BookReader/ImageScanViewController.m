@@ -8,6 +8,7 @@
 
 #import "ImageScanViewController.h"
 #import "UIImageView+WebCache.h"
+#import "SDImageCache.h"
 #import "Utils.h"
 
 @interface ImageScanViewController ()
@@ -19,8 +20,11 @@
 @synthesize pageControl;
 @synthesize imagesArr;
 @synthesize specialCode;
-@synthesize pageNum,dataNum,currPage;
+@synthesize pageNum,currPage;
 @synthesize currArr;
+@synthesize slider;
+@synthesize activityIndicatorView;
+@synthesize image;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,26 +40,61 @@
     [super viewDidLoad];
     [self requestData];
     //初始化scrollview的界面 （坐标x，坐标y，宽度，高度）屏幕左上角为原点
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 1024, 660)];
     //设置scrollview画布得大小，此设置为三页得宽度，240得高度用来实现三页照片得转换
-    [self.scrollView setContentSize:CGSizeMake(1024*[imagesArr count], 768)];
+    [self.scrollView setContentSize:CGSizeMake(1024*[imagesArr count], 660)];
     self.scrollView.pagingEnabled = YES;    //使用翻页属性
     self.scrollView.showsHorizontalScrollIndicator = NO;    //不实现水平滚动
+    self.scrollView.contentMode = NO;
     [self.scrollView setDelegate:self];
-    
-    UIImageView *imageView;
+    [self addSliderToolbar];
+    self.image = [[UIImage alloc]init];
     for (int i =0; i<[self.imagesArr count]; i++) {
         if (i<=currPage*IMAGESCAN_PAGE_DATA) {
-            imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i*1024, 0, 1024, 768)];
-                   NSString *urlStr = [NSString stringWithFormat:@"http://new.hosane.com/hosane/upload/pic%@/big/%@",[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:i]];
-                    [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-                    //设置图片为自适应
-                    imageView.contentMode=UIViewContentModeScaleAspectFit;
-                    [self.scrollView addSubview:imageView];  
+            [self syncDownloadImage:i];
         }
     }
-    
+    [self.view addSubview:pageControl];
     [self.view addSubview:self.scrollView];
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(1024/2, 660/2, 50, 50)];
+    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.view addSubview:self.activityIndicatorView];
+    pageControl = [[UIPageControl alloc]init];
+    pageControl.numberOfPages = [imagesArr count];
+    pageControl.currentPage = 0;
+}
+
+- (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)images {
+    self.image = images;
+    [self.activityIndicatorView stopAnimating];
+}
+
+- (void)pageTurn:(UIPageControl *)sender{
+    CGSize viewSize = self.scrollView.frame.size;
+    CGRect rect = CGRectMake(sender.currentPage*viewSize.width, 0, viewSize.width, viewSize.height);
+    [self.scrollView scrollRectToVisible:rect animated:YES];
+}
+
+//添加工具栏
+-(void)addSliderToolbar{
+    UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 660, 1024, 44)];
+    slider = [[UISlider alloc]initWithFrame:CGRectMake(12, 10, 974, 25)];
+    slider.continuous = NO;
+    slider.minimumValue=0;
+    slider.maximumValue = [imagesArr count]-1;
+    slider.value = 0;
+    [slider addTarget:self action:@selector(sliderChange:) forControlEvents:UIControlEventValueChanged];
+    [toolBar addSubview:slider];
+    [self.view addSubview:toolBar];
+}
+
+//滑动slider改变图片
+-(IBAction)sliderChange:(id)sender{
+    [self.activityIndicatorView startAnimating];
+    NSUInteger page = (NSUInteger)roundf(slider.value);
+    [self syncDownloadImage:page];
+    [self.scrollView scrollRectToVisible:CGRectMake(page*1024, 0, 1024, 660) animated:YES];
+    [self.activityIndicatorView stopAnimating];
 }
 
 - (void)viewDidUnload
@@ -111,23 +150,32 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    UIImageView *imageView;
     if (currPage<=pageNum) {
-        for (int i =currPage*IMAGESCAN_PAGE_DATA; i<dataNum; i++) {
-            if (i<=currPage*IMAGESCAN_PAGE_DATA+IMAGESCAN_PAGE_DATA) {
-                imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i*1024, 0, 1024, 768)];
-                NSString *urlStr = [NSString stringWithFormat:@"http://new.hosane.com/hosane/upload/pic%@/big/%@",[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:i]];
-                [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-                //设置图片为自适应
-                imageView.contentMode=UIViewContentModeScaleAspectFit;
-                [self.scrollView addSubview:imageView];  
-            }
-            if (i==currPage*IMAGESCAN_PAGE_DATA+IMAGESCAN_PAGE_DATA) {
-                currPage=currPage+1;
-            }
-        }
+        [self scrollviewPage];
     }
      
+    self.slider.value = 20;
+}
+
+-(void)scrollviewPage{
+    for (int i =currPage*IMAGESCAN_PAGE_DATA; i<currPage*IMAGESCAN_PAGE_DATA+IMAGESCAN_PAGE_DATA; i++) {
+        if (i<=currPage*IMAGESCAN_PAGE_DATA+IMAGESCAN_PAGE_DATA) {
+            [self syncDownloadImage:i];
+        }
+        if (i==currPage*IMAGESCAN_PAGE_DATA+IMAGESCAN_PAGE_DATA) {
+            currPage=currPage+1;
+        }
+    }
+}
+
+-(void)syncDownloadImage:(NSUInteger)index{
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*1024, 0, 1024, 768-44)];
+    NSString *urlStr = [NSString stringWithFormat:@"http://new.hosane.com/hosane/upload/pic%@/big/%@",[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
+    [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    [self.scrollView addSubview:imageView];
+    //设置图片为自适应
+    imageView.contentMode=UIViewContentModeScaleAspectFit;
+    [self.scrollView addSubview:imageView];  
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
@@ -140,7 +188,7 @@
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"scrollViewWillBeginDecelerating==========");
+
 }
 
 - (IBAction)changeImage:(id)sender {
