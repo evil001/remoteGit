@@ -40,8 +40,11 @@
 //拖动
 @property (strong, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic) NSInteger sliderValue;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segBtn;
 
 //初始化nib
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil : (NSString *)imgUrl;
+//改变seg
+- (IBAction)changeSeg:(id)sender;
 
 @end

@@ -27,7 +27,7 @@
 //列表X限制
 #define X_LIMIT 210
 //列表Y限制
-#define Y_LIMIT 220
+#define Y_LIMIT 210
 //一页的宽度
 #define PAGE_WIDTH 1024
 //默认加载图片
@@ -60,13 +60,16 @@
         lotArr = [[NSMutableArray alloc] init];
         [self initRequestParam];
         [self initRequestData:requestVO];
-        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(5, 10, self.view.frame.size.width, self.view.frame.size.height)];
+        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 35, self.view.frame.size.width, self.view.frame.size.height)];
         [scrollView setDelegate:self];
         scrollView.pagingEnabled = YES;
         [scrollView setScrollEnabled:YES];
         [scrollView setShowsHorizontalScrollIndicator:NO];
         [scrollView setShowsVerticalScrollIndicator:NO];
         [self.view addSubview:scrollView];
+        //头部条件按钮
+        
+        
         //滑动控件
 //        UIImage *leftTrack = [UIImage imageNamed:@"left.png"];
 //        UIImage *rightTrack = [UIImage imageNamed:@"right.png"];
@@ -84,6 +87,9 @@
         [self.view addSubview:slider];
     }
     return self;
+}
+
+- (IBAction)changeSeg:(id)sender {
 }
 
 - (void)viewDidLoad
@@ -241,7 +247,7 @@
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
             
-            [catalogView.nameBtn setTitle:[NSString stringWithFormat:@"拍品%i",j+1] forState:UIControlStateNormal];
+            [catalogView.nameBtn setTitle:[NSString stringWithFormat:@"拍品拍品拍品拍品拍品拍品拍品%i",j+1] forState:UIControlStateNormal];
             [pageView addSubview:catalogView];
             [self.scrollView addSubview:pageView];
         }
@@ -264,7 +270,7 @@
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
             
-            [catalogView.nameBtn setTitle:[NSString stringWithFormat:@"拍品%i",j+1] forState:UIControlStateNormal];
+            [catalogView.nameBtn setTitle:[NSString stringWithFormat:@"拍品拍品拍品拍品拍品拍品拍品%i",j+1] forState:UIControlStateNormal];
             [pageView addSubview:catalogView];
             [self.scrollView addSubview:pageView];
         }
@@ -290,7 +296,7 @@
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
             
-            [catalogView.nameBtn setTitle:[NSString stringWithFormat:@"拍品%i",j+1] forState:UIControlStateNormal];
+            [catalogView.nameBtn setTitle:[NSString stringWithFormat:@"拍品拍品拍品拍品拍品拍品拍品%i",j+1] forState:UIControlStateNormal];
             [pageView addSubview:catalogView];
             [self.scrollView addSubview:pageView];
         }
@@ -350,6 +356,7 @@
 
 - (void)viewDidUnload {
     [self setSlider:nil];
+    [self setSegBtn:nil];
     [super viewDidUnload];
 }
 @end
