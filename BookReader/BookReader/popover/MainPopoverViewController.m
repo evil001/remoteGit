@@ -8,7 +8,7 @@
 
 #import "MainPopoverViewController.h"
 
-#define REQUEST_URL @"http://127.0.0.1:9091/?parmeter="
+#define REQUEST_URL @"http://192.168.6.148:9091/?parmeter="
 @interface MainPopoverViewController ()
 -(NSData *) httpData:(NSString *)methodName;
 @end
