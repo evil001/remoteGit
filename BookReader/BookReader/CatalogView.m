@@ -9,10 +9,7 @@
 #import "CatalogView.h"
 
 @implementation CatalogView
-@synthesize imageView;
-@synthesize lotLab;
-@synthesize nameBtn;
-@synthesize indicatorView;
+//@synthesize indicatorView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,13 +21,13 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 - (IBAction)goDetailCatalog:(id)sender {
     NSLog(@"goDetailCatalog........");

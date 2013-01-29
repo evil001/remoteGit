@@ -11,10 +11,10 @@
 		013D538B16B61619006BEC0E /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538616B61619006BEC0E /* CatalogViewController.m */; };
 		013D538C16B61619006BEC0E /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D538716B61619006BEC0E /* CatalogViewController.xib */; };
 		013D538D16B61619006BEC0E /* CatalogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538916B61619006BEC0E /* CatalogView.m */; };
-		013D538E16B61619006BEC0E /* CatalogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D538A16B61619006BEC0E /* CatalogView.xib */; };
 		013D53C816B7C3EE006BEC0E /* SpecialDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D53C416B7C3EE006BEC0E /* SpecialDescriptionViewController.m */; };
 		013D53C916B7C3EE006BEC0E /* SpecialDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D53C516B7C3EE006BEC0E /* SpecialDescriptionViewController.xib */; };
 		013D53CA16B7C3EE006BEC0E /* SortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D53C716B7C3EE006BEC0E /* SortViewController.m */; };
+		013D53CD16B7C62E006BEC0E /* CatalogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D53CC16B7C62E006BEC0E /* CatalogView.xib */; };
 		E01F2891169C00AD0068FB70 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2890169C00AD0068FB70 /* Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E01F2893169C060D0068FB70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01F2892169C060D0068FB70 /* QuartzCore.framework */; };
 		E02DCE0B16B0CC2C0085B064 /* ImageScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E02DCE0A16B0CC2C0085B064 /* ImageScanViewController.m */; };
@@ -101,12 +101,12 @@
 		013D538716B61619006BEC0E /* CatalogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogViewController.xib; sourceTree = "<group>"; };
 		013D538816B61619006BEC0E /* CatalogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogView.h; sourceTree = "<group>"; };
 		013D538916B61619006BEC0E /* CatalogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalogView.m; sourceTree = "<group>"; };
-		013D538A16B61619006BEC0E /* CatalogView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogView.xib; sourceTree = "<group>"; };
 		013D53C316B7C3EE006BEC0E /* SpecialDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialDescriptionViewController.h; sourceTree = "<group>"; };
 		013D53C416B7C3EE006BEC0E /* SpecialDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialDescriptionViewController.m; sourceTree = "<group>"; };
 		013D53C516B7C3EE006BEC0E /* SpecialDescriptionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpecialDescriptionViewController.xib; sourceTree = "<group>"; };
 		013D53C616B7C3EE006BEC0E /* SortViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortViewController.h; sourceTree = "<group>"; };
 		013D53C716B7C3EE006BEC0E /* SortViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortViewController.m; sourceTree = "<group>"; };
+		013D53CC16B7C62E006BEC0E /* CatalogView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogView.xib; sourceTree = "<group>"; };
 		E01F288F169C00AC0068FB70 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		E01F2890169C00AD0068FB70 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		E01F2892169C060D0068FB70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -289,7 +289,7 @@
 				013D538716B61619006BEC0E /* CatalogViewController.xib */,
 				013D538816B61619006BEC0E /* CatalogView.h */,
 				013D538916B61619006BEC0E /* CatalogView.m */,
-				013D538A16B61619006BEC0E /* CatalogView.xib */,
+				013D53CC16B7C62E006BEC0E /* CatalogView.xib */,
 				013D53C316B7C3EE006BEC0E /* SpecialDescriptionViewController.h */,
 				013D53C416B7C3EE006BEC0E /* SpecialDescriptionViewController.m */,
 				013D53C516B7C3EE006BEC0E /* SpecialDescriptionViewController.xib */,
@@ -657,8 +657,8 @@
 				E07E572F169AA77B00A8BF60 /* a12121.jpg in Resources */,
 				E07E573F169AC88600A8BF60 /* BookShelfCell@2x.png in Resources */,
 				013D538C16B61619006BEC0E /* CatalogViewController.xib in Resources */,
-				013D538E16B61619006BEC0E /* CatalogView.xib in Resources */,
 				013D53C916B7C3EE006BEC0E /* SpecialDescriptionViewController.xib in Resources */,
+				013D53CD16B7C62E006BEC0E /* CatalogView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

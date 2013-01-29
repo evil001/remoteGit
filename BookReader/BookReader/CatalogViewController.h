@@ -1,7 +1,7 @@
 //
 //  CatalogViewController.h
 //  IpadLisShow
-//
+//  拍品列表
 //  Created by Dwen on 13-1-21.
 //  Copyright (c) 2013年 Dwen. All rights reserved.
 //
@@ -11,16 +11,24 @@
 #import "CatalogView.h"
 #import "RequestVO.h"
 #import "Utils.h"
+#import "SpecialDescriptionViewController.h"
+#import "SortViewController.h"
 
 @interface CatalogViewController : UIViewController<UIScrollViewDelegate,UINavigationBarDelegate,NSURLConnectionDataDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *pageView;
-@property (strong,nonatomic) NSMutableArray *commImgArr;
 //拍品图
 @property (strong,nonatomic) NSMutableArray *imgArr;
+@property (strong,nonatomic) NSMutableArray *commImgArr;
 //拍品Lot号
 @property (strong,nonatomic) NSMutableArray *lotArr;
 @property (strong,nonatomic) NSMutableArray *commLotArr;
+//拍品成交价
+@property (strong,nonatomic) NSMutableArray *closeClostArr;
+@property (strong,nonatomic) NSMutableArray *commCloseClostArr;
+//拍品名称
+@property (strong,nonatomic) NSMutableArray *displayMsgArr;
+@property (strong,nonatomic) NSMutableArray *commdisplayMsgArr;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong,nonatomic) RequestVO *requestVO;
 @property (strong,nonatomic) NSMutableData *receivedData;
@@ -37,14 +45,30 @@
 //目录号
 @property (strong,nonatomic) NSString *specialCode;
 @property (strong,nonatomic) NSString *imageUrl;
+//专场名称
+@property (strong,nonatomic) NSString *specialName;
+@property (strong,nonatomic) NSString *specialAddress;
+@property (strong,nonatomic) NSString *specialAuctionTime;
+@property (strong,nonatomic) NSString *specialPreview;
+@property (strong,nonatomic) NSString *specialRemark;
 //拖动
 @property (strong, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic) NSInteger sliderValue;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segBtn;
+@property (strong, nonatomic) UIPopoverController *popover;
+@property (strong, nonatomic) UIBarButtonItem *firstBtn;
+@property (strong, nonatomic) SpecialDescriptionViewController *sdVC;
+@property (strong, nonatomic) SortViewController *sortVC;
+@property (strong, nonatomic) IBOutlet UIButton *sortBtn;
 
 //初始化nib
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil : (NSString *)imgUrl;
 //改变seg
 - (IBAction)changeSeg:(id)sender;
+//排序
+- (IBAction)sortAction:(id)sender;
+
+- (void) initRequestParam;
+- (void) initRequestData : (RequestVO *) requestParam;
 
 @end
