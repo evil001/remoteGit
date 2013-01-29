@@ -10,6 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
 #import "ViewController.h"
+#import "CatalogViewController.h"
 #import "Utils.h"
 
 @interface ImageScanViewController ()
@@ -22,9 +23,9 @@
 @implementation ImageScanViewController
 @synthesize scrollView;
 @synthesize pageControl;
-@synthesize imagesArr;
+@synthesize imagesArr,titleArr;
 @synthesize specialCode;
-@synthesize pageNum,currPage;
+@synthesize pageNum,currPage,listIndex;
 @synthesize slider;
 @synthesize activityIndicatorView;
 @synthesize lastScal;
@@ -33,7 +34,6 @@
 @synthesize topToolBar;
 @synthesize isShowToolBar;
 @synthesize titleLabel;
-@synthesize titleArr;
 @synthesize backBtn;
 @synthesize guanzhuBtn;
 
@@ -50,38 +50,54 @@
 {
     [super viewDidLoad];
     [self requestData];
+    NSLog(@"specialcode====================%@",specialCode);
+    NSLog(@"index---------------%i",listIndex);
+    NSLog(@"========================%@",[imagesArr objectAtIndex:listIndex]);
     [self settingScrollView];
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-140, 44/2-18, 400, 44)];
-    [self.titleLabel setBackgroundColor:[UIColor clearColor]];
-    self.titleLabel.numberOfLines = 2;
-    self.titleLabel.font = [UIFont systemFontOfSize:14];
-    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:0]];
+    [self initTitleLabel];
     for (int i =0; i<[self.imagesArr count]; i++) {
         [self syncDownloadImage:i];
     }
+    [self.scrollView scrollRectToVisible:CGRectMake(listIndex*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
     [self.view addSubview:self.scrollView];
     [self loadTapGestureRecognize];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self addSliderToolbar];
     self.topToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,0,PAGE_WIDTH,44)];
-    self.backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self initBackBtn];
+    [self initTitleLabel];
+    [self.view addSubview:topToolBar];
+    isShowToolBar=true;
+}
+
+//初始化返回按钮
+- (void)initBackBtn{
     CGRect btnRect = CGRectMake(10, 44/2-15, 50, 30);
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.backBtn setFrame:btnRect];
     [self.backBtn setBackgroundColor:[UIColor clearColor]];
     [self.backBtn setTitle:@"返回" forState:UIControlStateNormal];
     [self.backBtn addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.topToolBar addSubview:self.backBtn];
+}
+
+//初始化头部导航栏标题
+- (void)initTitleLabel{
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-140, 44/2-18, 400, 44)];
+    [self.titleLabel setBackgroundColor:[UIColor clearColor]];
+    self.titleLabel.numberOfLines = 2;
+    self.titleLabel.font = [UIFont systemFontOfSize:14];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:0]];
     [self.topToolBar addSubview:self.titleLabel];
-    [self.view addSubview:topToolBar];
-    isShowToolBar=true;
 }
 
 -(void)clickBack:(id)sender{
     NSLog(@"click back");
-    ViewController *viewControl = [[ViewController alloc]init];
+//    CatalogViewController *catalogView = [[CatalogViewController alloc]initWithNibName:@"CatalogViewController" bundle:nil];
+    ViewController *v = [[ViewController alloc]init];
     [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    [self presentModalViewController:viewControl animated:YES];
-//    [self.navigationController pushViewController:viewControl animated:YES];
+    [self presentModalViewController:v animated:YES];
+//    [self.navigationController pushViewController:catalogView animated:YES];
 }
 
 - (void)loadTapGestureRecognize{
@@ -153,10 +169,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
-        return YES;
-    }
-    return NO;
+    return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
 - (void)requestData{
@@ -213,6 +226,7 @@
 -(void)syncDownloadImage:(NSUInteger)index{
     imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT)];
     NSString *urlStr = [NSString stringWithFormat:AUCTION_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
+    NSLog(@"=============%@",urlStr);
     [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     imageView.userInteractionEnabled = YES;
     //设置图片为自适应

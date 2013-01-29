@@ -33,8 +33,12 @@
 
 @property (nonatomic) CGFloat lastScal;
 
+//顶部工具栏
 @property (strong, nonatomic) UIToolbar *buttomToolBar;
+//底部工具栏
 @property (strong, nonatomic) UIToolbar *topToolBar;
+//列表页传得索引值
+@property NSUInteger listIndex;
 
 @property BOOL isShowToolBar;
 @end

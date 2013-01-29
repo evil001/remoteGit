@@ -10,8 +10,11 @@
 #define REQUEST_URL @"http://192.168.6.148:9091/?parmeter="
 //图录url
 #define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
-//拍品url
-#define AUCTION_URL @"http://new.hosane.com/hosane/upload/pic%@/%@"
+//拍品url详细页
+//#define AUCTION_URL @"http://new.hosane.com/hosane/upload/pic%@/big/%@"
+
+//拍品url大图
+#define AUCTION_URL @"http://new.hosane.com/hosane/upload1/pic%@/big/%@"
 
 #define IMAGESCAN_PAGE_DATA 10
 

@@ -9,7 +9,10 @@
 #import "CatalogView.h"
 
 @implementation CatalogView
-//@synthesize indicatorView;
+@synthesize imageView;
+@synthesize lotLab;
+@synthesize nameBtn;
+@synthesize indicatorView;
 
 - (id)initWithFrame:(CGRect)frame
 {

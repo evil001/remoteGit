@@ -47,6 +47,7 @@
 @synthesize specialCode,imageUrl;
 @synthesize receivedData;
 @synthesize slider,sliderValue;
+@synthesize segBtn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil : (NSString *)imgUrl
 {
@@ -312,7 +313,10 @@
     NSLog(@"imgStr =========%@ ",imgStr); 
     ImageScanViewController *imageScan = [[ImageScanViewController alloc]init];
     imageScan.specialCode = specialCode;
+    imageScan.listIndex = index;
     [self.navigationController pushViewController:imageScan animated:YES];
+//    self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+//    [self presentModalViewController:imageScan animated:YES];
 }
 
 //下载图络图片
