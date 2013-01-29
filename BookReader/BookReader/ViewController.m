@@ -345,12 +345,12 @@
             [_booksIndexsToBeRemoved removeIndex:bookView.index];
         }
     }else {
-        CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil :imgUrl];
-        [self.navigationController pushViewController:catalogVC animated:YES];
+//        CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil :imgUrl];
+//        [self.navigationController pushViewController:catalogVC animated:YES];
         
-//        ImageScanViewController *imageScan = [[ImageScanViewController alloc]init];
-//        imageScan.specialCode = imgUrl;
-//        [self.navigationController pushViewController:imageScan animated:YES];
+        ImageScanViewController *imageScan = [[ImageScanViewController alloc]init];
+        imageScan.specialCode = imgUrl;
+        [self.navigationController pushViewController:imageScan animated:YES];
     }
 }
 

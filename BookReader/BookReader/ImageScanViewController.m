@@ -9,10 +9,14 @@
 #import "ImageScanViewController.h"
 #import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
+#import "ViewController.h"
 #import "Utils.h"
 
 @interface ImageScanViewController ()
-
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) NSMutableArray *titleArr;
+@property (strong, nonatomic) UIButton *backBtn;
+@property (strong, nonatomic) UIButton *guanzhuBtn;
 @end
 
 @implementation ImageScanViewController
@@ -21,18 +25,23 @@
 @synthesize imagesArr;
 @synthesize specialCode;
 @synthesize pageNum,currPage;
-@synthesize currArr;
 @synthesize slider;
 @synthesize activityIndicatorView;
-@synthesize image;
 @synthesize lastScal;
 @synthesize imageView;
+@synthesize buttomToolBar;
+@synthesize topToolBar;
+@synthesize isShowToolBar;
+@synthesize titleLabel;
+@synthesize titleArr;
+@synthesize backBtn;
+@synthesize guanzhuBtn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -41,61 +50,97 @@
 {
     [super viewDidLoad];
     [self requestData];
-    //初始化scrollview的界面 （坐标x，坐标y，宽度，高度）屏幕左上角为原点
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 1024, 660)];
-    //设置scrollview画布得大小，此设置为三页得宽度，240得高度用来实现三页照片得转换
-    [self.scrollView setContentSize:CGSizeMake(1024*[imagesArr count], 660)];
-    self.scrollView.pagingEnabled = YES;    //使用翻页属性
-    self.scrollView.showsHorizontalScrollIndicator = NO;    //不实现水平滚动
-    self.scrollView.contentMode = NO;
-    [self.scrollView setDelegate:self];
-    [self addSliderToolbar];
-    self.image = [[UIImage alloc]init];
+    [self settingScrollView];
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-140, 44/2-18, 400, 44)];
+    [self.titleLabel setBackgroundColor:[UIColor clearColor]];
+    self.titleLabel.numberOfLines = 2;
+    self.titleLabel.font = [UIFont systemFontOfSize:14];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:0]];
     for (int i =0; i<[self.imagesArr count]; i++) {
-        if (i<=currPage*IMAGESCAN_PAGE_DATA) {
-            [self syncDownloadImage:i];
-        }
+        [self syncDownloadImage:i];
     }
-    [self.view addSubview:pageControl];
     [self.view addSubview:self.scrollView];
-    self.activityIndicatorView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(1024/2, 660/2, 50, 50)];
+    [self loadTapGestureRecognize];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self addSliderToolbar];
+    self.topToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,0,PAGE_WIDTH,44)];
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    CGRect btnRect = CGRectMake(10, 44/2-15, 50, 30);
+    [self.backBtn setFrame:btnRect];
+    [self.backBtn setBackgroundColor:[UIColor clearColor]];
+    [self.backBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.topToolBar addSubview:self.backBtn];
+    [self.topToolBar addSubview:self.titleLabel];
+    [self.view addSubview:topToolBar];
+    isShowToolBar=true;
+}
+
+-(void)clickBack:(id)sender{
+    NSLog(@"click back");
+    ViewController *viewControl = [[ViewController alloc]init];
+    [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [self presentModalViewController:viewControl animated:YES];
+//    [self.navigationController pushViewController:viewControl animated:YES];
+}
+
+- (void)loadTapGestureRecognize{
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleDoubleClick:)];
+    singleTap.delegate = self;
+    singleTap.numberOfTouchesRequired=1;
+    singleTap.numberOfTapsRequired = 2;
+
+    [self.scrollView addGestureRecognizer:singleTap];
+}
+
+-(void)singleDoubleClick:(UITapGestureRecognizer *)recognizer{
+    isShowToolBar = !isShowToolBar;
+    [self.topToolBar setHidden:isShowToolBar];
+    [self.buttomToolBar setHidden:isShowToolBar];
+}
+
+//设置动画加载
+- (void)initActivityView{
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2, PAGE_HEIGHT/2, 50, 50)];
     self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:self.activityIndicatorView];
-    pageControl = [[UIPageControl alloc]init];
-    pageControl.numberOfPages = [imagesArr count];
-    pageControl.currentPage = 0;
 }
 
-- (void)webImageManager:(SDWebImageManager *)imageManager didFinishWithImage:(UIImage *)images {
-    self.image = images;
-    [self.activityIndicatorView stopAnimating];
-}
-
-- (void)pageTurn:(UIPageControl *)sender{
-    CGSize viewSize = self.scrollView.frame.size;
-    CGRect rect = CGRectMake(sender.currentPage*viewSize.width, 0, viewSize.width, viewSize.height);
-    [self.scrollView scrollRectToVisible:rect animated:YES];
+//设置scrollview
+- (void)settingScrollView{
+    //初始化scrollview的界面 （坐标x，坐标y，宽度，高度）屏幕左上角为原点
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, PAGE_WIDTH, PAGE_HEIGHT)];
+    //设置scrollview画布得大小，此设置为三页得宽度，240得高度用来实现三页照片得转换
+    [self.scrollView setContentSize:CGSizeMake(PAGE_WIDTH*[imagesArr count], PAGE_HEIGHT)];
+    self.scrollView.pagingEnabled = YES;    //使用翻页属性
+    self.scrollView.showsHorizontalScrollIndicator = NO;    //不实现水平滚动
+    [self.scrollView setBackgroundColor:[UIColor blackColor]];
+    self.scrollView.contentMode = NO;
+    [self.scrollView setDelegate:self];
 }
 
 //添加工具栏
 -(void)addSliderToolbar{
-    UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 660, 1024, 44)];
-    slider = [[UISlider alloc]initWithFrame:CGRectMake(12, 10, 974, 25)];
+    self.buttomToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, PAGE_HEIGHT-60, 1024, 44)];
+    slider = [[UISlider alloc]initWithFrame:CGRectMake(100, 10, 900, 25)];
+    guanzhuBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 50, 30)];
+    [guanzhuBtn setTitle:@"关注" forState:UIControlStateNormal];
     slider.continuous = NO;
     slider.minimumValue=0;
     slider.maximumValue = [imagesArr count]-1;
     slider.value = 0;
+    [self.buttomToolBar addSubview:guanzhuBtn];
     [slider addTarget:self action:@selector(sliderChange:) forControlEvents:UIControlEventValueChanged];
-    [toolBar addSubview:slider];
-    [self.view addSubview:toolBar];
+    [self.buttomToolBar addSubview:slider];
+    [self.view addSubview:self.buttomToolBar];
 }
 
 //滑动slider改变图片
 -(IBAction)sliderChange:(id)sender{
     [self.activityIndicatorView startAnimating];
     NSUInteger page = (NSUInteger)roundf(slider.value);
-    [self syncDownloadImage:page];
-    [self.scrollView scrollRectToVisible:CGRectMake(page*1024, 0, 1024, 660) animated:YES];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:page]];
+    [self.scrollView scrollRectToVisible:CGRectMake(page*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
     [self.activityIndicatorView stopAnimating];
 }
 
@@ -135,12 +180,10 @@
     [request setHTTPMethod:@"POST"];
     NSHTTPURLResponse *response;
     NSError *error ;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-    //    NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    //    NSLog(@"---------------%@",result);
-    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];    
     NSDictionary *imageDictory = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     imagesArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"imageName"]];
+    titleArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionName"]];
     dataNum = [imagesArr count];        //总数据个数
     pageNum = (dataNum+IMAGESCAN_PAGE_DATA-1)/IMAGESCAN_PAGE_DATA;  //总页数
     currPage = 1;
@@ -152,11 +195,8 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    if (currPage<=pageNum) {
-        [self scrollviewPage];
-    }
-     
-    self.slider.value = 20;
+    self.slider.value = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
+    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:self.slider.value]];
 }
 
 -(void)scrollviewPage{
@@ -171,17 +211,19 @@
 }
 
 -(void)syncDownloadImage:(NSUInteger)index{
-    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*1024, 0, 1024, 768-44)];
-    NSString *urlStr = [NSString stringWithFormat:@"http://new.hosane.com/hosane/upload/pic%@/big/%@",[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
+    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT)];
+    NSString *urlStr = [NSString stringWithFormat:AUCTION_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
     [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    imageView.userInteractionEnabled = YES;
     //设置图片为自适应
     imageView.contentMode=UIViewContentModeScaleAspectFit;
-    imageView.userInteractionEnabled=YES;
-    
+
+    //手势放大缩小
     UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
     [pinchRecognizer setDelegate:self];
     [imageView addGestureRecognizer:pinchRecognizer];
     [self.scrollView addSubview:imageView];
+    
 }
 
 //缩放
@@ -212,6 +254,4 @@
 
 }
 
-- (IBAction)changeImage:(id)sender {
-}
 @end

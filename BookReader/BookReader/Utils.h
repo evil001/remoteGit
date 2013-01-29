@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#define REQUEST_URL @"http://192.168.6.148:9091/?parmeter="
+#define REQUEST_URL @"http://127.0.0.1:9091/?parmeter="
 //图录url
 #define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
 //拍品url
@@ -16,6 +16,10 @@
 #define IMAGESCAN_PAGE_DATA 10
 
 #define VIEW_CELL_HEIGHT 140
+
+#define PAGE_WIDTH 1024
+
+#define PAGE_HEIGHT 768
 
 @interface Utils : NSObject
 

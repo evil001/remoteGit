@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SDWebImageDownloader.h"
 
-@interface ImageScanViewController : UIViewController<UIScrollViewDelegate,SDWebImageDownloaderDelegate,UIGestureRecognizerDelegate>{
+@interface ImageScanViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate>{
     UIScrollView *scrollView;
     NSString *specialCode;      
     
@@ -17,7 +17,6 @@
     NSUInteger dataNum;
     NSUInteger loadPageData;
     NSUInteger currPage;
-    NSMutableArray *currArr;
     
     
 }
@@ -29,10 +28,13 @@
 @property (strong, nonatomic) NSString *specialCode;
 @property NSUInteger pageNum;       //总页数
 @property NSUInteger currPage;      //当前页数
-@property (strong, nonatomic) NSMutableArray *currArr;
 @property (strong,nonatomic) UISlider *slider;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
-@property (strong, nonatomic) UIImage *image;
 
 @property (nonatomic) CGFloat lastScal;
+
+@property (strong, nonatomic) UIToolbar *buttomToolBar;
+@property (strong, nonatomic) UIToolbar *topToolBar;
+
+@property BOOL isShowToolBar;
 @end
