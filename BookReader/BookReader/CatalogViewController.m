@@ -234,7 +234,7 @@
             CatalogView *catalogView = [[[NSBundle mainBundle] loadNibNamed:@"CatalogView" owner:self options:nil] lastObject];
             [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
             catalogView.lotLab.text = [NSString stringWithFormat:@"%@",[lotArr objectAtIndex:j]];
-            NSString *imgPath = [NSString stringWithFormat:AUCTION_URL,specialCode,[imgArr objectAtIndex:j]];
+            NSString *imgPath = [NSString stringWithFormat:AUCTION_LIST_URL,specialCode,[imgArr objectAtIndex:j]];
             [catalogView.indicatorView startAnimating];
             [catalogView.imageView setImageWithURL:[NSURL URLWithString:imgPath] placeholderImage:[UIImage imageNamed:DEFAULT_IMAGE] success:^(UIImage *image){
                 [catalogView.indicatorView stopAnimating];
@@ -257,7 +257,7 @@
             CatalogView *catalogView = [[[NSBundle mainBundle] loadNibNamed:@"CatalogView" owner:self options:nil] lastObject];
             [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
             catalogView.lotLab.text = [NSString stringWithFormat:@"%@",[lotArr objectAtIndex:j]];
-            NSString *imgPath = [NSString stringWithFormat:AUCTION_URL,specialCode,[imgArr objectAtIndex:j]];
+            NSString *imgPath = [NSString stringWithFormat:AUCTION_LIST_URL,specialCode,[imgArr objectAtIndex:j]];
             [catalogView.indicatorView startAnimating];
             [catalogView.imageView setImageWithURL:[NSURL URLWithString:imgPath] placeholderImage:[UIImage imageNamed:DEFAULT_IMAGE] success:^(UIImage *image){
                 [catalogView.indicatorView stopAnimating];
@@ -284,7 +284,7 @@
                 [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
             }
             catalogView.lotLab.text = [NSString stringWithFormat:@"%@",[lotArr objectAtIndex:j]];
-            NSString *imgPath = [NSString stringWithFormat:AUCTION_URL,specialCode,[imgArr objectAtIndex:j]];
+            NSString *imgPath = [NSString stringWithFormat:AUCTION_LIST_URL,specialCode,[imgArr objectAtIndex:j]];
             [catalogView.indicatorView startAnimating];
             [catalogView.imageView setImageWithURL:[NSURL URLWithString:imgPath] placeholderImage:[UIImage imageNamed:DEFAULT_IMAGE] success:^(UIImage *image){
                 [catalogView.indicatorView stopAnimating];

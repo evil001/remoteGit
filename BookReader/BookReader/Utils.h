@@ -7,14 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#define REQUEST_URL @"http://192.168.6.148:9091/?parmeter="
+#define REQUEST_URL @"http://127.0.0.1:9091/?parmeter="
 //图录url
 #define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
 //拍品url详细页
-//#define AUCTION_URL @"http://new.hosane.com/hosane/upload/pic%@/big/%@"
+#define AUCTION_DETAIL_URL @"http://new.hosane.com/hosane/upload/pic%@/big/%@"
 
 //拍品url大图
-#define AUCTION_URL @"http://new.hosane.com/hosane/upload1/pic%@/big/%@"
+#define AUCTION_BIG_URL @"http://new.hosane.com/hosane/upload1/pic%@/big/%@"
+
+//拍品列表页
+#define AUCTION_LIST_URL @"http://new.hosane.com/hosane/upload/pic%@/%@"
 
 #define IMAGESCAN_PAGE_DATA 10
 

@@ -225,7 +225,7 @@
 
 -(void)syncDownloadImage:(NSUInteger)index{
     imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT)];
-    NSString *urlStr = [NSString stringWithFormat:AUCTION_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
+    NSString *urlStr = [NSString stringWithFormat:AUCTION_BIG_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
     NSLog(@"=============%@",urlStr);
     [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     imageView.userInteractionEnabled = YES;
