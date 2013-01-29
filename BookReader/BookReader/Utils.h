@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#define REQUEST_URL @"http://127.0.0.1:9091/?parmeter="
 #define REQUEST_URL @"http://192.168.6.148:9091/?parmeter="
 //图录url
 #define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
