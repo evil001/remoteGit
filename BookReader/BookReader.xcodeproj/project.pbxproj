@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00817A8C16B7D80F005E3B76 /* AuctionPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00817A8A16B7D80F005E3B76 /* AuctionPopoverController.m */; };
+		00817A8D16B7D80F005E3B76 /* AuctionPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00817A8B16B7D80F005E3B76 /* AuctionPopoverController.xib */; };
 		013D538416B6160B006BEC0E /* RequestVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538316B6160B006BEC0E /* RequestVO.m */; };
 		013D538B16B61619006BEC0E /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538616B61619006BEC0E /* CatalogViewController.m */; };
 		013D538C16B61619006BEC0E /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D538716B61619006BEC0E /* CatalogViewController.xib */; };
@@ -94,6 +96,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00817A8916B7D80F005E3B76 /* AuctionPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuctionPopoverController.h; sourceTree = "<group>"; };
+		00817A8A16B7D80F005E3B76 /* AuctionPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuctionPopoverController.m; sourceTree = "<group>"; };
+		00817A8B16B7D80F005E3B76 /* AuctionPopoverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuctionPopoverController.xib; sourceTree = "<group>"; };
 		013D538216B6160B006BEC0E /* RequestVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestVO.h; sourceTree = "<group>"; };
 		013D538316B6160B006BEC0E /* RequestVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestVO.m; sourceTree = "<group>"; };
 		013D538516B61619006BEC0E /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
@@ -529,6 +534,9 @@
 		E0D3022B16B21C0100E687E4 /* popover */ = {
 			isa = PBXGroup;
 			children = (
+				00817A8916B7D80F005E3B76 /* AuctionPopoverController.h */,
+				00817A8A16B7D80F005E3B76 /* AuctionPopoverController.m */,
+				00817A8B16B7D80F005E3B76 /* AuctionPopoverController.xib */,
 				E0D3022C16B21C0100E687E4 /* MainPopoverViewController.h */,
 				E0D3022D16B21C0100E687E4 /* MainPopoverViewController.m */,
 			);
@@ -659,6 +667,7 @@
 				013D538C16B61619006BEC0E /* CatalogViewController.xib in Resources */,
 				013D53C916B7C3EE006BEC0E /* SpecialDescriptionViewController.xib in Resources */,
 				013D53CD16B7C62E006BEC0E /* CatalogView.xib in Resources */,
+				00817A8D16B7D80F005E3B76 /* AuctionPopoverController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +728,7 @@
 				013D538D16B61619006BEC0E /* CatalogView.m in Sources */,
 				013D53C816B7C3EE006BEC0E /* SpecialDescriptionViewController.m in Sources */,
 				013D53CA16B7C3EE006BEC0E /* SortViewController.m in Sources */,
+				00817A8C16B7D80F005E3B76 /* AuctionPopoverController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
