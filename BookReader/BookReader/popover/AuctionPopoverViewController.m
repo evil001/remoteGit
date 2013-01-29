@@ -13,7 +13,7 @@
 @end
 
 @implementation AuctionPopoverViewController
-@synthesize auctionPopover;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -46,7 +46,6 @@
     [self setEvaluteCost:nil];
     [self setCloseCost:nil];
     [self setDescription:nil];
-    [self setAuctionPopover:nil];
     [super viewDidUnload];
 }
 @end

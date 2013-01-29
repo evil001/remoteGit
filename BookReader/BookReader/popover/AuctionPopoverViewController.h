@@ -18,5 +18,4 @@
 @property (strong, nonatomic) IBOutlet UILabel *closeCost;
 @property (strong, nonatomic) IBOutlet UILabel *description;
 
-@property (strong, nonatomic) UIPopoverController *auctionPopover;
 @end
