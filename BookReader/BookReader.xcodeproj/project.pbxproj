@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00817A8C16B7D80F005E3B76 /* AuctionPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00817A8A16B7D80F005E3B76 /* AuctionPopoverController.m */; };
 		00817A8D16B7D80F005E3B76 /* AuctionPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00817A8B16B7D80F005E3B76 /* AuctionPopoverController.xib */; };
+		00DB6A8A16B943550032EB5C /* HBookshelfCell@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00DB6A8916B943550032EB5C /* HBookshelfCell@2x.jpg */; };
 		013D538416B6160B006BEC0E /* RequestVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538316B6160B006BEC0E /* RequestVO.m */; };
 		013D538B16B61619006BEC0E /* CatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D538616B61619006BEC0E /* CatalogViewController.m */; };
 		013D538C16B61619006BEC0E /* CatalogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D538716B61619006BEC0E /* CatalogViewController.xib */; };
@@ -85,6 +86,7 @@
 		00817A8916B7D80F005E3B76 /* AuctionPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuctionPopoverController.h; sourceTree = "<group>"; };
 		00817A8A16B7D80F005E3B76 /* AuctionPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuctionPopoverController.m; sourceTree = "<group>"; };
 		00817A8B16B7D80F005E3B76 /* AuctionPopoverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuctionPopoverController.xib; sourceTree = "<group>"; };
+		00DB6A8916B943550032EB5C /* HBookshelfCell@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "HBookshelfCell@2x.jpg"; sourceTree = "<group>"; };
 		013D538216B6160B006BEC0E /* RequestVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestVO.h; sourceTree = "<group>"; };
 		013D538316B6160B006BEC0E /* RequestVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestVO.m; sourceTree = "<group>"; };
 		013D538516B61619006BEC0E /* CatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalogViewController.h; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 		E07E5708169AA58000A8BF60 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				00DB6A8916B943550032EB5C /* HBookshelfCell@2x.jpg */,
 				01EA21BB16B8C4AC004DD6F2 /* Icon.png */,
 				01EA21AF16B8BE3B004DD6F2 /* Icon@2x.png */,
 				E07E573E169AC88500A8BF60 /* BookShelfCell@2x.png */,
@@ -612,6 +615,7 @@
 				00817A8D16B7D80F005E3B76 /* AuctionPopoverController.xib in Resources */,
 				01EA21B016B8BE3B004DD6F2 /* Icon@2x.png in Resources */,
 				01EA21BC16B8C4AC004DD6F2 /* Icon.png in Resources */,
+				00DB6A8A16B943550032EB5C /* HBookshelfCell@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

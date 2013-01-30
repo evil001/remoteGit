@@ -23,7 +23,7 @@
             imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 1024, 180)];
         }
 
-        [imageView setImage:[UIImage imageNamed:@"BookShelfCell.png"]];
+        [imageView setImage:[UIImage imageNamed:@"HBookShelfCell.jpg"]];
         [self addSubview:imageView];
     }
     return self;
