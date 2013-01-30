@@ -14,16 +14,18 @@
 #import "Utils.h"
 
 @interface ImageScanViewController ()
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) NSMutableArray *titleArr;
-@property (strong, nonatomic) UIButton *backBtn;
+//@property (strong, nonatomic) UILabel *titleLabel;
+
+@property (strong, nonatomic) NSMutableArray *auctionNameArr,*lotArr,*evaluateCostArr,*metailArr;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backBtn;
+@property (strong, nonatomic) IBOutlet UILabel *materialName;
 @property (strong, nonatomic) UIButton *guanzhuBtn;
 @end
 
 @implementation ImageScanViewController
 @synthesize scrollView;
 @synthesize pageControl;
-@synthesize imagesArr,titleArr;
+@synthesize imagesArr,auctionNameArr,lotArr,evaluateCostArr,metailArr;
 @synthesize specialCode;
 @synthesize pageNum,currPage,listIndex;
 @synthesize slider;
@@ -32,16 +34,22 @@
 @synthesize imageView;
 @synthesize buttomToolBar;
 @synthesize topToolBar;
+@synthesize topRightBtn;
 @synthesize isShowToolBar;
-@synthesize titleLabel;
+@synthesize auctionName;
+@synthesize evaluateCost;
+@synthesize lot;
+//@synthesize titleLabel;
 @synthesize backBtn;
+@synthesize materialName;
 @synthesize guanzhuBtn;
+@synthesize auctionSort;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+        
     }
     return self;
 }
@@ -49,12 +57,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //请求数据
     [self requestData];
-    NSLog(@"specialcode====================%@",specialCode);
-    NSLog(@"index---------------%i",listIndex);
-    NSLog(@"========================%@",[imagesArr objectAtIndex:listIndex]);
+    //设置scrollview
     [self settingScrollView];
-    [self initTitleLabel];
+    //    [self initTitleLabel];
     for (int i =0; i<[self.imagesArr count]; i++) {
         [self syncDownloadImage:i];
     }
@@ -64,51 +71,82 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self addSliderToolbar];
     self.topToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,0,PAGE_WIDTH,44)];
-    [self initBackBtn];
     [self initTitleLabel];
+    [self initBackBtn];
     [self.view addSubview:topToolBar];
     isShowToolBar=true;
 }
 
 //初始化返回按钮
 - (void)initBackBtn{
-    CGRect btnRect = CGRectMake(10, 44/2-15, 50, 30);
-    self.backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.backBtn setFrame:btnRect];
-    [self.backBtn setBackgroundColor:[UIColor clearColor]];
-    [self.backBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [self.backBtn addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.topToolBar addSubview:self.backBtn];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarStyleBlackOpaque target:self action:@selector(clickBack:)];
+    [self.topToolBar setBarStyle:UIBarStyleDefault];
+    
+    UIBarButtonItem *speaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    [speaceItem setWidth:500];
+    
+    //    UIBarButtonItem *xinxiItem = [[UIBarButtonItem alloc]initWithTitle:@"信息" style:UIBarStyleBlack target:self action:@selector(clickAuctionInfo:)];
+    UIBarButtonItem *showCompanyInfo = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
+    //信息item
+    UIBarButtonItem *xinxiItem = [[UIBarButtonItem alloc]initWithTitle:@"信息" style:UIBarButtonItemStyleDone target:self action:@selector(clickAuctionInfo:)];
+    [self.topToolBar setBarStyle:UIBarStyleDefault];
+    [self.topToolBar setItems:[NSArray arrayWithObjects:backItem,speaceItem,showCompanyInfo,xinxiItem,nil]];
+    
 }
 
 //初始化头部导航栏标题
 - (void)initTitleLabel{
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-140, 44/2-18, 400, 44)];
-    [self.titleLabel setBackgroundColor:[UIColor clearColor]];
-    self.titleLabel.numberOfLines = 2;
-    self.titleLabel.font = [UIFont systemFontOfSize:14];
-    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:0]];
-    [self.topToolBar addSubview:self.titleLabel];
+    self.auctionName = [[UILabel alloc]initWithFrame:CGRectMake(510, 1, 200, 20)];
+    self.auctionName.text = [NSString stringWithFormat:@"%@",[self.auctionNameArr objectAtIndex:0]];
+    self.auctionName.font = [UIFont systemFontOfSize:15];
+    self.auctionName.backgroundColor = [UIColor clearColor];
+    self.lot = [[UILabel alloc]initWithFrame:CGRectMake(441, 1, 100, 20)];
+    self.lot.text = [NSString stringWithFormat:@"%@",[self.lotArr objectAtIndex:0]];
+    self.lot.font = [UIFont systemFontOfSize:15];
+    self.lot.textAlignment = UITextAlignmentCenter;
+    self.lot.backgroundColor = [UIColor clearColor];
+    self.evaluateCost = [[UILabel alloc]initWithFrame:CGRectMake(441, 20, 150, 20)];
+    self.evaluateCost.textColor = [UIColor darkGrayColor];
+    self.evaluateCost.text = [NSString stringWithFormat:@"估价 (RMB) : %@",[self.evaluateCostArr objectAtIndex:0]];
+    self.evaluateCost.font = [UIFont systemFontOfSize:13];
+    self.evaluateCost.backgroundColor = [UIColor clearColor];
+    self.materialName = [[UILabel alloc] initWithFrame:CGRectMake(600, 20, 200, 20)];
+    self.materialName.textColor = [UIColor darkGrayColor];
+    self.materialName.text = [NSString stringWithFormat:@"材质 : %@",[self.metailArr objectAtIndex:0]];
+    self.materialName.font = [UIFont systemFontOfSize:13];
+    self.materialName.backgroundColor = [UIColor clearColor];
+    [self.topToolBar addSubview:materialName];
+    [self.topToolBar addSubview:evaluateCost];
+    [self.topToolBar addSubview:self.lot];
+    [self.topToolBar addSubview:self.auctionName];
+}
+
+- (void)clickAuctionInfo:(id)sender{
+    NSUInteger index = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
 }
 
 -(void)clickBack:(id)sender{
     NSLog(@"click back");
-//    CatalogViewController *catalogView = [[CatalogViewController alloc]initWithNibName:@"CatalogViewController" bundle:nil];
-    ViewController *v = [[ViewController alloc]init];
-    [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    [self presentModalViewController:v animated:YES];
-//    [self.navigationController pushViewController:catalogView animated:YES];
+    //    CatalogViewController *catalogView = [[CatalogViewController alloc]initWithNibName:@"CatalogViewController" bundle:nil];
+//    ViewController *v = [[ViewController alloc]init];
+//    [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+//    [self presentModalViewController:v animated:YES];
+    [self dismissModalViewControllerAnimated:YES];
+    //    [self.navigationController pushViewController:catalogView animated:YES];
 }
 
+//触摸点击
 - (void)loadTapGestureRecognize{
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleDoubleClick:)];
     singleTap.delegate = self;
     singleTap.numberOfTouchesRequired=1;
     singleTap.numberOfTapsRequired = 2;
-
+    
     [self.scrollView addGestureRecognizer:singleTap];
 }
 
+//双击事件
 -(void)singleDoubleClick:(UITapGestureRecognizer *)recognizer{
     isShowToolBar = !isShowToolBar;
     [self.topToolBar setHidden:isShowToolBar];
@@ -138,9 +176,9 @@
 //添加工具栏
 -(void)addSliderToolbar{
     self.buttomToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, PAGE_HEIGHT-60, 1024, 44)];
-    slider = [[UISlider alloc]initWithFrame:CGRectMake(100, 10, 900, 25)];
-    guanzhuBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 50, 30)];
-    [guanzhuBtn setTitle:@"关注" forState:UIControlStateNormal];
+    slider = [[UISlider alloc]initWithFrame:CGRectMake(10, 10, PAGE_WIDTH-15, 25)];
+    //    guanzhuBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 50, 30)];
+    //    [guanzhuBtn setTitle:@"关注" forState:UIControlStateNormal];
     slider.continuous = NO;
     slider.minimumValue=0;
     slider.maximumValue = [imagesArr count]-1;
@@ -155,7 +193,7 @@
 -(IBAction)sliderChange:(id)sender{
     [self.activityIndicatorView startAnimating];
     NSUInteger page = (NSUInteger)roundf(slider.value);
-    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:page]];
+    //    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:page]];
     [self.scrollView scrollRectToVisible:CGRectMake(page*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
     [self.activityIndicatorView stopAnimating];
 }
@@ -164,6 +202,13 @@
 {
     [self setScrollView:nil];
     [self setPageControl:nil];
+    [self setTopToolBar:nil];
+    [self setTopRightBtn:nil];
+    [self setBackBtn:nil];
+    [self setAuctionName:nil];
+    [self setEvaluateCost:nil];
+    [self setLot:nil];
+    [self setMaterialName:nil];
     [super viewDidUnload];
 }
 
@@ -196,7 +241,10 @@
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];    
     NSDictionary *imageDictory = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     imagesArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"imageName"]];
-    titleArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionName"]];
+    self.auctionNameArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionName"]];
+    self.lotArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"lot"]];
+    self.evaluateCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"evaluateCost"]];
+    self.metailArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"materialName"]];
     dataNum = [imagesArr count];        //总数据个数
     pageNum = (dataNum+IMAGESCAN_PAGE_DATA-1)/IMAGESCAN_PAGE_DATA;  //总页数
     currPage = 1;
@@ -209,7 +257,7 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     self.slider.value = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
-    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:self.slider.value]];
+    //    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:self.slider.value]];
 }
 
 -(void)scrollviewPage{
@@ -225,13 +273,12 @@
 
 -(void)syncDownloadImage:(NSUInteger)index{
     imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT)];
-    NSString *urlStr = [NSString stringWithFormat:AUCTION_BIG_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
-    NSLog(@"=============%@",urlStr);
+    NSString *urlStr = [NSString stringWithFormat:AUCTION_DETAIL_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
     [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     imageView.userInteractionEnabled = YES;
     //设置图片为自适应
     imageView.contentMode=UIViewContentModeScaleAspectFit;
-
+    
     //手势放大缩小
     UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
     [pinchRecognizer setDelegate:self];
@@ -265,7 +312,7 @@
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-
+    
 }
 
 @end

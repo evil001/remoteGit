@@ -36,9 +36,15 @@
 //顶部工具栏
 @property (strong, nonatomic) UIToolbar *buttomToolBar;
 //底部工具栏
-@property (strong, nonatomic) UIToolbar *topToolBar;
+@property (strong, nonatomic) IBOutlet UIToolbar *topToolBar;
+@property (strong, nonatomic) UIButton *topRightBtn;
 //列表页传得索引值
 @property NSUInteger listIndex;
 
 @property BOOL isShowToolBar;
+
+@property (strong, nonatomic) IBOutlet UILabel *auctionName;
+@property (strong, nonatomic) IBOutlet UILabel *evaluateCost;
+@property (strong, nonatomic) IBOutlet UILabel *lot;
+@property (strong, nonatomic) NSString *auctionSort;
 @end
