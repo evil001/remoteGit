@@ -60,6 +60,8 @@
 @property (strong, nonatomic) SpecialDescriptionViewController *sdVC;
 @property (strong, nonatomic) SortViewController *sortVC;
 @property (strong, nonatomic) IBOutlet UIButton *sortBtn;
+//是否显示专场简介
+@property (nonatomic) BOOL isShowSpecial;
 
 //初始化nib
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil : (NSString *)imgUrl;

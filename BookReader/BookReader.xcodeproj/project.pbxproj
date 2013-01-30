@@ -17,6 +17,8 @@
 		013D53C916B7C3EE006BEC0E /* SpecialDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D53C516B7C3EE006BEC0E /* SpecialDescriptionViewController.xib */; };
 		013D53CA16B7C3EE006BEC0E /* SortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D53C716B7C3EE006BEC0E /* SortViewController.m */; };
 		013D53CD16B7C62E006BEC0E /* CatalogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D53CC16B7C62E006BEC0E /* CatalogView.xib */; };
+		01EA21B016B8BE3B004DD6F2 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01EA21AF16B8BE3B004DD6F2 /* Icon@2x.png */; };
+		01EA21BC16B8C4AC004DD6F2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01EA21BB16B8C4AC004DD6F2 /* Icon.png */; };
 		E01F2891169C00AD0068FB70 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2890169C00AD0068FB70 /* Utilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E01F2893169C060D0068FB70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01F2892169C060D0068FB70 /* QuartzCore.framework */; };
 		E02DCE0B16B0CC2C0085B064 /* ImageScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E02DCE0A16B0CC2C0085B064 /* ImageScanViewController.m */; };
@@ -112,6 +114,8 @@
 		013D53C616B7C3EE006BEC0E /* SortViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortViewController.h; sourceTree = "<group>"; };
 		013D53C716B7C3EE006BEC0E /* SortViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortViewController.m; sourceTree = "<group>"; };
 		013D53CC16B7C62E006BEC0E /* CatalogView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogView.xib; sourceTree = "<group>"; };
+		01EA21AF16B8BE3B004DD6F2 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		01EA21BB16B8C4AC004DD6F2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		E01F288F169C00AC0068FB70 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		E01F2890169C00AD0068FB70 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		E01F2892169C060D0068FB70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -481,6 +485,8 @@
 		E07E5708169AA58000A8BF60 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				01EA21BB16B8C4AC004DD6F2 /* Icon.png */,
+				01EA21AF16B8BE3B004DD6F2 /* Icon@2x.png */,
 				E07E5710169AA77B00A8BF60 /* t12063.jpg */,
 				E07E5711169AA77B00A8BF60 /* c12122.jpg */,
 				E07E5712169AA77B00A8BF60 /* c12121.jpg */,
@@ -668,6 +674,8 @@
 				013D53C916B7C3EE006BEC0E /* SpecialDescriptionViewController.xib in Resources */,
 				013D53CD16B7C62E006BEC0E /* CatalogView.xib in Resources */,
 				00817A8D16B7D80F005E3B76 /* AuctionPopoverController.xib in Resources */,
+				01EA21B016B8BE3B004DD6F2 /* Icon@2x.png in Resources */,
+				01EA21BC16B8C4AC004DD6F2 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

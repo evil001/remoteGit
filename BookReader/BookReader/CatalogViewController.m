@@ -11,11 +11,6 @@
 #import "ImageScanViewController.h"
 #import "ViewController.h"
 
-//#define REQUEST_URL @"http://192.168.6.164:9091/?parmeter="
-//#define REQUEST_URL @"http://127.0.0.1:9091/?parmeter="
-//#define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
-//#define CATALOG_URL @"http://new.hosane.com/hosane/upload/pic%@/%@"
-
 //一行显示数量
 #define ROW_LIMIT 5
 //限制页中显示数量(分页数量须是一页显示数量的倍数)
@@ -50,6 +45,7 @@
 @synthesize popover;
 @synthesize firstBtn,sortBtn;
 @synthesize sdVC,sortVC;
+@synthesize isShowSpecial;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil : (NSString *)imgUrl
 {
@@ -111,6 +107,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    isShowSpecial = false;
     self.view.backgroundColor = [UIColor grayColor];
     if (nil == specialName) {
         self.title = @"图录列表";
@@ -140,12 +137,18 @@
 
 //显示专场内容
 - (void)showSpecial{
-    sdVC = [[SpecialDescriptionViewController alloc] initWithNibName:@"SpecialDescriptionViewController" bundle:nil];
-    sdVC.contentSizeForViewInPopover = CGSizeMake(300, 300);
-    //TODO 还需排版修改
-    sdVC.txtView.text = [NSString stringWithFormat:@"%@ %@ %@ %@",specialAddress,specialAuctionTime,specialPreview,specialRemark];//专场简介
-    popover = [[UIPopoverController alloc] initWithContentViewController:sdVC];
-    [popover presentPopoverFromBarButtonItem:firstBtn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    if (!isShowSpecial) {
+        sdVC = [[SpecialDescriptionViewController alloc] initWithNibName:@"SpecialDescriptionViewController" bundle:nil];
+        sdVC.contentSizeForViewInPopover = CGSizeMake(300, 300);
+        //TODO 还需排版修改
+        sdVC.txtView.text = [NSString stringWithFormat:@"%@ %@ %@ %@",specialAddress,specialAuctionTime,specialPreview,specialRemark];//专场简介
+        popover = [[UIPopoverController alloc] initWithContentViewController:sdVC];
+        [popover presentPopoverFromBarButtonItem:firstBtn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        isShowSpecial = true;
+    }else{
+        [popover dismissPopoverAnimated:YES];//隐藏popoverView
+        isShowSpecial = false;
+    }
 }
 
 //拖动时事件
@@ -172,8 +175,10 @@
 //解析图片名称为目录名
 - (void)analysisCatalog:(NSString *) imgUrlStr{
     NSRange range = [imgUrlStr rangeOfString:@"."];
-    if (range.length!=0) {
+    if (range.length > 0) {
         specialCode = [[imgUrlStr substringToIndex:range.location] uppercaseString];
+    }else{
+        specialCode = [imgUrlStr uppercaseString];
     }
 }
 
@@ -202,6 +207,7 @@
     [paramDic setValue:requestParam.start forKey:@"start"];
     [paramDic setValue:requestParam.end forKey:@"end"];
     [directory setValue:paramDic forKey:@"parameter"];
+    NSLog(@"[directory description] :%@",[directory description]);
     if ([NSJSONSerialization isValidJSONObject:directory]) {
         NSError *error ;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:directory options:NSJSONWritingPrettyPrinted error:&error];
@@ -237,7 +243,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
     NSError *error ;
     NSDictionary *dataDictory = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
-    NSLog(@"dataDictory : %@",[dataDictory description]);
+//    NSLog(@"dataDictory : %@",[dataDictory description]);
     if (NULL != dataDictory) {
         //拍品信息
         NSMutableDictionary *dic = [dataDictory valueForKey:@"auctionInfo"];
