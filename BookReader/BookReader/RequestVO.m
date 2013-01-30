@@ -14,4 +14,7 @@
 @synthesize specialCode;
 @synthesize start;
 @synthesize end;
+@synthesize orderPa;
+@synthesize sort;
+@synthesize sortTypeStr;
 @end

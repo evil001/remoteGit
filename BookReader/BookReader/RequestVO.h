@@ -19,4 +19,10 @@
 @property(strong,nonatomic) NSString *start;
 //分页结束
 @property(strong,nonatomic) NSString *end;
+//排序类型
+@property(strong,nonatomic) NSString *orderPa;
+//标识升降序
+@property(strong,nonatomic) NSString *sort;
+//排序的中文名称
+@property(strong,nonatomic) NSString *sortTypeStr;
 @end

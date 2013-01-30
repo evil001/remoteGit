@@ -14,7 +14,7 @@
 #import "SpecialDescriptionViewController.h"
 #import "SortViewController.h"
 
-@interface CatalogViewController : UIViewController<UIScrollViewDelegate,UINavigationBarDelegate,NSURLConnectionDataDelegate>
+@interface CatalogViewController : UIViewController<UIScrollViewDelegate,UINavigationBarDelegate,NSURLConnectionDataDelegate,sortDataDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *pageView;
 //拍品图
@@ -44,6 +44,8 @@
 @property (nonatomic) NSInteger pageNum;
 //目录号
 @property (strong,nonatomic) NSString *specialCode;
+@property (strong,nonatomic) NSString *orderPa;
+@property (strong,nonatomic) NSString *sort;
 @property (strong,nonatomic) NSString *imageUrl;
 //专场名称
 @property (strong,nonatomic) NSString *specialName;

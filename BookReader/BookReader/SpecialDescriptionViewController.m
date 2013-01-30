@@ -13,18 +13,43 @@
 @end
 
 @implementation SpecialDescriptionViewController
-@synthesize txtView;
+@synthesize scrollView;
+@synthesize addressView;
+@synthesize auctionTimeView;
+@synthesize previewView;
+@synthesize remarkView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        txtView = [[UITextView alloc] initWithFrame:self.view.frame];
-        txtView.textColor = [UIColor blackColor];
-        txtView.delegate = self;
-        txtView.editable = NO;
-        [self.view addSubview:txtView];
+        scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+//        [scrollView setDelegate:self];
+        scrollView.pagingEnabled = YES;
+        [scrollView setScrollEnabled:YES];
+        [scrollView setShowsHorizontalScrollIndicator:NO];
+        [scrollView setShowsVerticalScrollIndicator:NO];
+        [self.view addSubview:scrollView];
+        
+        previewView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 55)];
+        previewView.editable = NO;
+        previewView.scrollEnabled = NO;
+        [scrollView addSubview:previewView];
+        
+        auctionTimeView = [[UITextView alloc] initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, 55)];
+        auctionTimeView.editable = NO;
+        auctionTimeView.scrollEnabled = NO;
+        [scrollView addSubview:auctionTimeView];
+        
+        addressView = [[UITextView alloc] initWithFrame:CGRectMake(0, 110, self.view.frame.size.width, 55)];
+        addressView.editable = NO;
+        addressView.scrollEnabled = NO;
+        [scrollView addSubview:addressView];
+        
+        remarkView = [[UITextView alloc] initWithFrame:CGRectMake(0, 165, self.view.frame.size.width, 55)];
+        remarkView.editable = NO;
+        remarkView.scrollEnabled = NO;
+        [scrollView addSubview:remarkView];
     }
     return self;
 }
@@ -42,7 +67,7 @@
 }
 
 - (void)viewDidUnload {
-    [self setTxtView:nil];
+    [self setScrollView:nil];
     [super viewDidUnload];
 }
 @end

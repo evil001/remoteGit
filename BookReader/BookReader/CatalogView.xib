@@ -90,7 +90,6 @@
 						<string key="NSFrame">{{69, 149}, {124, 35}}</string>
 						<reference key="NSSuperview" ref="642405576"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -212,15 +211,6 @@
 						<reference key="destination" ref="662262071"/>
 					</object>
 					<int key="connectionID">23</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">goDetailCatalog:</string>
-						<reference key="source" ref="900647440"/>
-						<reference key="destination" ref="642405576"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">17</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">

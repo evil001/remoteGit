@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface SpecialDescriptionViewController : UIViewController
-@property (strong, nonatomic) IBOutlet UITextView *txtView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UITextView *previewView;
+@property (strong, nonatomic) IBOutlet UITextView *auctionTimeView;
+@property (strong, nonatomic) IBOutlet UITextView *addressView;
+@property (strong, nonatomic) IBOutlet UITextView *remarkView;
 
 @end

@@ -39,7 +39,7 @@
 @synthesize navigationBar;
 @synthesize requestVO;
 @synthesize currentPage,totalNum,totalPage,loadPage,pageNum;
-@synthesize specialCode,imageUrl,specialName,specialAuctionTime,specialPreview,specialRemark,specialAddress;
+@synthesize specialCode,orderPa,sort,imageUrl,specialName,specialAuctionTime,specialPreview,specialRemark,specialAddress;
 @synthesize receivedData;
 @synthesize slider,sliderValue;
 @synthesize popover;
@@ -53,6 +53,8 @@
     if (self) {
         [self analysisCatalog:imgUrl];
         currentPage = 0;
+        orderPa = LOT_TYPE;
+        sort = ASC;
         commImgArr = [[NSMutableArray alloc] init];
         commLotArr = [[NSMutableArray alloc] init];
         commCloseClostArr = [[NSMutableArray alloc] init];
@@ -71,37 +73,15 @@
         [scrollView setShowsVerticalScrollIndicator:NO];
         [self.view addSubview:scrollView];
         //滑动控件
-        //        UIImage *leftTrack = [UIImage imageNamed:@"left.png"];
-        //        UIImage *rightTrack = [UIImage imageNamed:@"right.png"];
-        //        UIImage *markImg = [UIImage imageNamed:@"mark.png"];
         slider = [[UISlider alloc] initWithFrame:CGRectMake(30, self.view.frame.size.height-72, self.view.frame.size.width-60, 20)];
         [slider setValue:0];
         [slider setMinimumValue:0];
-        //        [slider setMaximumValue:20];
-        //        [slider setMinimumTrackImage:leftTrack forState:UIControlStateNormal];
-        //        [slider setMaximumTrackImage:rightTrack forState:UIControlStateNormal];
-        //        [slider setThumbImage:markImg forState:UIControlStateHighlighted];
         //滑动事件
         [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [slider addTarget:self action:@selector(sliderDragUp:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:slider];
     }
     return self;
-}
-
-- (IBAction)changeSeg:(id)sender {
-    //全部
-    if ([sender selectedSegmentIndex] == 0) {
-        NSLog(@"全部...");
-    }
-    //关注
-    if ([sender selectedSegmentIndex] == 1) {
-        NSLog(@"关注...");
-    }
-    //提醒
-    if ([sender selectedSegmentIndex] == 2) {
-        NSLog(@"提醒...");
-    }
 }
 
 - (void)viewDidLoad
@@ -125,12 +105,28 @@
     self.navigationItem.rightBarButtonItem = myBtn;
 }
 
+- (IBAction)changeSeg:(id)sender {
+    //全部
+    if ([sender selectedSegmentIndex] == 0) {
+        NSLog(@"全部...");
+    }
+    //关注
+    if ([sender selectedSegmentIndex] == 1) {
+        NSLog(@"关注...");
+    }
+    //提醒
+    if ([sender selectedSegmentIndex] == 2) {
+        NSLog(@"提醒...");
+    }
+}
+
 //排序
 - (IBAction)sortAction:(id)sender {
     sortVC = [[SortViewController alloc] initWithStyle:UITableViewStylePlain];
-    sortVC.contentSizeForViewInPopover = CGSizeMake(250, 200);
+    sortVC.contentSizeForViewInPopover = CGSizeMake(240, 176);
     popover = [[UIPopoverController alloc] initWithContentViewController:sortVC];
     [popover presentPopoverFromRect:[self.sortBtn bounds] inView:self.sortBtn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    sortVC.delegate = self;
     sortVC.popover = self.popover;
     sortVC.specialCode = specialCode;
 }
@@ -140,8 +136,23 @@
     if (!isShowSpecial) {
         sdVC = [[SpecialDescriptionViewController alloc] initWithNibName:@"SpecialDescriptionViewController" bundle:nil];
         sdVC.contentSizeForViewInPopover = CGSizeMake(300, 300);
-        //TODO 还需排版修改
-        sdVC.txtView.text = [NSString stringWithFormat:@"%@ %@ %@ %@",specialAddress,specialAuctionTime,specialPreview,specialRemark];//专场简介
+        //专场简介
+        if (nil != specialPreview) {
+            sdVC.previewView.text = [NSString stringWithFormat:@"预展：%@",specialPreview];
+            sdVC.previewView.font = [UIFont fontWithName:@"Arial" size:16];
+        }
+        if (nil != specialAuctionTime) {
+            sdVC.auctionTimeView.text = [NSString stringWithFormat:@"时间：%@",specialAuctionTime];;
+            sdVC.auctionTimeView.font = [UIFont fontWithName:@"Arial" size:16];
+        }
+        if (nil != specialAddress) {
+            sdVC.addressView.text = [NSString stringWithFormat:@"地址：%@",specialAddress];
+            sdVC.addressView.font = [UIFont fontWithName:@"Arial" size:16];
+        }
+        if (nil != specialRemark) {
+            sdVC.remarkView.text = [NSString stringWithFormat:@"备注：%@",specialRemark];
+            sdVC.remarkView.font = [UIFont fontWithName:@"Arial" size:16];
+        }
         popover = [[UIPopoverController alloc] initWithContentViewController:sdVC];
         [popover presentPopoverFromBarButtonItem:firstBtn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         isShowSpecial = true;
@@ -190,6 +201,8 @@
     [requestVO setClassName:@"AppServiceImpl"];
     [requestVO setMethodName:@"queryAuctionBySpecialCode"];
     [requestVO setSpecialCode:specialCode];
+    [requestVO setOrderPa:orderPa];
+    [requestVO setSort:sort];
     [requestVO setStart:[NSString stringWithFormat:@"%i",currentPage]];
     [requestVO setEnd:[NSString stringWithFormat:@"%i",PAGE_MAX]];
     
@@ -204,6 +217,8 @@
     [directory setValue:requestParam.className forKey:@"className"];
     [directory setValue:requestParam.methodName forKey:@"methodName"];
     [paramDic setValue:requestParam.specialCode forKey:@"specialCode"];
+    [paramDic setValue:requestParam.orderPa forKey:@"orderPa"];
+    [paramDic setValue:requestParam.sort forKey:@"sort"];
     [paramDic setValue:requestParam.start forKey:@"start"];
     [paramDic setValue:requestParam.end forKey:@"end"];
     [directory setValue:paramDic forKey:@"parameter"];
@@ -307,6 +322,7 @@
 //加载下一页新数据
 - (void) loadNewData:(float) w :(int)start{
     pageView = [[UIView alloc] initWithFrame:CGRectMake(w, 5, self.view.frame.size.width, self.view.frame.size.height)];
+    NSLog(@"pageNum : %i,loadPage : %i,totalPage : %i,start : %i",pageNum,loadPage,totalPage,start);
     if (pageNum==(totalPage-1)) {//显示最后一页剩余下来的拍品
         for (int j=start; j< [imgArr count]; j++) {
             CatalogView *catalogView = [[[NSBundle mainBundle] loadNibNamed:@"CatalogView" owner:self options:nil] lastObject];
@@ -397,22 +413,45 @@
             catalogView.imageView.tag = j;
             
             [catalogView.nameBtn setTitle:[displayMsgArr objectAtIndex:j] forState:UIControlStateNormal];
+//            [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
+            catalogView.nameBtn.tag = j;
             [pageView addSubview:catalogView];
             [self.scrollView addSubview:pageView];
         }
     }
-    
+}
+
+//加载请求排序数据（排序sortDataDelegate代理方法）
+- (void)loadDataShow:(RequestVO *)requestParams{
+    //改变排序按钮title
+    [sortBtn setTitle:requestParams.sortTypeStr forState:UIControlStateNormal];
+    [self clearData];//清空数据
+    pageNum = 0;
+    currentPage = 0;
+    orderPa = requestParams.orderPa;
+    sort = requestParams.sort;
+    [self analysisCatalog:requestParams.specialCode];
+    [self initRequestParam];
+    [self initRequestData:requestVO];
+    //重新初始化scorllview位置
+    CGRect frame = self.view.frame;
+    frame.origin.x = self.view.frame.size.width*pageNum;
+    frame.origin.y = 0;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
 //进入拍品详细
 - (void) goAuctionDetail:(id)sender{
+    NSLog(@"goAuctionDetail.....");
     NSInteger index = [(UIGestureRecognizer *)sender view].tag;
     NSLog(@"goAuctionDetail........%i",index);
     NSString *imgStr = [imgArr objectAtIndex:index];
     NSLog(@"imgStr =========%@ ",imgStr);
     ImageScanViewController *imageScan = [[ImageScanViewController alloc]init];
     imageScan.specialCode = specialCode;
-    [self.navigationController pushViewController:imageScan animated:YES];
+    imageScan.listIndex = index;
+    imageScan.modalTransitionStyle = UIModalPresentationPageSheet;
+    [self presentModalViewController:imageScan animated:YES];
 }
 
 //下载图络图片
@@ -446,6 +485,11 @@
 {
     [super didReceiveMemoryWarning];
     //内存不够
+    [self clearData];
+}
+
+//清除数据
+- (void) clearData{
     [imgArr removeAllObjects];
     [lotArr removeAllObjects];
     [closeClostArr removeAllObjects];
@@ -454,6 +498,11 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
+}
+
+//横屏
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    return (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
 - (void)viewDidUnload {

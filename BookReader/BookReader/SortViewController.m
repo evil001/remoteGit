@@ -8,6 +8,7 @@
 
 #import "SortViewController.h"
 #import "CatalogViewController.h"
+#import "Utils.h"
 
 @interface SortViewController ()
 
@@ -17,12 +18,13 @@
 @synthesize popover,sortArry;
 @synthesize sortStr;
 @synthesize specialCode;
+@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-         sortArry = [[NSMutableArray alloc] initWithObjects:@"成交价从低到高",@"成交价从高到低",@"图录序号从小到大",@"图录序号从大到小", nil];
+         sortArry = [[NSMutableArray alloc] initWithObjects:CLOSE_COST_ASC,CLOSE_COST_DESC,LOT_ASC,LOT_DESC, nil];
     }
     return self;
 }
@@ -60,6 +62,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.textLabel.text = [sortArry objectAtIndex:indexPath.row];
+    cell.textLabel.font = [UIFont fontWithName:@"Arial" size:18];
     return cell;
 }
 
@@ -70,9 +73,29 @@
     //隐藏popover
     [popover dismissPopoverAnimated:YES];
     sortStr = [sortArry objectAtIndex:indexPath.row];
-    NSLog(@"sortStr : %@ , specialCode :%@",sortStr,specialCode);
-    CatalogViewController *catalogVC = [[CatalogViewController alloc] initWithNibName:@"CatalogViewController" bundle:nil :specialCode];
-//    [self.navigationController pushViewController:catalogVC animated:YES];
+    RequestVO *requestVO = [[RequestVO alloc] init];
+    if ([sortStr isEqualToString:CLOSE_COST_ASC]) {//成交价升序
+        [requestVO setSpecialCode:specialCode];
+        [requestVO setOrderPa:CLOSE_COST_TYPE];
+        [requestVO setSort:ASC];
+    }
+    if ([sortStr isEqualToString:CLOSE_COST_DESC]) {//成交价降序
+        [requestVO setSpecialCode:specialCode];
+        [requestVO setOrderPa:CLOSE_COST_TYPE];
+        [requestVO setSort:DESC];
+    }
+    if ([sortStr isEqualToString:LOT_ASC]) {//lot升序
+        [requestVO setSpecialCode:specialCode];
+        [requestVO setOrderPa:LOT_TYPE];
+        [requestVO setSort:ASC];
+    }
+    if ([sortStr isEqualToString:LOT_DESC]) {//lot降序
+        [requestVO setSpecialCode:specialCode];
+        [requestVO setOrderPa:LOT_TYPE];
+        [requestVO setSort:DESC];
+    }
+    [requestVO setSortTypeStr:sortStr];
+    [delegate loadDataShow:requestVO];//代理方法解决调用Controller问题
 }
 
 @end
