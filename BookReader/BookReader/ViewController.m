@@ -70,6 +70,11 @@
 
 - (void) requestImageData{
     NSData *data=[self httpData:@"queryAllCatelogInfo":nil];
+    if (data==nil) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"系统提示" message:@"暂无数据" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
     NSError *error ;
     NSDictionary *imageDictory = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     NSArray *imageUrl = [imageDictory valueForKey:@"imageUrl"];

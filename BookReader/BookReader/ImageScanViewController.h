@@ -10,7 +10,7 @@
 #import "SDWebImageDownloader.h"
 #import "AuctionPopoverController.h"
 
-@interface ImageScanViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate>{
+@interface ImageScanViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate,NSURLConnectionDataDelegate>{
     UIScrollView *scrollView;
     NSString *specialCode;      
     
@@ -30,6 +30,7 @@
 @property NSUInteger pageNum;       //总页数
 @property NSUInteger currPage;      //当前页数
 @property (strong,nonatomic) UISlider *slider;
+@property (strong, nonatomic) NSMutableData *receivedData;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
 @property (nonatomic) CGFloat lastScal;
@@ -52,4 +53,5 @@
 
 @property (strong, nonatomic) UIPopoverController *auctionPopover;
 @property (strong, nonatomic) AuctionPopoverController *auctionController;
+
 @end

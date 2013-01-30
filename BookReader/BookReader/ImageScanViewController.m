@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *materialName;
 @property (strong, nonatomic) UIButton *guanzhuBtn;
 @property (strong, nonatomic) UIButton *xinxiBtn;
+@property (strong, nonatomic) NSDictionary *imageDictory;
 @end
 
 @implementation ImageScanViewController
@@ -44,6 +45,8 @@
 @synthesize auctionSort,orderPa;
 @synthesize auctionController;
 @synthesize auctionPopover;
+@synthesize imageDictory;
+@synthesize receivedData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,24 +64,16 @@
     [self requestData];
     //设置scrollview
     [self settingScrollView];
-    for (int i =0; i<[self.imagesArr count]; i++) {
-        [self syncDownloadImage:i];
-    }
-    [self.scrollView scrollRectToVisible:CGRectMake(listIndex*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
+    
     [self.view addSubview:self.scrollView];
     [self loadTapGestureRecognize];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self addSliderToolbar];
     self.topToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,0,PAGE_WIDTH,44)];
-    [self initTitleLabel:listIndex];
+//    [self initTitleLabel:listIndex];
     [self initBackBtn];
     [self.view addSubview:topToolBar];
     isShowToolBar=true;
-    
-    [self.scrollView scrollRectToVisible:CGRectMake(listIndex*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
-    self.slider.value = listIndex;
-    NSLog(@"================imageUrl:%@",[imagesArr objectAtIndex:listIndex]);
-    NSLog(@"===============descript:%@",[self.auctionRemarkArr description]);
 }
 
 //初始化返回按钮
@@ -102,30 +97,31 @@
 
 //初始化头部导航栏标题
 - (void)initTitleLabel:(NSUInteger)index{
-    NSString *closeCost = [self.closeCostArr objectAtIndex:index];
-    NSString *metail = [self.metailArr objectAtIndex:index];
-    NSString *remark = [self.auctionRemarkArr objectAtIndex:index];
     self.auctionName = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-75, 0, 200, 20)];
-    self.auctionName.text = [NSString stringWithFormat:@"%@  %@",[self.lotArr objectAtIndex:index],[self.auctionNameArr objectAtIndex:index]];
     self.auctionName.font = [UIFont systemFontOfSize:15];
     self.auctionName.backgroundColor = [UIColor clearColor];
     self.evaluateCost = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-150, 20, 400, 20)];
     self.evaluateCost.textColor = [UIColor darkGrayColor];
-    self.evaluateCost.text = [NSString stringWithFormat:@"估价 (RMB) : %@   成交价 (RMB) : %@   材质: %@  描述：%@",[self.evaluateCostArr objectAtIndex:index],closeCost,metail,remark];
     self.evaluateCost.font = [UIFont systemFontOfSize:13];
     self.evaluateCost.backgroundColor = [UIColor clearColor];
     [self.topToolBar addSubview:evaluateCost];
     [self.topToolBar addSubview:self.auctionName];
+    
+    [self updateTitleLabel:index];
 }
 
 - (void)clickAuctionInfo:(id)sender{
     NSUInteger index = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
+    NSLog(@"---------index:++++%i",index);
+    NSLog(@"============--------lot:%@",[self.lotArr objectAtIndex:index]);
+        NSLog(@"============--------name:%@",[self.auctionNameArr objectAtIndex:index]);
     self.auctionController=[[AuctionPopoverController alloc] initWithNibName:@"AuctionPopoverController" bundle:nil];
     self.auctionController.contentSizeForViewInPopover=CGSizeMake(400, 450);
     self.auctionPopover=[[UIPopoverController alloc] initWithContentViewController:self.auctionController];
     [self.auctionPopover presentPopoverFromRect:self.xinxiBtn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
+//点击返回
 -(void)clickBack:(id)sender{
     [self dismissModalViewControllerAnimated:YES];
 }
@@ -175,7 +171,7 @@
     //    [guanzhuBtn setTitle:@"关注" forState:UIControlStateNormal];
     slider.continuous = NO;
     slider.minimumValue=0;
-    slider.maximumValue = [imagesArr count]-1;
+//    slider.maximumValue = [imagesArr count]-1;
     slider.value = 0;
     [self.buttomToolBar addSubview:guanzhuBtn];
     [slider addTarget:self action:@selector(sliderChange:) forControlEvents:UIControlEventValueChanged];
@@ -187,7 +183,7 @@
 -(IBAction)sliderChange:(id)sender{
     [self.activityIndicatorView startAnimating];
     NSUInteger page = (NSUInteger)roundf(slider.value);
-    //    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:page]];
+    [self updateTitleLabel:page];
     [self.scrollView scrollRectToVisible:CGRectMake(page*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
     [self.activityIndicatorView stopAnimating];
 }
@@ -211,22 +207,67 @@
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
 
+#pragma connection
+//- (void)requestData{
+//    NSMutableDictionary *directory = [[NSMutableDictionary alloc]init];
+//    NSMutableDictionary *paramDictionary = [[NSMutableDictionary alloc]init];
+//    NSString *paramJson;
+//    NSMutableString *urlStr = [[NSMutableString alloc] initWithString:REQUEST_URL];
+//    [directory setValue:@"AppServiceImpl" forKey:@"className"];
+//    [directory setValue:@"queryAuctionByCatelog" forKey:@"methodName"];
+//    [paramDictionary setValue:self.specialCode forKey:@"specialCode"];
+//    if (self.orderPa !=NULL) {
+//        [paramDictionary setValue:self.orderPa forKey:@"orderPa"];
+//    }
+//    if (self.auctionSort!=NULL) {
+//        [paramDictionary setValue:self.auctionSort forKey:@"sort"];
+//    }
+//    [directory setValue:paramDictionary forKey:@"parameter"];
+//    
+//    if ([NSJSONSerialization isValidJSONObject:directory]) {
+//        NSError *error ;
+//        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:directory options:NSJSONWritingPrettyPrinted error:&error];
+//        paramJson =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//        paramJson = [paramJson stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    }
+//    [urlStr appendString:paramJson];
+//    NSURL *url = [NSURL URLWithString:urlStr];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setURL:url];
+//    [request setHTTPMethod:@"POST"];
+//    NSHTTPURLResponse *response;
+//    NSError *error ;
+//    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];    
+//    imageDictory = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+//    if ([imageDictory count]<=0) {
+//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"系统提示" message:@"暂无数据" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [alertView show];
+//        return;
+//    }
+//    imagesArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"imageName"]];
+//    self.auctionNameArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionName"]];
+//    self.lotArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"lot"]];
+//    self.evaluateCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"evaluateCost"]];
+//    self.metailArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"materialName"]];
+//    self.closeCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"closeCost"]];
+//    self.auctionRemarkArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionRemark"]];
+//    dataNum = [imagesArr count];        //总数据个数
+//    pageNum = (dataNum+IMAGESCAN_PAGE_DATA-1)/IMAGESCAN_PAGE_DATA;  //总页数
+//    currPage = 1;
+//}
+
 - (void)requestData{
+    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *directory = [[NSMutableDictionary alloc]init];
-    NSMutableDictionary *paramDictionary = [[NSMutableDictionary alloc]init];
     NSString *paramJson;
     NSMutableString *urlStr = [[NSMutableString alloc] initWithString:REQUEST_URL];
     [directory setValue:@"AppServiceImpl" forKey:@"className"];
     [directory setValue:@"queryAuctionByCatelog" forKey:@"methodName"];
-    [paramDictionary setValue:self.specialCode forKey:@"specialCode"];
-    if (self.orderPa !=NULL) {
-        [paramDictionary setValue:self.orderPa forKey:@"orderPa"];
-    }
-    if (self.auctionSort!=NULL) {
-        [paramDictionary setValue:self.auctionSort forKey:@"sort"];
-    }
-    [directory setValue:paramDictionary forKey:@"parameter"];
-    
+    [paramDic setValue:self.specialCode forKey:@"specialCode"];
+    [paramDic setValue:self.orderPa forKey:@"orderPa"];
+    [paramDic setValue:self.auctionSort forKey:@"sort"];
+    [directory setValue:paramDic forKey:@"parameter"];
+    NSLog(@"[directory description] :%@",[directory description]);
     if ([NSJSONSerialization isValidJSONObject:directory]) {
         NSError *error ;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:directory options:NSJSONWritingPrettyPrinted error:&error];
@@ -238,20 +279,69 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:url];
     [request setHTTPMethod:@"POST"];
-    NSHTTPURLResponse *response;
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (connection) {
+        receivedData = [[NSMutableData alloc] init];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"服务器连接异常" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+
+}
+
+//接收响应
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    [receivedData setLength:0];
+}
+
+//接收到数据
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    [receivedData appendData:data];
+}
+
+//数据加载完成
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
     NSError *error ;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];    
-    NSDictionary *imageDictory = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-    imagesArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"imageName"]];
-    self.auctionNameArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionName"]];
-    self.lotArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"lot"]];
-    self.evaluateCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"evaluateCost"]];
-    self.metailArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"materialName"]];
-    self.closeCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"closeCost"]];
-    self.auctionRemarkArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionRemark"]];
-    dataNum = [imagesArr count];        //总数据个数
-    pageNum = (dataNum+IMAGESCAN_PAGE_DATA-1)/IMAGESCAN_PAGE_DATA;  //总页数
-    currPage = 1;
+    imageDictory = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
+    if (NULL != imageDictory) {
+        imagesArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"imageName"]];
+        self.auctionNameArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionName"]];
+        self.lotArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"lot"]];
+        self.evaluateCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"evaluateCost"]];
+        self.metailArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"materialName"]];
+        self.closeCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"closeCost"]];
+        self.auctionRemarkArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionRemark"]];
+        dataNum = [imagesArr count];        //总数据个数
+        pageNum = (dataNum+IMAGESCAN_PAGE_DATA-1)/IMAGESCAN_PAGE_DATA;  //总页数
+        currPage = 1;
+        [self.scrollView setContentSize:CGSizeMake(PAGE_WIDTH*[imagesArr count], PAGE_HEIGHT)];
+        [self initTitleLabel:listIndex];
+        slider.maximumValue = [imagesArr count]-1;
+        slider.continuous = NO;
+        slider.minimumValue=0;
+        for (int i =0; i<[self.imagesArr count]; i++) {
+            [self syncDownloadImage:i];
+        }
+        NSLog(@"===========listInde:%i",listIndex);
+        [self.scrollView scrollRectToVisible:CGRectMake(listIndex*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
+        self.slider.value = listIndex;
+        
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"拍品无数据" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
+
+
+- (void)updateTitleLabel:(NSUInteger)index{
+    NSString *closeCost,*metail;
+    if ([imageDictory count]>0) {
+        closeCost = [self.closeCostArr objectAtIndex:index];
+        metail = [self.metailArr objectAtIndex:index];
+//        remark = [self.auctionRemarkArr objectAtIndex:index];
+        self.auctionName.text = [NSString stringWithFormat:@"%@  %@",[self.lotArr objectAtIndex:index],[self.auctionNameArr objectAtIndex:index]];
+        self.evaluateCost.text = [NSString stringWithFormat:@"估价 (RMB) : %@   成交价 (RMB) : %@   材质: %@  ",[self.evaluateCostArr objectAtIndex:index],closeCost,metail];
+    }
 }
 
 #pragma scrollview
@@ -260,8 +350,9 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    self.slider.value = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
-    //    self.titleLabel.text = [NSString stringWithFormat:@"%@",[self.titleArr objectAtIndex:self.slider.value]];
+    NSUInteger index = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
+    self.slider.value = index;
+    [self updateTitleLabel:index];
 }
 
 -(void)scrollviewPage{
@@ -276,9 +367,19 @@
 }
 
 -(void)syncDownloadImage:(NSUInteger)index{
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActionSheetStyleBlackTranslucent];
     imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT)];
+    self.activityIndicatorView.center = scrollView.center;
+    [imageView addSubview:self.activityIndicatorView];
+    [self.activityIndicatorView startAnimating];
     NSString *urlStr = [NSString stringWithFormat:AUCTION_DETAIL_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
-    [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+//    [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage: [UIImage imageNamed:@"placeholder.png"] success:^(UIImage *image){
+        [self.activityIndicatorView stopAnimating];
+    } failure:^(NSError *error){
+        NSLog(@"=================下载失败:%@",error);
+        [self.imageView setImageWithURL:[NSURL URLWithString:urlStr]];
+    }];
     imageView.userInteractionEnabled = YES;
     //设置图片为自适应
     imageView.contentMode=UIViewContentModeScaleAspectFit;
