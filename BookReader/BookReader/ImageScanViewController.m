@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backBtn;
 @property (strong, nonatomic) IBOutlet UILabel *materialName;
 @property (strong, nonatomic) UIButton *guanzhuBtn;
+@property (strong, nonatomic) UIButton *xinxiBtn;
 @end
 
 @implementation ImageScanViewController
@@ -40,7 +41,7 @@
 @synthesize evaluateCost;
 @synthesize lot;
 //@synthesize titleLabel;
-@synthesize backBtn;
+@synthesize xinxiBtn;
 @synthesize materialName;
 @synthesize guanzhuBtn;
 @synthesize auctionSort;
@@ -86,10 +87,11 @@
     
     [speaceItem setWidth:500];
     
-    //    UIBarButtonItem *xinxiItem = [[UIBarButtonItem alloc]initWithTitle:@"信息" style:UIBarStyleBlack target:self action:@selector(clickAuctionInfo:)];
     UIBarButtonItem *showCompanyInfo = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
     //信息item
-    UIBarButtonItem *xinxiItem = [[UIBarButtonItem alloc]initWithTitle:@"信息" style:UIBarButtonItemStyleDone target:self action:@selector(clickAuctionInfo:)];
+    xinxiBtn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [xinxiBtn addTarget:self action:@selector(clickAuctionInfo:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *xinxiItem = [[UIBarButtonItem alloc]initWithCustomView:xinxiBtn];
     [self.topToolBar setBarStyle:UIBarStyleDefault];
     [self.topToolBar setItems:[NSArray arrayWithObjects:backItem,speaceItem,showCompanyInfo,xinxiItem,nil]];
     
