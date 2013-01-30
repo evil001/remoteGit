@@ -45,6 +45,8 @@
 @synthesize materialName;
 @synthesize guanzhuBtn;
 @synthesize auctionSort;
+@synthesize auctionController;
+@synthesize auctionPopover;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -126,6 +128,10 @@
 
 - (void)clickAuctionInfo:(id)sender{
     NSUInteger index = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
+    self.auctionController=[[AuctionPopoverController alloc] initWithNibName:@"AuctionPopoverController" bundle:nil];
+    self.auctionPopover=[[UIPopoverController alloc] initWithContentViewController:self.auctionController];
+    self.auctionController.contentSizeForViewInPopover=CGSizeMake(400, 600);
+    [self.auctionPopover presentPopoverFromRect:self.xinxiBtn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 -(void)clickBack:(id)sender{

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SDWebImageDownloader.h"
+#import "AuctionPopoverController.h"
 
 @interface ImageScanViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate>{
     UIScrollView *scrollView;
@@ -47,4 +48,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *evaluateCost;
 @property (strong, nonatomic) IBOutlet UILabel *lot;
 @property (strong, nonatomic) NSString *auctionSort;
+
+@property (strong, nonatomic) UIPopoverController *auctionPopover;
+@property (strong, nonatomic) AuctionPopoverController *auctionController;
 @end
