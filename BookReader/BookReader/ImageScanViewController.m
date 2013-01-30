@@ -16,7 +16,7 @@
 @interface ImageScanViewController ()
 //@property (strong, nonatomic) UILabel *titleLabel;
 
-@property (strong, nonatomic) NSMutableArray *auctionNameArr,*lotArr,*evaluateCostArr,*metailArr;
+@property (strong, nonatomic) NSMutableArray *auctionNameArr,*lotArr,*evaluateCostArr,*metailArr,*closeCostArr,*auctionRemarkArr;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backBtn;
 @property (strong, nonatomic) IBOutlet UILabel *materialName;
 @property (strong, nonatomic) UIButton *guanzhuBtn;
@@ -26,7 +26,7 @@
 @implementation ImageScanViewController
 @synthesize scrollView;
 @synthesize pageControl;
-@synthesize imagesArr,auctionNameArr,lotArr,evaluateCostArr,metailArr;
+@synthesize imagesArr,auctionNameArr,lotArr,evaluateCostArr,metailArr,closeCostArr,auctionRemarkArr;
 @synthesize specialCode;
 @synthesize pageNum,currPage,listIndex;
 @synthesize slider;
@@ -37,14 +37,11 @@
 @synthesize topToolBar;
 @synthesize topRightBtn;
 @synthesize isShowToolBar;
-@synthesize auctionName;
-@synthesize evaluateCost;
-@synthesize lot;
-//@synthesize titleLabel;
+@synthesize auctionName,evaluateCost,lot;
 @synthesize xinxiBtn;
 @synthesize materialName;
 @synthesize guanzhuBtn;
-@synthesize auctionSort;
+@synthesize auctionSort,orderPa;
 @synthesize auctionController;
 @synthesize auctionPopover;
 
@@ -64,7 +61,6 @@
     [self requestData];
     //设置scrollview
     [self settingScrollView];
-    //    [self initTitleLabel];
     for (int i =0; i<[self.imagesArr count]; i++) {
         [self syncDownloadImage:i];
     }
@@ -74,10 +70,15 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self addSliderToolbar];
     self.topToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,0,PAGE_WIDTH,44)];
-    [self initTitleLabel];
+    [self initTitleLabel:listIndex];
     [self initBackBtn];
     [self.view addSubview:topToolBar];
     isShowToolBar=true;
+    
+    [self.scrollView scrollRectToVisible:CGRectMake(listIndex*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
+    self.slider.value = listIndex;
+    NSLog(@"================imageUrl:%@",[imagesArr objectAtIndex:listIndex]);
+    NSLog(@"===============descript:%@",[self.auctionRemarkArr description]);
 }
 
 //初始化返回按钮
@@ -100,29 +101,20 @@
 }
 
 //初始化头部导航栏标题
-- (void)initTitleLabel{
-    self.auctionName = [[UILabel alloc]initWithFrame:CGRectMake(510, 1, 200, 20)];
-    self.auctionName.text = [NSString stringWithFormat:@"%@",[self.auctionNameArr objectAtIndex:0]];
+- (void)initTitleLabel:(NSUInteger)index{
+    NSString *closeCost = [self.closeCostArr objectAtIndex:index];
+    NSString *metail = [self.metailArr objectAtIndex:index];
+    NSString *remark = [self.auctionRemarkArr objectAtIndex:index];
+    self.auctionName = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-75, 0, 200, 20)];
+    self.auctionName.text = [NSString stringWithFormat:@"%@  %@",[self.lotArr objectAtIndex:index],[self.auctionNameArr objectAtIndex:index]];
     self.auctionName.font = [UIFont systemFontOfSize:15];
     self.auctionName.backgroundColor = [UIColor clearColor];
-    self.lot = [[UILabel alloc]initWithFrame:CGRectMake(441, 1, 100, 20)];
-    self.lot.text = [NSString stringWithFormat:@"%@",[self.lotArr objectAtIndex:0]];
-    self.lot.font = [UIFont systemFontOfSize:15];
-    self.lot.textAlignment = UITextAlignmentCenter;
-    self.lot.backgroundColor = [UIColor clearColor];
-    self.evaluateCost = [[UILabel alloc]initWithFrame:CGRectMake(441, 20, 150, 20)];
+    self.evaluateCost = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-150, 20, 400, 20)];
     self.evaluateCost.textColor = [UIColor darkGrayColor];
-    self.evaluateCost.text = [NSString stringWithFormat:@"估价 (RMB) : %@",[self.evaluateCostArr objectAtIndex:0]];
+    self.evaluateCost.text = [NSString stringWithFormat:@"估价 (RMB) : %@   成交价 (RMB) : %@   材质: %@  描述：%@",[self.evaluateCostArr objectAtIndex:index],closeCost,metail,remark];
     self.evaluateCost.font = [UIFont systemFontOfSize:13];
     self.evaluateCost.backgroundColor = [UIColor clearColor];
-    self.materialName = [[UILabel alloc] initWithFrame:CGRectMake(600, 20, 200, 20)];
-    self.materialName.textColor = [UIColor darkGrayColor];
-    self.materialName.text = [NSString stringWithFormat:@"材质 : %@",[self.metailArr objectAtIndex:0]];
-    self.materialName.font = [UIFont systemFontOfSize:13];
-    self.materialName.backgroundColor = [UIColor clearColor];
-    [self.topToolBar addSubview:materialName];
     [self.topToolBar addSubview:evaluateCost];
-    [self.topToolBar addSubview:self.lot];
     [self.topToolBar addSubview:self.auctionName];
 }
 
@@ -135,13 +127,7 @@
 }
 
 -(void)clickBack:(id)sender{
-    NSLog(@"click back");
-    //    CatalogViewController *catalogView = [[CatalogViewController alloc]initWithNibName:@"CatalogViewController" bundle:nil];
-//    ViewController *v = [[ViewController alloc]init];
-//    [self setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-//    [self presentModalViewController:v animated:YES];
     [self dismissModalViewControllerAnimated:YES];
-    //    [self.navigationController pushViewController:catalogView animated:YES];
 }
 
 //触摸点击
@@ -226,13 +212,21 @@
 }
 
 - (void)requestData{
-    NSString *resultTemp = [[NSString alloc] initWithString:specialCode];
     NSMutableDictionary *directory = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *paramDictionary = [[NSMutableDictionary alloc]init];
     NSString *paramJson;
     NSMutableString *urlStr = [[NSMutableString alloc] initWithString:REQUEST_URL];
     [directory setValue:@"AppServiceImpl" forKey:@"className"];
     [directory setValue:@"queryAuctionByCatelog" forKey:@"methodName"];
-    [directory setValue:[[resultTemp substringWithRange:NSMakeRange(0,6)]uppercaseString] forKey:@"parameter"];
+    [paramDictionary setValue:self.specialCode forKey:@"specialCode"];
+    if (self.orderPa !=NULL) {
+        [paramDictionary setValue:self.orderPa forKey:@"orderPa"];
+    }
+    if (self.auctionSort!=NULL) {
+        [paramDictionary setValue:self.auctionSort forKey:@"sort"];
+    }
+    [directory setValue:paramDictionary forKey:@"parameter"];
+    
     if ([NSJSONSerialization isValidJSONObject:directory]) {
         NSError *error ;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:directory options:NSJSONWritingPrettyPrinted error:&error];
@@ -253,6 +247,8 @@
     self.lotArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"lot"]];
     self.evaluateCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"evaluateCost"]];
     self.metailArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"materialName"]];
+    self.closeCostArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"closeCost"]];
+    self.auctionRemarkArr = [[NSMutableArray alloc]initWithArray:[imageDictory valueForKey:@"auctionRemark"]];
     dataNum = [imagesArr count];        //总数据个数
     pageNum = (dataNum+IMAGESCAN_PAGE_DATA-1)/IMAGESCAN_PAGE_DATA;  //总页数
     currPage = 1;

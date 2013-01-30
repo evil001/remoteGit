@@ -48,6 +48,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *evaluateCost;
 @property (strong, nonatomic) IBOutlet UILabel *lot;
 @property (strong, nonatomic) NSString *auctionSort;
+@property (strong, nonatomic) NSString *orderPa;
 
 @property (strong, nonatomic) UIPopoverController *auctionPopover;
 @property (strong, nonatomic) AuctionPopoverController *auctionController;
