@@ -39,4 +39,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [self setLot:nil];
+    [self setAuctionName:nil];
+    [self setDescription:nil];
+    [super viewDidUnload];
+}
 @end
