@@ -26,7 +26,7 @@
 //一页的宽度
 #define PAGE_WIDTH 1024
 //默认加载图片
-#define DEFAULT_IMAGE @"w12122.jpg"
+#define DEFAULT_IMAGE @"placeholder.jpg"
 
 @interface CatalogViewController ()
 
@@ -66,6 +66,7 @@
         [self initRequestParam];
         [self initRequestData:requestVO];
         scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 35, self.view.frame.size.width, self.view.frame.size.height)];
+        scrollView.backgroundColor = [UIColor grayColor];
         [scrollView setDelegate:self];
         scrollView.pagingEnabled = YES;
         [scrollView setScrollEnabled:YES];
@@ -88,13 +89,13 @@
 {
     [super viewDidLoad];
     isShowSpecial = false;
-    self.view.backgroundColor = [UIColor grayColor];
+    //    self.view.backgroundColor = [UIColor grayColor];
     if (nil == specialName) {
         self.title = @"图录列表";
     }
     [sortBtn setTitle:@"拍品排序" forState:UIControlStateNormal];
     //添加导航右边按钮
-    UIToolbar *tools = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 150, 44)];
+    UIToolbar *tools = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 80, 44)];
     [tools setTintColor:[self.navigationController.navigationBar tintColor]];
     [tools setAlpha:[self.navigationController.navigationBar alpha]];
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:1];
@@ -258,7 +259,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
     NSError *error ;
     NSDictionary *dataDictory = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
-//    NSLog(@"dataDictory : %@",[dataDictory description]);
+    //    NSLog(@"dataDictory : %@",[dataDictory description]);
     if (NULL != dataDictory) {
         //拍品信息
         NSMutableDictionary *dic = [dataDictory valueForKey:@"auctionInfo"];
@@ -299,7 +300,7 @@
             [self loadNewData:PAGE_WIDTH*pageNum : PAGE_LIMIT*pageNum];
         }
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"拍品无数据" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该拍品无数据" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
     }
 }
@@ -413,7 +414,7 @@
             catalogView.imageView.tag = j;
             
             [catalogView.nameBtn setTitle:[displayMsgArr objectAtIndex:j] forState:UIControlStateNormal];
-//            [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
+            [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
             catalogView.nameBtn.tag = j;
             [pageView addSubview:catalogView];
             [self.scrollView addSubview:pageView];
@@ -440,9 +441,21 @@
     [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
-//进入拍品详细
+//点击图片进入拍品详细
 - (void) goAuctionDetail:(id)sender{
     NSInteger index = [(UIGestureRecognizer *)sender view].tag;
+    ImageScanViewController *imageScan = [[ImageScanViewController alloc] init];
+    imageScan.specialCode = specialCode;
+    imageScan.listIndex = index;
+    imageScan.orderPa = orderPa;
+    imageScan.auctionSort = sort;
+    imageScan.modalTransitionStyle = UIModalPresentationPageSheet;
+    [self presentModalViewController:imageScan animated:YES];
+}
+
+//点击拍品名称进入拍品详细
+- (void) goAuctionDetail_2:(id)sender{
+    NSInteger index = [sender tag];
     ImageScanViewController *imageScan = [[ImageScanViewController alloc] init];
     imageScan.specialCode = specialCode;
     imageScan.listIndex = index;
@@ -459,7 +472,6 @@
 }
 
 #pragma scrollView
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     pageNum = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
     [self loadNewData:PAGE_WIDTH*pageNum : PAGE_LIMIT*pageNum];
