@@ -13,6 +13,9 @@
 @end
 
 @implementation AuctionPopoverController
+@synthesize specialCode;
+@synthesize lot;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
