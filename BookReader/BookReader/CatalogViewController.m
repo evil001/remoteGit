@@ -442,14 +442,12 @@
 
 //进入拍品详细
 - (void) goAuctionDetail:(id)sender{
-    NSLog(@"goAuctionDetail.....");
     NSInteger index = [(UIGestureRecognizer *)sender view].tag;
-    NSLog(@"goAuctionDetail........%i",index);
-    NSString *imgStr = [imgArr objectAtIndex:index];
-    NSLog(@"imgStr =========%@ ",imgStr);
-    ImageScanViewController *imageScan = [[ImageScanViewController alloc]init];
+    ImageScanViewController *imageScan = [[ImageScanViewController alloc] init];
     imageScan.specialCode = specialCode;
     imageScan.listIndex = index;
+    imageScan.orderPa = orderPa;
+    imageScan.auctionSort = sort;
     imageScan.modalTransitionStyle = UIModalPresentationPageSheet;
     [self presentModalViewController:imageScan animated:YES];
 }

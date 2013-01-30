@@ -38,22 +38,6 @@
 		E07E570A169AA58C00A8BF60 /* BookShelfCell.png in Resources */ = {isa = PBXBuildFile; fileRef = E07E5709169AA58C00A8BF60 /* BookShelfCell.png */; };
 		E07E570D169AA5FD00A8BF60 /* MyBookView.m in Sources */ = {isa = PBXBuildFile; fileRef = E07E570C169AA5FD00A8BF60 /* MyBookView.m */; };
 		E07E570F169AA76F00A8BF60 /* BookViewChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = E07E570E169AA76F00A8BF60 /* BookViewChecked.png */; };
-		E07E5720169AA77B00A8BF60 /* t12063.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5710169AA77B00A8BF60 /* t12063.jpg */; };
-		E07E5721169AA77B00A8BF60 /* c12122.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5711169AA77B00A8BF60 /* c12122.jpg */; };
-		E07E5722169AA77B00A8BF60 /* c12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5712169AA77B00A8BF60 /* c12121.jpg */; };
-		E07E5723169AA77B00A8BF60 /* w12122.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5713169AA77B00A8BF60 /* w12122.jpg */; };
-		E07E5724169AA77B00A8BF60 /* w12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5714169AA77B00A8BF60 /* w12121.jpg */; };
-		E07E5725169AA77B00A8BF60 /* x12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5715169AA77B00A8BF60 /* x12121.jpg */; };
-		E07E5726169AA77B00A8BF60 /* d12122.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5716169AA77B00A8BF60 /* d12122.jpg */; };
-		E07E5727169AA77B00A8BF60 /* d12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5717169AA77B00A8BF60 /* d12121.jpg */; };
-		E07E5728169AA77B00A8BF60 /* t12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5718169AA77B00A8BF60 /* t12121.jpg */; };
-		E07E5729169AA77B00A8BF60 /* s12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E5719169AA77B00A8BF60 /* s12121.jpg */; };
-		E07E572A169AA77B00A8BF60 /* p12122.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E571A169AA77B00A8BF60 /* p12122.jpg */; };
-		E07E572B169AA77B00A8BF60 /* p12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E571B169AA77B00A8BF60 /* p12121.jpg */; };
-		E07E572C169AA77B00A8BF60 /* b12123.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E571C169AA77B00A8BF60 /* b12123.jpg */; };
-		E07E572D169AA77B00A8BF60 /* b12122.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E571D169AA77B00A8BF60 /* b12122.jpg */; };
-		E07E572E169AA77B00A8BF60 /* g12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E571E169AA77B00A8BF60 /* g12121.jpg */; };
-		E07E572F169AA77B00A8BF60 /* a12121.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E07E571F169AA77B00A8BF60 /* a12121.jpg */; };
 		E07E5732169AA9F500A8BF60 /* MyBelowBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E07E5731169AA9F500A8BF60 /* MyBelowBottomView.m */; };
 		E07E5737169AC3B000A8BF60 /* GSBookShelfView.m in Sources */ = {isa = PBXBuildFile; fileRef = E07E5735169AC3B000A8BF60 /* GSBookShelfView.m */; };
 		E07E573C169AC40C00A8BF60 /* GSBookViewContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E07E5739169AC40C00A8BF60 /* GSBookViewContainerView.m */; };
@@ -156,22 +140,6 @@
 		E07E570B169AA5FD00A8BF60 /* MyBookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBookView.h; sourceTree = "<group>"; };
 		E07E570C169AA5FD00A8BF60 /* MyBookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBookView.m; sourceTree = "<group>"; };
 		E07E570E169AA76F00A8BF60 /* BookViewChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BookViewChecked.png; sourceTree = "<group>"; };
-		E07E5710169AA77B00A8BF60 /* t12063.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = t12063.jpg; sourceTree = "<group>"; };
-		E07E5711169AA77B00A8BF60 /* c12122.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = c12122.jpg; sourceTree = "<group>"; };
-		E07E5712169AA77B00A8BF60 /* c12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = c12121.jpg; sourceTree = "<group>"; };
-		E07E5713169AA77B00A8BF60 /* w12122.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = w12122.jpg; sourceTree = "<group>"; };
-		E07E5714169AA77B00A8BF60 /* w12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = w12121.jpg; sourceTree = "<group>"; };
-		E07E5715169AA77B00A8BF60 /* x12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = x12121.jpg; sourceTree = "<group>"; };
-		E07E5716169AA77B00A8BF60 /* d12122.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = d12122.jpg; sourceTree = "<group>"; };
-		E07E5717169AA77B00A8BF60 /* d12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = d12121.jpg; sourceTree = "<group>"; };
-		E07E5718169AA77B00A8BF60 /* t12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = t12121.jpg; sourceTree = "<group>"; };
-		E07E5719169AA77B00A8BF60 /* s12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = s12121.jpg; sourceTree = "<group>"; };
-		E07E571A169AA77B00A8BF60 /* p12122.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = p12122.jpg; sourceTree = "<group>"; };
-		E07E571B169AA77B00A8BF60 /* p12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = p12121.jpg; sourceTree = "<group>"; };
-		E07E571C169AA77B00A8BF60 /* b12123.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = b12123.jpg; sourceTree = "<group>"; };
-		E07E571D169AA77B00A8BF60 /* b12122.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = b12122.jpg; sourceTree = "<group>"; };
-		E07E571E169AA77B00A8BF60 /* g12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = g12121.jpg; sourceTree = "<group>"; };
-		E07E571F169AA77B00A8BF60 /* a12121.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = a12121.jpg; sourceTree = "<group>"; };
 		E07E5730169AA9F500A8BF60 /* MyBelowBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBelowBottomView.h; sourceTree = "<group>"; };
 		E07E5731169AA9F500A8BF60 /* MyBelowBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBelowBottomView.m; sourceTree = "<group>"; };
 		E07E5733169AC3B000A8BF60 /* GSBookShelfCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSBookShelfCell.h; sourceTree = "<group>"; };
@@ -493,23 +461,7 @@
 				01EA21DE16B8DFD6004DD6F2 /* Default-Portrait~ipad.png */,
 				01EA21BB16B8C4AC004DD6F2 /* Icon.png */,
 				01EA21AF16B8BE3B004DD6F2 /* Icon@2x.png */,
-				E07E5710169AA77B00A8BF60 /* t12063.jpg */,
-				E07E5711169AA77B00A8BF60 /* c12122.jpg */,
-				E07E5712169AA77B00A8BF60 /* c12121.jpg */,
 				E07E573E169AC88500A8BF60 /* BookShelfCell@2x.png */,
-				E07E5713169AA77B00A8BF60 /* w12122.jpg */,
-				E07E5714169AA77B00A8BF60 /* w12121.jpg */,
-				E07E5715169AA77B00A8BF60 /* x12121.jpg */,
-				E07E5716169AA77B00A8BF60 /* d12122.jpg */,
-				E07E5717169AA77B00A8BF60 /* d12121.jpg */,
-				E07E5718169AA77B00A8BF60 /* t12121.jpg */,
-				E07E5719169AA77B00A8BF60 /* s12121.jpg */,
-				E07E571A169AA77B00A8BF60 /* p12122.jpg */,
-				E07E571B169AA77B00A8BF60 /* p12121.jpg */,
-				E07E571C169AA77B00A8BF60 /* b12123.jpg */,
-				E07E571D169AA77B00A8BF60 /* b12122.jpg */,
-				E07E571E169AA77B00A8BF60 /* g12121.jpg */,
-				E07E571F169AA77B00A8BF60 /* a12121.jpg */,
 				E07E570E169AA76F00A8BF60 /* BookViewChecked.png */,
 				E07E5709169AA58C00A8BF60 /* BookShelfCell.png */,
 			);
@@ -659,22 +611,6 @@
 				E07E56E5169A9F3100A8BF60 /* MainStoryboard.storyboard in Resources */,
 				E07E570A169AA58C00A8BF60 /* BookShelfCell.png in Resources */,
 				E07E570F169AA76F00A8BF60 /* BookViewChecked.png in Resources */,
-				E07E5720169AA77B00A8BF60 /* t12063.jpg in Resources */,
-				E07E5721169AA77B00A8BF60 /* c12122.jpg in Resources */,
-				E07E5722169AA77B00A8BF60 /* c12121.jpg in Resources */,
-				E07E5723169AA77B00A8BF60 /* w12122.jpg in Resources */,
-				E07E5724169AA77B00A8BF60 /* w12121.jpg in Resources */,
-				E07E5725169AA77B00A8BF60 /* x12121.jpg in Resources */,
-				E07E5726169AA77B00A8BF60 /* d12122.jpg in Resources */,
-				E07E5727169AA77B00A8BF60 /* d12121.jpg in Resources */,
-				E07E5728169AA77B00A8BF60 /* t12121.jpg in Resources */,
-				E07E5729169AA77B00A8BF60 /* s12121.jpg in Resources */,
-				E07E572A169AA77B00A8BF60 /* p12122.jpg in Resources */,
-				E07E572B169AA77B00A8BF60 /* p12121.jpg in Resources */,
-				E07E572C169AA77B00A8BF60 /* b12123.jpg in Resources */,
-				E07E572D169AA77B00A8BF60 /* b12122.jpg in Resources */,
-				E07E572E169AA77B00A8BF60 /* g12121.jpg in Resources */,
-				E07E572F169AA77B00A8BF60 /* a12121.jpg in Resources */,
 				E07E573F169AC88600A8BF60 /* BookShelfCell@2x.png in Resources */,
 				013D538C16B61619006BEC0E /* CatalogViewController.xib in Resources */,
 				013D53C916B7C3EE006BEC0E /* SpecialDescriptionViewController.xib in Resources */,
