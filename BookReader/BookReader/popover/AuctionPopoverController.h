@@ -11,8 +11,7 @@
 @interface AuctionPopoverController : UIViewController
 @property (strong,nonatomic) NSString *specialCode;
 @property (strong,nonatomic) NSString *lot;
+@property (strong,nonatomic) NSString *auctionDescription;
 
-@property (strong, nonatomic) IBOutlet UILabel *auctionLot;
-@property (strong, nonatomic) IBOutlet UILabel *auctionName;
 @property (strong, nonatomic) IBOutlet UILabel *description;
 @end

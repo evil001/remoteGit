@@ -15,6 +15,7 @@
 @implementation AuctionPopoverController
 @synthesize specialCode;
 @synthesize lot;
+@synthesize auctionDescription;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -29,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.description.text=self.auctionDescription;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -41,7 +42,6 @@
 
 - (void)viewDidUnload {
     [self setLot:nil];
-    [self setAuctionName:nil];
     [self setDescription:nil];
     [super viewDidUnload];
 }
