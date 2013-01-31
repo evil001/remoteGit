@@ -65,7 +65,7 @@
         displayMsgArr = [[NSMutableArray alloc] init];
         [self initRequestParam];
         [self initRequestData:requestVO];
-        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 35, self.view.frame.size.width, self.view.frame.size.height)];
+        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
         scrollView.backgroundColor = [UIColor grayColor];
         [scrollView setDelegate:self];
         scrollView.pagingEnabled = YES;
@@ -95,7 +95,7 @@
     }
     [sortBtn setTitle:@"拍品排序" forState:UIControlStateNormal];
     //添加导航右边按钮
-    UIToolbar *tools = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 80, 44)];
+    UIToolbar *tools = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 50, 44)];
     [tools setTintColor:[self.navigationController.navigationBar tintColor]];
     [tools setAlpha:[self.navigationController.navigationBar alpha]];
     NSMutableArray *buttons = [[NSMutableArray alloc] initWithCapacity:1];

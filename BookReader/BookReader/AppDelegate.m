@@ -21,6 +21,7 @@
 //    self.viewController = [[ViewController alloc]init];
 //    self.navController = [[UINavigationController alloc]initWithRootViewController:self.viewController];
 //    [self.window addSubview:self.navController.view];
+    [NSThread sleepForTimeInterval:4];
     return YES;
 }
 							
