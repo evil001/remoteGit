@@ -371,11 +371,11 @@
     imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT)];
     self.activityIndicatorView.center = scrollView.center;
     [imageView addSubview:self.activityIndicatorView];
-    [self.activityIndicatorView startAnimating];
+//    [self.activityIndicatorView startAnimating];
     NSString *urlStr = [NSString stringWithFormat:AUCTION_DETAIL_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
 //    [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage: [UIImage imageNamed:@"placeholder.png"] success:^(UIImage *image){
-        [self.activityIndicatorView stopAnimating];
+//        [self.activityIndicatorView stopAnimating];
     } failure:^(NSError *error){
         NSLog(@"=================下载失败:%@",error);
         [self.imageView setImageWithURL:[NSURL URLWithString:urlStr]];
