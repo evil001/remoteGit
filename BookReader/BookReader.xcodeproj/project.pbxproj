@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00618ED516BA0A3900F27600 /* newbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 00618ED416BA0A3900F27600 /* newbutton.png */; };
+		00618ED716BA0C2700F27600 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 00618ED616BA0C2700F27600 /* Default-Portrait~ipad.png */; };
+		00618ED916BA0C3500F27600 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 00618ED816BA0C3500F27600 /* Default-Landscape~ipad.png */; };
 		00817A8C16B7D80F005E3B76 /* AuctionPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00817A8A16B7D80F005E3B76 /* AuctionPopoverController.m */; };
 		00817A8D16B7D80F005E3B76 /* AuctionPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00817A8B16B7D80F005E3B76 /* AuctionPopoverController.xib */; };
 		00DB6A8A16B943550032EB5C /* HBookshelfCell@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00DB6A8916B943550032EB5C /* HBookshelfCell@2x.jpg */; };
@@ -88,6 +90,8 @@
 
 /* Begin PBXFileReference section */
 		00618ED416BA0A3900F27600 /* newbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newbutton.png; sourceTree = "<group>"; };
+		00618ED616BA0C2700F27600 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		00618ED816BA0C3500F27600 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		00817A8916B7D80F005E3B76 /* AuctionPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuctionPopoverController.h; sourceTree = "<group>"; };
 		00817A8A16B7D80F005E3B76 /* AuctionPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuctionPopoverController.m; sourceTree = "<group>"; };
 		00817A8B16B7D80F005E3B76 /* AuctionPopoverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuctionPopoverController.xib; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 		E07E5708169AA58000A8BF60 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				00618ED816BA0C3500F27600 /* Default-Landscape~ipad.png */,
+				00618ED616BA0C2700F27600 /* Default-Portrait~ipad.png */,
 				00618ED416BA0A3900F27600 /* newbutton.png */,
 				01EA223116BA0889004DD6F2 /* sort.png */,
 				01EA222816B954B6004DD6F2 /* see.png */,
@@ -632,6 +638,8 @@
 				01EA222B16B954B6004DD6F2 /* placeholder.jpg in Resources */,
 				01EA223216BA0889004DD6F2 /* sort.png in Resources */,
 				00618ED516BA0A3900F27600 /* newbutton.png in Resources */,
+				00618ED716BA0C2700F27600 /* Default-Portrait~ipad.png in Resources */,
+				00618ED916BA0C3500F27600 /* Default-Landscape~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

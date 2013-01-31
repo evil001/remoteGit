@@ -117,6 +117,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageScanViewController.h"/>
             <relationships>
                 <relationship kind="action" name="changeImage:"/>
+                <relationship kind="action" name="sliderChange:"/>
                 <relationship kind="outlet" name="auctionName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="backBtn" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="evaluateCost" candidateClass="UILabel"/>
