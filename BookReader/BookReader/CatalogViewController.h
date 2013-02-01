@@ -53,8 +53,9 @@
 @property (strong,nonatomic) NSString *specialAuctionTime;
 @property (strong,nonatomic) NSString *specialPreview;
 @property (strong,nonatomic) NSString *specialRemark;
-//拖动
+//拖动滑杆
 @property (strong, nonatomic) IBOutlet UISlider *slider;
+@property (strong, nonatomic) IBOutlet UILabel *pageLab;
 @property (nonatomic) NSInteger sliderValue;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segBtn;
 @property (strong, nonatomic) UIPopoverController *popover;

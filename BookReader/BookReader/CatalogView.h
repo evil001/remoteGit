@@ -16,11 +16,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *nameBtn;
 //成交价
 @property (weak, nonatomic) IBOutlet UILabel *closeCostLab;
-
+//关注
+@property (weak, nonatomic) IBOutlet UIButton *watchBtn;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicatorView;
 
-//详细图录
-- (IBAction)goDetailCatalog:(id)sender;
 
 @end

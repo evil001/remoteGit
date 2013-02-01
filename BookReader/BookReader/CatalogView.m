@@ -9,7 +9,6 @@
 #import "CatalogView.h"
 
 @implementation CatalogView
-//@synthesize indicatorView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -29,7 +28,4 @@
  }
  */
 
-- (IBAction)goDetailCatalog:(id)sender {
-    NSLog(@"goDetailCatalog........");
-}
 @end

@@ -14,7 +14,7 @@
 //一行显示数量
 #define ROW_LIMIT 5
 //限制页中显示数量(分页数量须是一页显示数量的倍数)
-#define PAGE_LIMIT 15
+#define PAGE_LIMIT 10
 //最大页码数(1000)
 #define PAGE_MAX 10000
 //每次请求数量
@@ -22,7 +22,7 @@
 //列表X限制
 #define X_LIMIT 204
 //列表Y限制
-#define Y_LIMIT 210
+#define Y_LIMIT 305
 //一页的宽度
 #define PAGE_WIDTH 1024
 //默认加载图片
@@ -41,7 +41,7 @@
 @synthesize currentPage,totalNum,totalPage,loadPage,pageNum;
 @synthesize specialCode,orderPa,sort,imageUrl,specialName,specialAuctionTime,specialPreview,specialRemark,specialAddress;
 @synthesize receivedData;
-@synthesize slider,sliderValue;
+@synthesize slider,sliderValue,pageLab;
 @synthesize popover;
 @synthesize firstBtn,sortBtn;
 @synthesize sdVC,sortVC;
@@ -65,7 +65,8 @@
         displayMsgArr = [[NSMutableArray alloc] init];
         [self initRequestParam];
         [self initRequestData:requestVO];
-        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
+        //scrollView控件
+        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height)];
         scrollView.backgroundColor = [UIColor grayColor];
         [scrollView setDelegate:self];
         scrollView.pagingEnabled = YES;
@@ -73,7 +74,12 @@
         [scrollView setShowsHorizontalScrollIndicator:NO];
         [scrollView setShowsVerticalScrollIndicator:NO];
         [self.view addSubview:scrollView];
-        //滑动控件
+        //分页显示
+        pageLab = [[UILabel alloc] initWithFrame:CGRectMake(510, self.view.frame.size.height-82, 150, 12)];
+        [pageLab setBackgroundColor:[UIColor clearColor]];
+        [pageLab setFont:[UIFont fontWithName:@"Arial" size:12]];
+        [self.view addSubview:pageLab];
+        //滑杆控件
         slider = [[UISlider alloc] initWithFrame:CGRectMake(30, self.view.frame.size.height-72, self.view.frame.size.width-60, 20)];
         [slider setValue:0];
         [slider setMinimumValue:0];
@@ -89,7 +95,6 @@
 {
     [super viewDidLoad];
     isShowSpecial = false;
-    //    self.view.backgroundColor = [UIColor grayColor];
     if (nil == specialName) {
         self.title = @"图录列表";
     }
@@ -179,6 +184,7 @@
     [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
+//返回
 - (void) back{
     ViewController *VC = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     [self presentModalViewController:VC animated:YES];
@@ -223,7 +229,7 @@
     [paramDic setValue:requestParam.start forKey:@"start"];
     [paramDic setValue:requestParam.end forKey:@"end"];
     [directory setValue:paramDic forKey:@"parameter"];
-    NSLog(@"[directory description] :%@",[directory description]);
+//    NSLog(@"[directory description] :%@",[directory description]);
     if ([NSJSONSerialization isValidJSONObject:directory]) {
         NSError *error ;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:directory options:NSJSONWritingPrettyPrinted error:&error];
@@ -332,9 +338,9 @@
             //成交价
             NSNumber *closeCostStr = [closeClostArr objectAtIndex:j];
             if ([closeCostStr doubleValue] == 0) {
-                catalogView.closeCostLab.text = @"成交价 暂无";
+                catalogView.closeCostLab.text = @"暂无";
             }else{
-                catalogView.closeCostLab.text = [NSString stringWithFormat:@"成交价 ￥%f",[closeCostStr doubleValue]];
+                catalogView.closeCostLab.text = [NSString stringWithFormat:@"%f",[closeCostStr doubleValue]];
             }
             NSString *imgPath = [NSString stringWithFormat:AUCTION_LIST_URL,specialCode,[imgArr objectAtIndex:j]];
             [catalogView.indicatorView startAnimating];
@@ -343,14 +349,18 @@
             } failure:^(NSError *error){
                 NSLog(@"Image load error :%@",error);
             }];
-            
             //添加图片点击事件
             catalogView.imageView.userInteractionEnabled = YES;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goAuctionDetail:)];
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
-            
+            //名称
             [catalogView.nameBtn setTitle:[displayMsgArr objectAtIndex:j] forState:UIControlStateNormal];
+            [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
+            catalogView.nameBtn.tag = j;
+            //关注
+            [catalogView.watchBtn addTarget:self action:@selector(watchAction:) forControlEvents:UIControlEventTouchUpInside];
+            catalogView.watchBtn.tag = j;
             [pageView addSubview:catalogView];
             [self.scrollView addSubview:pageView];
         }
@@ -362,9 +372,9 @@
             //成交价
             NSNumber *closeCostStr = [closeClostArr objectAtIndex:j];
             if ([closeCostStr doubleValue] == 0) {
-                catalogView.closeCostLab.text = @"成交价 暂无";
+                catalogView.closeCostLab.text = @"暂无";
             }else{
-                catalogView.closeCostLab.text = [NSString stringWithFormat:@"成交价 ￥%f",[closeCostStr doubleValue]];
+                catalogView.closeCostLab.text = [NSString stringWithFormat:@"%f",[closeCostStr doubleValue]];
             }
             NSString *imgPath = [NSString stringWithFormat:AUCTION_LIST_URL,specialCode,[imgArr objectAtIndex:j]];
             [catalogView.indicatorView startAnimating];
@@ -373,14 +383,18 @@
             } failure:^(NSError *error){
                 NSLog(@"Image load error :%@",error);
             }];
-            
             //添加图片点击事件
             catalogView.imageView.userInteractionEnabled = YES;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goAuctionDetail:)];
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
-            
+            //名称
             [catalogView.nameBtn setTitle:[displayMsgArr objectAtIndex:j] forState:UIControlStateNormal];
+            [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
+            catalogView.nameBtn.tag = j;
+            //关注
+            [catalogView.watchBtn addTarget:self action:@selector(watchAction:) forControlEvents:UIControlEventTouchUpInside];
+            catalogView.watchBtn.tag = j;
             [pageView addSubview:catalogView];
             [self.scrollView addSubview:pageView];
         }
@@ -396,9 +410,9 @@
             //成交价
             NSNumber *closeCostStr = [closeClostArr objectAtIndex:j];
             if ([closeCostStr doubleValue] == 0) {
-                catalogView.closeCostLab.text = @"成交价 暂无";
+                catalogView.closeCostLab.text = @"暂无";
             }else{
-                catalogView.closeCostLab.text = [NSString stringWithFormat:@"成交价 ￥%f",[closeCostStr doubleValue]];
+                catalogView.closeCostLab.text = [NSString stringWithFormat:@"%f",[closeCostStr doubleValue]];
             }
             NSString *imgPath = [NSString stringWithFormat:AUCTION_LIST_URL,specialCode,[imgArr objectAtIndex:j]];
             [catalogView.indicatorView startAnimating];
@@ -412,14 +426,19 @@
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goAuctionDetail:)];
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
-            
+            //名称
             [catalogView.nameBtn setTitle:[displayMsgArr objectAtIndex:j] forState:UIControlStateNormal];
             [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
             catalogView.nameBtn.tag = j;
+            //关注
+            [catalogView.watchBtn addTarget:self action:@selector(watchAction:) forControlEvents:UIControlEventTouchUpInside];
+            catalogView.watchBtn.tag = j;
             [pageView addSubview:catalogView];
             [self.scrollView addSubview:pageView];
         }
     }
+    //更新分页显示
+    [pageLab setText:[NSString stringWithFormat:@"%i/%i",pageNum+1,totalPage]];
 }
 
 //加载请求排序数据（排序sortDataDelegate代理方法）
@@ -439,6 +458,8 @@
     frame.origin.x = self.view.frame.size.width*pageNum;
     frame.origin.y = 0;
     [self.scrollView scrollRectToVisible:frame animated:YES];
+    //重新初始化滑杆
+    [slider setValue:0];
 }
 
 //点击图片进入拍品详细
@@ -463,6 +484,12 @@
     imageScan.auctionSort = sort;
     imageScan.modalTransitionStyle = UIModalPresentationPageSheet;
     [self presentModalViewController:imageScan animated:YES];
+}
+
+//关注拍品
+- (void)watchAction:(id)sender{
+    NSInteger index = [sender tag];
+    NSLog(@"关注---------%i",index);
 }
 
 //下载图络图片
