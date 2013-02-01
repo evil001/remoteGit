@@ -1,7 +1,7 @@
 //
 //  ImageScanViewController.h
 //  BookReader
-//
+//  拍品详细大图页
 //  Created by 晓军 唐 on 13-1-24.
 //  Copyright (c) 2013年 __MyCompanyName__. All rights reserved.
 //
@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SDWebImageDownloader.h"
 #import "AuctionPopoverController.h"
+#import "ScanView.h"
 
 @interface ImageScanViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate,NSURLConnectionDataDelegate>{
     UIScrollView *scrollView;
@@ -31,7 +32,6 @@
 @property NSUInteger currPage;      //当前页数
 @property (strong,nonatomic) UISlider *slider;
 @property (strong, nonatomic) NSMutableData *receivedData;
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
 @property (nonatomic) CGFloat lastScal;
 

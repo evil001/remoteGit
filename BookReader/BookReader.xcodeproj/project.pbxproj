@@ -22,6 +22,11 @@
 		013D53C916B7C3EE006BEC0E /* SpecialDescriptionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D53C516B7C3EE006BEC0E /* SpecialDescriptionViewController.xib */; };
 		013D53CA16B7C3EE006BEC0E /* SortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D53C716B7C3EE006BEC0E /* SortViewController.m */; };
 		013D53CD16B7C62E006BEC0E /* CatalogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D53CC16B7C62E006BEC0E /* CatalogView.xib */; };
+		0172051416BB9D3D00DE36D2 /* ScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0172051316BB9D3D00DE36D2 /* ScanView.m */; };
+		0172051616BB9D5200DE36D2 /* ScanView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0172051516BB9D5200DE36D2 /* ScanView.xib */; };
+		0172051E16BBC1CF00DE36D2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0172051D16BBC1CF00DE36D2 /* SVProgressHUD.m */; };
+		0172052016BBC1D800DE36D2 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0172051F16BBC1D800DE36D2 /* SVProgressHUD.bundle */; };
+		0172052616BBCE4B00DE36D2 /* StringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0172052516BBCE4B00DE36D2 /* StringUtils.m */; };
 		01EA21B016B8BE3B004DD6F2 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01EA21AF16B8BE3B004DD6F2 /* Icon@2x.png */; };
 		01EA21BC16B8C4AC004DD6F2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01EA21BB16B8C4AC004DD6F2 /* Icon.png */; };
 		01EA222A16B954B6004DD6F2 /* see.png in Resources */ = {isa = PBXBuildFile; fileRef = 01EA222816B954B6004DD6F2 /* see.png */; };
@@ -111,6 +116,14 @@
 		013D53C616B7C3EE006BEC0E /* SortViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortViewController.h; sourceTree = "<group>"; };
 		013D53C716B7C3EE006BEC0E /* SortViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortViewController.m; sourceTree = "<group>"; };
 		013D53CC16B7C62E006BEC0E /* CatalogView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatalogView.xib; sourceTree = "<group>"; };
+		0172051216BB9D3D00DE36D2 /* ScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanView.h; sourceTree = "<group>"; };
+		0172051316BB9D3D00DE36D2 /* ScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanView.m; sourceTree = "<group>"; };
+		0172051516BB9D5200DE36D2 /* ScanView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanView.xib; sourceTree = "<group>"; };
+		0172051C16BBC1CF00DE36D2 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		0172051D16BBC1CF00DE36D2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		0172051F16BBC1D800DE36D2 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		0172052416BBCE4B00DE36D2 /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
+		0172052516BBCE4B00DE36D2 /* StringUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtils.m; sourceTree = "<group>"; };
 		01EA21AF16B8BE3B004DD6F2 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		01EA21BB16B8C4AC004DD6F2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		01EA222816B954B6004DD6F2 /* see.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = see.png; sourceTree = "<group>"; };
@@ -292,6 +305,16 @@
 			name = Catalog;
 			sourceTree = "<group>";
 		};
+		0172051B16BBC1B400DE36D2 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				0172051C16BBC1CF00DE36D2 /* SVProgressHUD.h */,
+				0172051D16BBC1CF00DE36D2 /* SVProgressHUD.m */,
+				0172051F16BBC1D800DE36D2 /* SVProgressHUD.bundle */,
+			);
+			name = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		E03126D8169D681600663434 /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +352,8 @@
 			children = (
 				E0658A9C169FB09500D42DEA /* Utils.h */,
 				E0658A9D169FB09500D42DEA /* Utils.m */,
+				0172052416BBCE4B00DE36D2 /* StringUtils.h */,
+				0172052516BBCE4B00DE36D2 /* StringUtils.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -370,6 +395,7 @@
 		E07E56D7169A9F3100A8BF60 /* BookReader */ = {
 			isa = PBXGroup;
 			children = (
+				0172051B16BBC1B400DE36D2 /* SVProgressHUD */,
 				013D538116B615BC006BEC0E /* Catalog */,
 				013D537F16B615AF006BEC0E /* VO */,
 				E0D3022B16B21C0100E687E4 /* popover */,
@@ -384,6 +410,9 @@
 				E07E56E3169A9F3100A8BF60 /* MainStoryboard.storyboard */,
 				E02DCE0916B0CC2C0085B064 /* ImageScanViewController.h */,
 				E02DCE0A16B0CC2C0085B064 /* ImageScanViewController.m */,
+				0172051216BB9D3D00DE36D2 /* ScanView.h */,
+				0172051316BB9D3D00DE36D2 /* ScanView.m */,
+				0172051516BB9D5200DE36D2 /* ScanView.xib */,
 				E07E56E6169A9F3100A8BF60 /* ViewController.h */,
 				E07E56E7169A9F3100A8BF60 /* ViewController.m */,
 				E07E56D8169A9F3100A8BF60 /* Supporting Files */,
@@ -644,6 +673,8 @@
 				00618ED716BA0C2700F27600 /* Default-Portrait~ipad.png in Resources */,
 				00618ED916BA0C3500F27600 /* Default-Landscape~ipad.png in Resources */,
 				00618EDB16BA0ED300F27600 /* HBookShelfCell@2x.png in Resources */,
+				0172051616BB9D5200DE36D2 /* ScanView.xib in Resources */,
+				0172052016BBC1D800DE36D2 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +736,9 @@
 				013D53C816B7C3EE006BEC0E /* SpecialDescriptionViewController.m in Sources */,
 				013D53CA16B7C3EE006BEC0E /* SortViewController.m in Sources */,
 				00817A8C16B7D80F005E3B76 /* AuctionPopoverController.m in Sources */,
+				0172051416BB9D3D00DE36D2 /* ScanView.m in Sources */,
+				0172051E16BBC1CF00DE36D2 /* SVProgressHUD.m in Sources */,
+				0172052616BBCE4B00DE36D2 /* StringUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@
 #import "CatalogView.h"
 #import "RequestVO.h"
 #import "Utils.h"
+#import "StringUtils.h"
 #import "SpecialDescriptionViewController.h"
 #import "SortViewController.h"
 

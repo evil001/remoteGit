@@ -355,7 +355,8 @@
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
             //名称
-            [catalogView.nameBtn setTitle:[displayMsgArr objectAtIndex:j] forState:UIControlStateNormal];
+            NSString *auctionName = [StringUtils substringTo:[displayMsgArr objectAtIndex:j] :32];
+            [catalogView.nameBtn setTitle:auctionName forState:UIControlStateNormal];
             [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
             catalogView.nameBtn.tag = j;
             //关注
@@ -389,7 +390,8 @@
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
             //名称
-            [catalogView.nameBtn setTitle:[displayMsgArr objectAtIndex:j] forState:UIControlStateNormal];
+            NSString *auctionName = [StringUtils substringTo:[displayMsgArr objectAtIndex:j] :32];
+            [catalogView.nameBtn setTitle:auctionName forState:UIControlStateNormal];
             [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
             catalogView.nameBtn.tag = j;
             //关注
@@ -427,7 +429,8 @@
             [catalogView.imageView addGestureRecognizer:tap];
             catalogView.imageView.tag = j;
             //名称
-            [catalogView.nameBtn setTitle:[displayMsgArr objectAtIndex:j] forState:UIControlStateNormal];
+            NSString *auctionName = [StringUtils substringTo:[displayMsgArr objectAtIndex:j] :32];
+            [catalogView.nameBtn setTitle:auctionName forState:UIControlStateNormal];
             [catalogView.nameBtn addTarget:self action:@selector(goAuctionDetail_2:) forControlEvents:UIControlEventTouchUpInside];
             catalogView.nameBtn.tag = j;
             //关注
