@@ -376,7 +376,7 @@
 
 - (void)dismissWithStatus:(NSString*)string error:(BOOL)error {
 //	[self dismissWithStatus:string error:error afterDelay:0.9];
-    [self dismissWithStatus:string error:error afterDelay:4];
+    [self dismissWithStatus:string error:error afterDelay:0.9];
 }
 
 

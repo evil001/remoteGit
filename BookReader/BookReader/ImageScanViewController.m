@@ -244,7 +244,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
     NSError *error ;
     imageDictory = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
-    NSLog(@"[imageDictory description] : %@",[imageDictory description]);
+//    NSLog(@"[imageDictory description] : %@",[imageDictory description]);
     if (NULL != imageDictory) {
         imagesArr = [imageDictory valueForKey:@"imageName"];
         auctionNameArr = [imageDictory valueForKey:@"auctionName"];
@@ -268,6 +268,11 @@
     }else{
         [SVProgressHUD dismissWithError:@"无拍品数据"];
     }
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    [SVProgressHUD dismissWithError:@"连接异常"];
+    NSLog(@"Connection Error : %@",error);
 }
 
 - (void)updateTitleLabel:(NSUInteger)index{
@@ -340,6 +345,16 @@
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     
+}
+
+- (void)didReceiveMemoryWarning{
+    [imagesArr removeAllObjects];
+    [auctionNameArr removeAllObjects];
+    [lotArr removeAllObjects];
+    [evaluateCostArr removeAllObjects];
+    [metailArr removeAllObjects];
+    [closeCostArr removeAllObjects];
+    [auctionRemarkArr removeAllObjects];
 }
 
 @end
