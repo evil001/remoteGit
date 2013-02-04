@@ -91,7 +91,9 @@
     
     UIBarButtonItem *showCompanyInfo = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
     //信息item
-    xinxiBtn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    xinxiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [xinxiBtn setFrame:CGRectMake(0, 0, 50, 40)];
+    [xinxiBtn setImage:[UIImage imageNamed:@"auctionInfo_img.png"] forState:UIControlStateNormal];
     [xinxiBtn addTarget:self action:@selector(clickAuctionInfo:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *xinxiItem = [[UIBarButtonItem alloc]initWithCustomView:xinxiBtn];
     [self.topToolBar setBarStyle:UIBarStyleDefault];
