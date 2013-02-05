@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "GSBookShelfView.h"
-#import "ASIHTTPRequest.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 #import "MainPopoverViewController.h"
 

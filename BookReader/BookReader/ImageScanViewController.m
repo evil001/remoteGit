@@ -22,6 +22,7 @@
 @property (strong, nonatomic) UIButton *guanzhuBtn;
 @property (strong, nonatomic) UIButton *xinxiBtn;
 @property (strong, nonatomic) NSDictionary *imageDictory;
+@property UIDeviceOrientation orientation;
 @end
 
 @implementation ImageScanViewController
@@ -46,6 +47,7 @@
 @synthesize auctionPopover;
 @synthesize imageDictory;
 @synthesize receivedData;
+@synthesize orientation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,14 +60,10 @@
 
 - (void)viewDidLoad
 {
+    orientation = [UIApplication sharedApplication].statusBarOrientation;
     [super viewDidLoad];
-    imagesArr = [[NSMutableArray alloc] init];
-    auctionNameArr = [[NSMutableArray alloc] init];
-    lotArr = [[NSMutableArray alloc] init];
-    evaluateCostArr = [[NSMutableArray alloc] init];
-    metailArr = [[NSMutableArray alloc] init];
-    closeCostArr = [[NSMutableArray alloc] init];
-    auctionRemarkArr = [[NSMutableArray alloc] init];
+    [self initArr];
+    [self initFrame];
     //请求数据
     [self requestData];
     //设置scrollview
@@ -78,6 +76,37 @@
     [self initBackBtn];
     [self.view addSubview:topToolBar];
     isShowToolBar=true;
+}
+
+//初始化数组
+-(void)initArr{
+    imagesArr = [[NSMutableArray alloc] init];
+    auctionNameArr = [[NSMutableArray alloc] init];
+    lotArr = [[NSMutableArray alloc] init];
+    evaluateCostArr = [[NSMutableArray alloc] init];
+    metailArr = [[NSMutableArray alloc] init];
+    closeCostArr = [[NSMutableArray alloc] init];
+    auctionRemarkArr = [[NSMutableArray alloc] init];
+}
+
+//初始化frame
+- (void)initFrame{
+    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
+        self.topToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,0,PAGE_HEIGHT,44)];
+        self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, PAGE_HEIGHT, PAGE_WIDTH)];
+        self.buttomToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, PAGE_WIDTH-60, PAGE_HEIGHT, 44)];
+        slider = [[UISlider alloc]initWithFrame:CGRectMake(10, 10, PAGE_HEIGHT-15, 25)];
+        self.auctionName = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_HEIGHT/2-75, 0, 200, 20)];
+        self.evaluateCost = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_HEIGHT/2-150, 20, 400, 20)];
+        
+    }else if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
+        self.topToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0,0,PAGE_WIDTH,44)];
+        self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, PAGE_WIDTH, PAGE_HEIGHT)];
+        self.buttomToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, PAGE_HEIGHT-60, PAGE_WIDTH, 44)];
+        slider = [[UISlider alloc]initWithFrame:CGRectMake(10, 10, PAGE_WIDTH-15, 25)];
+        self.auctionName = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-75, 0, 200, 20)];
+        self.evaluateCost = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-150, 20, 400, 20)];
+    }
 }
 
 //初始化返回按钮
@@ -102,10 +131,8 @@
 
 //初始化头部导航栏标题
 - (void)initTitleLabel:(NSUInteger)index{
-    self.auctionName = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-75, 0, 200, 20)];
     self.auctionName.font = [UIFont systemFontOfSize:15];
     self.auctionName.backgroundColor = [UIColor clearColor];
-    self.evaluateCost = [[UILabel alloc]initWithFrame:CGRectMake(PAGE_WIDTH/2-150, 20, 400, 20)];
     self.evaluateCost.textColor = [UIColor darkGrayColor];
     self.evaluateCost.font = [UIFont systemFontOfSize:13];
     self.evaluateCost.backgroundColor = [UIColor clearColor];
@@ -147,7 +174,6 @@
 //设置scrollview
 - (void)settingScrollView{
     //初始化scrollview的界面 （坐标x，坐标y，宽度，高度）屏幕左上角为原点
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, PAGE_WIDTH, PAGE_HEIGHT)];
     self.scrollView.pagingEnabled = YES;    //使用翻页属性
     self.scrollView.showsHorizontalScrollIndicator = NO;    //不实现水平滚动
     [self.scrollView setBackgroundColor:[UIColor blackColor]];
@@ -158,7 +184,6 @@
 //添加工具栏
 -(void)addSliderToolbar{
     self.buttomToolBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, PAGE_HEIGHT-60, 1024, 44)];
-    slider = [[UISlider alloc]initWithFrame:CGRectMake(10, 10, PAGE_WIDTH-15, 25)];
     slider.continuous = NO;
     slider.minimumValue=0;
     slider.value = 0;
@@ -173,7 +198,11 @@
     NSUInteger page = (NSUInteger)roundf(slider.value);
     [self syncDownloadImage:page];
     [self updateTitleLabel:page];
-    [self.scrollView scrollRectToVisible:CGRectMake(page*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
+    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
+        [self.scrollView scrollRectToVisible:CGRectMake(page*PAGE_HEIGHT, 0, PAGE_HEIGHT, PAGE_WIDTH) animated:YES];
+    }else if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
+        [self.scrollView scrollRectToVisible:CGRectMake(page*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
+    }
 }
 
 - (void)viewDidUnload
@@ -192,7 +221,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+    return YES;
 }
 
 //请求数据
@@ -207,7 +236,6 @@
     [paramDic setValue:self.orderPa forKey:@"orderPa"];
     [paramDic setValue:self.auctionSort forKey:@"sort"];
     [directory setValue:paramDic forKey:@"parameter"];
-//    NSLog(@"[directory description] :%@",[directory description]);
     if ([NSJSONSerialization isValidJSONObject:directory]) {
         NSError *error ;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:directory options:NSJSONWritingPrettyPrinted error:&error];
@@ -244,7 +272,6 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
     NSError *error ;
     imageDictory = [NSJSONSerialization JSONObjectWithData:receivedData options:kNilOptions error:&error];
-//    NSLog(@"[imageDictory description] : %@",[imageDictory description]);
     if (NULL != imageDictory) {
         imagesArr = [imageDictory valueForKey:@"imageName"];
         auctionNameArr = [imageDictory valueForKey:@"auctionName"];
@@ -256,13 +283,21 @@
         dataNum = [imagesArr count];        //总数据个数
         pageNum = (dataNum+IMAGESCAN_PAGE_DATA-1)/IMAGESCAN_PAGE_DATA;  //总页数
         currPage = 1;
-        [self.scrollView setContentSize:CGSizeMake(PAGE_WIDTH*[imagesArr count], PAGE_HEIGHT)];
+        if (orientation == UIDeviceOrientationPortrait||orientation == UIDeviceOrientationPortraitUpsideDown) {
+            [self.scrollView setContentSize:CGSizeMake(PAGE_HEIGHT*[imagesArr count], PAGE_WIDTH)];   
+        }else if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
+            [self.scrollView setContentSize:CGSizeMake(PAGE_WIDTH*[imagesArr count], PAGE_HEIGHT)];   
+        }
         [self initTitleLabel:listIndex];
         slider.maximumValue = [imagesArr count]-1;
         slider.continuous = NO;
         slider.minimumValue=0;
         [self syncDownloadImage:listIndex];
-        [self.scrollView scrollRectToVisible:CGRectMake(listIndex*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
+        if (orientation == UIDeviceOrientationPortrait||orientation == UIDeviceOrientationPortraitUpsideDown) {
+            [self.scrollView scrollRectToVisible:CGRectMake(listIndex*PAGE_HEIGHT, 0, PAGE_HEIGHT, PAGE_WIDTH) animated:YES];
+        }else if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
+            [self.scrollView scrollRectToVisible:CGRectMake(listIndex*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
+        }
         self.slider.value = listIndex;
         [SVProgressHUD dismiss];//关闭加载提示
     }else{
@@ -275,6 +310,7 @@
     NSLog(@"Connection Error : %@",error);
 }
 
+//更新标题信息
 - (void)updateTitleLabel:(NSUInteger)index{
     NSString *closeCost,*metail;
     if ([imageDictory count]>0) {
@@ -285,29 +321,65 @@
     }
 }
 
-#pragma scrollview
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//屏幕旋转时调用
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    NSUInteger index = (NSUInteger)roundf(slider.value);
+    if (toInterfaceOrientation == UIInterfaceOrientationPortrait|| toInterfaceOrientation ==UIInterfaceOrientationPortraitUpsideDown) {
+        [self interfacePortrait:toInterfaceOrientation :index];
+    }else if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        [self interfaceLandscape:toInterfaceOrientation :index];
+    }
 }
 
-//滑杆拖动事件
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{    
-    NSUInteger index = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
-    self.slider.value = index;
+//旋转竖屏算出坐标
+- (void)interfacePortrait:(UIInterfaceOrientation)toInterfaceOrientation:(NSUInteger)index{
+    [self.topToolBar setFrame:CGRectMake(0,0,PAGE_HEIGHT,44)];
+    [self.scrollView setFrame:CGRectMake(0, 0, PAGE_HEIGHT, PAGE_WIDTH)];
+    [self.buttomToolBar setFrame:CGRectMake(0, PAGE_WIDTH-60, PAGE_HEIGHT, 44)];
+    [slider setFrame:CGRectMake(10, 10, PAGE_HEIGHT-15, 25)];
+    [self.auctionName setFrame:CGRectMake(PAGE_HEIGHT/2-75, 0, 200, 20)];
+    [self.evaluateCost setFrame:CGRectMake(PAGE_HEIGHT/2-150, 20, 400, 20)];
+    self.scrollView.contentSize = CGSizeMake(PAGE_HEIGHT*[imagesArr count], PAGE_WIDTH);
+    orientation = toInterfaceOrientation;
     [self syncDownloadImage:index];
-    [self updateTitleLabel:index];
+    [self.scrollView scrollRectToVisible:CGRectMake(index*PAGE_HEIGHT, 0, PAGE_HEIGHT, PAGE_WIDTH) animated:YES];
+}
+
+//旋转横屏时算出坐标
+- (void)interfaceLandscape:(UIInterfaceOrientation)toInterfaceOrientation:(NSUInteger)index{
+    [self.topToolBar setFrame:CGRectMake(0,0,PAGE_WIDTH,44)];
+    [self.scrollView setFrame:CGRectMake(0, 0, PAGE_WIDTH, PAGE_HEIGHT)];
+    [self.buttomToolBar setFrame:CGRectMake(0, PAGE_HEIGHT-60, PAGE_WIDTH, 44)];
+    [slider setFrame:CGRectMake(10, 10, PAGE_WIDTH-15, 25)];
+    [self.auctionName setFrame:CGRectMake(PAGE_WIDTH/2-75, 0, 200, 20)];
+    [self.evaluateCost setFrame:CGRectMake(PAGE_WIDTH/2-150, 20, 400, 20)];
+    self.scrollView.contentSize = CGSizeMake(PAGE_WIDTH*[imagesArr count], PAGE_HEIGHT);
+    orientation = toInterfaceOrientation;
+    [self syncDownloadImage:index];
+    [self.scrollView scrollRectToVisible:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT) animated:YES];
 }
 
 //加载当前某个拍品数据
 -(void)syncDownloadImage:(NSUInteger)index{
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(510, 350, 40, 40)];
-    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    ScanView *scanView = [[[NSBundle mainBundle] loadNibNamed:@"ScanView" owner:self options:nil] lastObject];
-    [scanView setFrame:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT)];
-    [scanView addSubview:activityIndicator];
+    //先删除已有imageview
+    for (UIView *v in self.scrollView.subviews) {
+        if ([v isKindOfClass:[UIImageView class]]) {
+            [v removeFromSuperview];
+        }
+    }
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
+    activityIndicator.center = self.scrollView.center;
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight) {
+        self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*PAGE_WIDTH, 0, PAGE_WIDTH, PAGE_HEIGHT)];
+    }else if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
+        self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(index*PAGE_HEIGHT, 0, PAGE_HEIGHT, PAGE_WIDTH)];
+    }
+    [self.imageView addSubview:activityIndicator];
     [activityIndicator startAnimating];
     NSString *urlStr = [NSString stringWithFormat:AUCTION_DETAIL_URL,[[self.specialCode substringWithRange:NSMakeRange(0,6)]uppercaseString] , [imagesArr objectAtIndex:index]];
-    scanView.imgView.contentMode=UIViewContentModeScaleAspectFit;
-    [scanView.imgView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage: [UIImage imageNamed:@"placeholder.jpg"] success:^(UIImage *image){
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.imageView setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage: [UIImage imageNamed:@"LOGO.png"] success:^(UIImage *image){
         [activityIndicator stopAnimating];
     } failure:^(NSError *error){
         NSLog(@"Image Error:%@",error);
@@ -315,8 +387,8 @@
     //手势放大缩小
     UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
     [pinchRecognizer setDelegate:self];
-    [scanView.imgView addGestureRecognizer:pinchRecognizer];
-    [self.scrollView addSubview:scanView];
+    [self.imageView addGestureRecognizer:pinchRecognizer];
+    [self.scrollView addSubview:self.imageView];
 }
 
 //缩放
@@ -334,6 +406,34 @@
     lastScal = [(UIPinchGestureRecognizer *)sender scale];
 }
 
+- (void)didReceiveMemoryWarning{
+    [imagesArr removeAllObjects];
+    [auctionNameArr removeAllObjects];
+    [lotArr removeAllObjects];
+    [evaluateCostArr removeAllObjects];
+    [metailArr removeAllObjects];
+    [closeCostArr removeAllObjects];
+    [auctionRemarkArr removeAllObjects];
+}
+
+#pragma scrollview
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+}
+
+//滑杆拖动事件
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{    
+    NSUInteger index;
+    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        index = fabs(self.scrollView.contentOffset.x/PAGE_HEIGHT);
+    }else if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+        index = fabs(self.scrollView.contentOffset.x/PAGE_WIDTH);
+    }
+    
+    self.slider.value = index;
+    [self syncDownloadImage:index];
+    [self updateTitleLabel:index];
+}
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 }
 
@@ -345,16 +445,6 @@
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     
-}
-
-- (void)didReceiveMemoryWarning{
-    [imagesArr removeAllObjects];
-    [auctionNameArr removeAllObjects];
-    [lotArr removeAllObjects];
-    [evaluateCostArr removeAllObjects];
-    [metailArr removeAllObjects];
-    [closeCostArr removeAllObjects];
-    [auctionRemarkArr removeAllObjects];
 }
 
 @end
