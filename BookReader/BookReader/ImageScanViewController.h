@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SDWebImageDownloader.h"
 #import "AuctionPopoverController.h"
-#import "ScanView.h"
 
 @interface ImageScanViewController : UIViewController<UIScrollViewDelegate,UIGestureRecognizerDelegate,NSURLConnectionDataDelegate>{
     UIScrollView *scrollView;
