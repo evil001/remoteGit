@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GSBookShelfView.h"
-#import "SDWebImage/UIImageView+WebCache.h"
+#import "UIImageView+WebCache.h"
 #import "MainPopoverViewController.h"
 
 @class MyBelowBottomView;

@@ -46,6 +46,7 @@
 @synthesize firstBtn,sortBtn;
 @synthesize sdVC,sortVC;
 @synthesize isShowSpecial;
+@synthesize segBtn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil : (NSString *)imgUrl
 {

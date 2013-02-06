@@ -476,12 +476,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BookReader/ImageScanViewController.m"
-         timestampString = "381123204.203095"
+         timestampString = "381737771.581951"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "51"
-         endingLineNumber = "51"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "251"
+         endingLineNumber = "251"
+         landmarkName = "-requestData"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -489,39 +489,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BookReader/ImageScanViewController.m"
-         timestampString = "381123204.203095"
+         timestampString = "381737771.581951"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "165"
-         endingLineNumber = "165"
-         landmarkName = "-viewDidUnload"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BookReader/ImageScanViewController.m"
-         timestampString = "381123204.203095"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "223"
-         endingLineNumber = "223"
-         landmarkName = "-scrollviewPage"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BookReader/ImageScanViewController.m"
-         timestampString = "381123536.494775"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "237"
-         endingLineNumber = "237"
-         landmarkName = "-syncDownloadImage:"
-         landmarkType = "5">
+         startingLineNumber = "265"
+         endingLineNumber = "265"
+         landmarkName = "@implementation ImageScanViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -554,51 +528,51 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BookReader/ImageScanViewController.m"
-         timestampString = "381123204.203095"
+         timestampString = "381737771.581951"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "115"
-         endingLineNumber = "115"
-         landmarkName = "-singleDoubleClick:"
-         landmarkType = "5">
+         startingLineNumber = "261"
+         endingLineNumber = "261"
+         landmarkName = "@implementation ImageScanViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BookReader/ImageScanViewController.m"
-         timestampString = "381123204.203095"
+         timestampString = "381737771.581951"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "63"
-         endingLineNumber = "63"
-         landmarkName = "-viewDidLoad"
-         landmarkType = "5">
+         startingLineNumber = "226"
+         endingLineNumber = "226"
+         landmarkName = "@implementation ImageScanViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "BookReader/ImageScanViewController.m"
-         timestampString = "381123536.494775"
+         timestampString = "381737771.581951"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "233"
-         endingLineNumber = "233"
-         landmarkName = "-syncDownloadImage:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "BookReader/ImageScanViewController.m"
-         timestampString = "381123204.203095"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "197"
-         endingLineNumber = "197"
+         startingLineNumber = "231"
+         endingLineNumber = "231"
          landmarkName = "-requestData"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "BookReader/ImageScanViewController.m"
+         timestampString = "381737771.581951"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "274"
+         endingLineNumber = "274"
+         landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
