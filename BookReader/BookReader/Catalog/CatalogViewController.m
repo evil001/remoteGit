@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ImageScanViewController.h"
 #import "ViewController.h"
+#import "VideoViewController.h"
 
 //一行显示数量
 #define ROW_LIMIT 5
@@ -66,30 +67,35 @@
         displayMsgArr = [[NSMutableArray alloc] init];
         [self initRequestParam];
         [self initRequestData:requestVO];
-        //scrollView控件
-        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height)];
-        scrollView.backgroundColor = [UIColor grayColor];
-        [scrollView setDelegate:self];
-        scrollView.pagingEnabled = YES;
-        [scrollView setScrollEnabled:YES];
-        [scrollView setShowsHorizontalScrollIndicator:NO];
-        [scrollView setShowsVerticalScrollIndicator:NO];
-        [self.view addSubview:scrollView];
-        //分页显示
-        pageLab = [[UILabel alloc] initWithFrame:CGRectMake(510, self.view.frame.size.height-82, 150, 12)];
-        [pageLab setBackgroundColor:[UIColor clearColor]];
-        [pageLab setFont:[UIFont fontWithName:@"Arial" size:12]];
-        [self.view addSubview:pageLab];
-        //滑杆控件
-        slider = [[UISlider alloc] initWithFrame:CGRectMake(30, self.view.frame.size.height-72, self.view.frame.size.width-60, 20)];
-        [slider setValue:0];
-        [slider setMinimumValue:0];
-        //滑动事件
-        [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [slider addTarget:self action:@selector(sliderDragUp:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:slider];
+        [self initCatalogView];
     }
     return self;
+}
+
+//初始化目录列表视图
+- (void)initCatalogView{
+    //scrollView控件
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height)];
+    scrollView.backgroundColor = [UIColor grayColor];
+    [scrollView setDelegate:self];
+    scrollView.pagingEnabled = YES;
+    [scrollView setScrollEnabled:YES];
+    [scrollView setShowsHorizontalScrollIndicator:NO];
+    [scrollView setShowsVerticalScrollIndicator:NO];
+    [self.view addSubview:scrollView];
+    //分页显示
+    pageLab = [[UILabel alloc] initWithFrame:CGRectMake(510, self.view.frame.size.height-82, 150, 12)];
+    [pageLab setBackgroundColor:[UIColor clearColor]];
+    [pageLab setFont:[UIFont fontWithName:@"Arial" size:12]];
+    [self.view addSubview:pageLab];
+    //滑杆控件
+    slider = [[UISlider alloc] initWithFrame:CGRectMake(30, self.view.frame.size.height-72, self.view.frame.size.width-60, 20)];
+    [slider setValue:0];
+    [slider setMinimumValue:0];
+    //滑动事件
+    [slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(sliderDragUp:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:slider];
 }
 
 - (void)viewDidLoad
@@ -125,6 +131,12 @@
     if ([sender selectedSegmentIndex] == 2) {
         NSLog(@"提醒...");
     }
+    //测试视频专区
+    if ([sender selectedSegmentIndex] == 3) {
+        VideoViewController *videoVC = [[VideoViewController alloc] initWithNibName:@"VideoViewController" bundle:nil];
+        [self.navigationController pushViewController:videoVC animated:YES];
+    }
+
 }
 
 //排序
@@ -334,7 +346,7 @@
     if (pageNum==(totalPage-1)) {//显示最后一页剩余下来的拍品
         for (int j=start; j< [imgArr count]; j++) {
             CatalogView *catalogView = [[[NSBundle mainBundle] loadNibNamed:@"CatalogView" owner:self options:nil] lastObject];
-            [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
+            [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT+5,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
             catalogView.lotLab.text = [NSString stringWithFormat:@"%@",[lotArr objectAtIndex:j]];
             //成交价
             NSNumber *closeCostStr = [closeClostArr objectAtIndex:j];
@@ -369,7 +381,7 @@
     }else if(pageNum==(loadPage-1)){//处理最后一页不是整页的情况
         for (int j=start; j< [imgArr count]; j++) {
             CatalogView *catalogView = [[[NSBundle mainBundle] loadNibNamed:@"CatalogView" owner:self options:nil] lastObject];
-            [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
+            [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT+5,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
             catalogView.lotLab.text = [NSString stringWithFormat:@"%@",[lotArr objectAtIndex:j]];
             //成交价
             NSNumber *closeCostStr = [closeClostArr objectAtIndex:j];
@@ -405,9 +417,9 @@
         for (int j=start; j<start+PAGE_LIMIT; j++) {
             CatalogView *catalogView = [[[NSBundle mainBundle] loadNibNamed:@"CatalogView" owner:self options:nil] lastObject];
             if (j<PAGE_LIMIT) {
-                [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT,(j/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
+                [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT+5,(j/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
             }else{
-                [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
+                [catalogView setFrame:CGRectMake((j%ROW_LIMIT)*X_LIMIT+5,((j-PAGE_LIMIT*pageNum)/ROW_LIMIT)*Y_LIMIT, catalogView.frame.size.width, catalogView.frame.size.height)];
             }
             catalogView.lotLab.text = [NSString stringWithFormat:@"%@",[lotArr objectAtIndex:j]];
             //成交价
@@ -550,6 +562,33 @@
     [self setSlider:nil];
     [self setSegBtn:nil];
     [self setSortBtn:nil];
+    [self setScrollView:nil];
+    [self setPageView:nil];
+    imgArr = nil;
+    commImgArr = nil;
+    lotArr = nil;
+    commLotArr = nil;
+    closeClostArr = nil;
+    commCloseClostArr = nil;
+    displayMsgArr = nil;
+    commdisplayMsgArr = nil;
+    specialCode = nil;
+    orderPa = nil;
+    sort = nil;
+    imageUrl = nil;
+    specialName = nil;
+    specialAddress = nil;
+    specialAuctionTime = nil;
+    specialPreview = nil;
+    specialRemark = nil;
+    sdVC = nil;
+    sortVC = nil;
+    [self setPageLab:nil];
+    [self setPopover:nil];
+    [self setFirstBtn:nil];
+    [self setNavigationBar:nil];
+    [self setRequestVO:nil];
+    [self setReceivedData:nil];
     [super viewDidUnload];
 }
 @end

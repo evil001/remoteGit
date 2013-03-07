@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #pragma url地址
-#define REQUEST_URL @"http://192.168.6.33:9091/?parmeter="
+//#define REQUEST_URL @"http://192.168.6.33:9091/?parmeter="
+#define REQUEST_URL @"http://192.168.6.138:9091/?parmeter="
 //图录url
 #define CATALOG_URL @"http://new.hosane.com/hosane/upload/catalog/%@"
 //拍品url详细页
