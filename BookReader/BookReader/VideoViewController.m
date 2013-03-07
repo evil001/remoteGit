@@ -42,6 +42,11 @@
     total = 23;//总数
     //播放状态通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerPlaybackStateChanged:) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
+    //保存当前视频播放时间通知(**为解决当正在播放时，用户按home键使程序进入后台并暂停工作，当用户再次点击程序时，需回去开始退出视频的播放点继续播放)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveCurrentPalyTime) name:@"SaveCurrentPalyBackTime" object:nil];
+    //继续播放通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(continuePlay) name:@"ContinuePlayBack" object:nil];
+    
     [self initCoverFlowView];
     [self initVideoListView];
 }
@@ -204,6 +209,11 @@
     }
 }
 
+//保存当前播放时间
+- (void)saveCurrentPalyTime{
+    [[NSUserDefaults standardUserDefaults] setFloat:[self.tmpMoviePlayViewController.moviePlayer currentPlaybackTime] forKey:@"MOVIE_TIME"];
+}
+
 //播完后关闭视频
 -(void)playbackDidFinish:(NSNotification *)noti
 {
@@ -224,6 +234,7 @@
 }
 
 - (void)viewDidUnload{
-    NSLog(@"--------viewDidUnload");
+    //清除通知，不然会报异常
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
